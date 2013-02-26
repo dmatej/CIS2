@@ -1,6 +1,19 @@
 *.class
-
 # Package Files #
 *.jar
 *.war
 *.ear
+target
+.externalToolBuilders
+maven-eclipse.xml
+.checkstyle
+.pmd
+.pmdruleset
+.classpath
+.project
+.idea
+*.iml
+pom.xml.versionsBackup
+/build
+.settings
+
