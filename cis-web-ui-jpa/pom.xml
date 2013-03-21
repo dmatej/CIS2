@@ -26,6 +26,10 @@
       <artifactId>ifxjdbc</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.informix.jdbc</groupId>
+      <artifactId>ifxjdbcx</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>

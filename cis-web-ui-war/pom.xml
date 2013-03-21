@@ -16,6 +16,14 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.faces</groupId>
+      <artifactId>jsf-impl</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

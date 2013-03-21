@@ -20,61 +20,81 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
 
   <properties>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-    <JET.repository.directory>${basedir}</JET.repository.directory>
+    <JET.repository.directory>${basedir}/maven-repo</JET.repository.directory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-web-api</artifactId>
-      <version>6.0</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>eclipselink</artifactId>
-      <version>2.4.1</version>
-      <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-        <artifactId>commonj.sdo</artifactId>
-        <groupId>commonj.sdo</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>javax.persistence</artifactId>
-      <version>2.0.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.informix.jdbc</groupId>
-      <artifactId>ifxjdbc</artifactId>
-      <version>3.70.JC3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.7.2</version>
-      <scope>compile</scope>
-    </dependency>
-    <!-- Proc? Knihovna (jar) je vzdy "sluzebnikem" neceho vetsiho, aplikace. Konkretni nastaveni logovani je jeji vec -->
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.7.2</version>
-      <scope>provided</scope>
-    </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>6.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-web-api</artifactId>
+        <version>6.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>eclipselink</artifactId>
+        <version>2.4.1</version>
+        <scope>provided</scope>
+        <exclusions>
+          <exclusion>
+          <artifactId>commonj.sdo</artifactId>
+          <groupId>commonj.sdo</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>javax.persistence</artifactId>
+        <version>2.0.3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.informix.jdbc</groupId>
+        <artifactId>ifxjdbc</artifactId>
+        <version>3.70.JC3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.informix.jdbc</groupId>
+        <artifactId>ifxjdbcx</artifactId>
+        <version>3.70.JC3</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.2</version>
+        <scope>compile</scope>
+      </dependency>
+      <!-- Proc? Knihovna (jar) je vzdy "sluzebnikem" neceho vetsiho, aplikace. Konkretni nastaveni logovani je jeji vec -->
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>1.7.2</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.faces</groupId>
+        <artifactId>jsf-impl</artifactId>
+        <version>2.2.0-m09</version>
+        <scope>provided</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -99,7 +119,61 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
 
   <build>
     <pluginManagement>
-      <!-- FIXME: zafixovat zavislosti! -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.13</version>
+          <inherited>true</inherited>
+          <configuration>
+            <useSystemClassLoader>false</useSystemClassLoader>
+            <trimStackTrace>false</trimStackTrace>
+            <failIfNoTests>false</failIfNoTests>
+            <verbose>true</verbose>
+            <argLine></argLine>
+            <excludes>
+              <exclude>**/*ITest.java</exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.13</version>
+          <executions>
+            <execution>
+              <id>integration-test</id>
+              <goals>
+                <goal>integration-test</goal>
+              </goals>
+              <configuration>
+                <useSystemClassLoader>false</useSystemClassLoader>
+                <trimStackTrace>false</trimStackTrace>
+                <failIfNoTests>false</failIfNoTests>
+                <verbose>true</verbose>
+                <argLine> </argLine>
+                <includes>
+                  <include>**/*ITest.java</include>
+                </includes>
+              </configuration>
+            </execution>
+            <execution>
+              <id>verify</id>
+              <goals>
+                <goal>verify</goal>
+              </goals>
+              <configuration>
+                <useSystemClassLoader>false</useSystemClassLoader>
+                <trimStackTrace>false</trimStackTrace>
+                <failIfNoTests>false</failIfNoTests>
+                <verbose>true</verbose>
+                <argLine> </argLine>
+                <includes>
+                  <include>**/*ITest.java</include>
+                </includes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>    
     </pluginManagement>
   </build>
 </project>
