@@ -22,6 +22,10 @@
       <artifactId>javax.persistence</artifactId>
     </dependency>
     <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.informix.jdbc</groupId>
       <artifactId>ifxjdbc</artifactId>
     </dependency>
