@@ -19,6 +19,19 @@
 
   <dependencies>
     <dependency>
+      <groupId>cz.i.cis.cis-web-ui2</groupId>
+      <artifactId>cis-web-ui-jpa</artifactId>
+      <version>${project.version}</version>
+      <type>ejb</type>
+    </dependency>
+    <dependency>
+      <groupId>cz.i.cis.cis-web-ui2</groupId>
+      <artifactId>cis-web-ui-war</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
+
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <scope>compile</scope>
@@ -38,34 +51,76 @@
       <artifactId>jsf-impl</artifactId>
       <scope>runtime</scope>
     </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.eclipse.persistence</groupId>
-        <artifactId>eclipselink</artifactId>
-        <scope>provided</scope>
-      </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.persistence</groupId>
+      <artifactId>eclipselink</artifactId>
+      <scope>provided</scope>
+    </dependency>
 
-      <dependency>
-        <groupId>com.informix.jdbc</groupId>
-        <artifactId>ifxjdbc</artifactId>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.informix.jdbc</groupId>
-        <artifactId>ifxjdbcx</artifactId>
-        <scope>test</scope>
-      </dependency>
+    <dependency>
+      <groupId>com.informix.jdbc</groupId>
+      <artifactId>ifxjdbc</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.informix.jdbc</groupId>
+      <artifactId>ifxjdbcx</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-ear-plugin</artifactId>
+        <configuration>
+          <displayName>${project.artifactId}</displayName>
+          <description>${project.description}</description>
+          <defaultLibBundleDir>lib</defaultLibBundleDir>
+          <version>6</version>
+          <earSourceExcludes>${project.build.resources}/application.xml</earSourceExcludes>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+            </manifest>
+          </archive>
+          <modules>
+            <ejbModule>
+              <groupId>cz.i.cis.cis-web-ui2</groupId>
+              <artifactId>cis-web-ui-jpa</artifactId>
+              <bundleFileName>cis-web-ui-jpa.jar</bundleFileName>
+              <bundleDir>/</bundleDir>
+              <unpack>false</unpack>
+            </ejbModule>
+            <webModule>
+              <groupId>cz.i.cis.cis-web-ui2</groupId>
+              <artifactId>cis-web-ui-war</artifactId>
+              <bundleFileName>cis-web-ui.war</bundleFileName>
+              <bundleDir>/</bundleDir>
+              <contextRoot>/cis</contextRoot>
+            </webModule>
+          </modules>
+
+          <security>
+            <security-role>
+              <role-name>SuperAdmin</role-name>
+              <description>Can do anything</description>
+            </security-role>
+          </security>
+
+        </configuration>
+      </plugin>
+    </plugins>
+
   </build>
 </project>
