@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cis-web-ui-jpa</artifactId>
-  <packaging>jar</packaging>
+  <packaging>ejb</packaging>
   <name>CIS database interface</name>
 
   <parent>
@@ -33,7 +33,14 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
-    <!-- Proc? Knihovna (jar) je vzdy "sluzebnikem" neceho vetsiho, aplikace. Konkretni nastaveni logovani je jeji vec -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+    </dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>

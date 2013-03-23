@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+>
+ 
+  <persistence-unit name="cis" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <jta-data-source>cis</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="eclipselink.session.customizer" value="cz.zcu.jet.cis2.db.tool.EclipseLinkSessionCustomizer"/>
+      <property name="eclipselink.weaving" value="static"/>
+      <property name="eclipselink.persistence-context.flush-mode" value="commit"/>
+      <property name="eclipselink.jdbc.batch-writing" value="JDBC" />
+      <property name="eclipselink.cache.shared.default" value="false"/>
+      <property name="eclipselink.jdbc.uppercase-columns" value="true"/>
+    </properties>
+  </persistence-unit>
+</persistence>

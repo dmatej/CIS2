@@ -19,11 +19,18 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
   </modules>
 
   <properties>
+    <ejb.ejbVersion>3.1</ejb.ejbVersion>
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <JET.repository.directory>${basedir}/maven-repo</JET.repository.directory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.6</maven.compiler.source>
     <maven.compiler.target>1.6</maven.compiler.target>
+
+    <cis.db.host>localhost</cis.db.host>
+    <cis.db.server>localcis</cis.db.server>
+    <cis.db.port>1520</cis.db.port>
+    <cis.db.user>informix</cis.db.user>
+    <cis.db.password>localcis</cis.db.password>
   </properties>
 
   <dependencyManagement>
@@ -38,6 +45,18 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
         <groupId>javax</groupId>
         <artifactId>javaee-web-api</artifactId>
         <version>6.0</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.1</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.4</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -76,7 +95,6 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
         <version>1.7.2</version>
         <scope>compile</scope>
       </dependency>
-      <!-- Proc? Knihovna (jar) je vzdy "sluzebnikem" neceho vetsiho, aplikace. Konkretni nastaveni logovani je jeji vec -->
       <dependency>
         <groupId>log4j</groupId>
         <artifactId>log4j</artifactId>
@@ -173,7 +191,7 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
             </execution>
           </executions>
         </plugin>
-      </plugins>    
+      </plugins>
     </pluginManagement>
   </build>
 </project>
