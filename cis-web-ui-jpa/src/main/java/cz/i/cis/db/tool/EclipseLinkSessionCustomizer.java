@@ -1,7 +1,7 @@
 /**
  *
  */
-package cz.zcu.jet.cis2.db.tool;
+package cz.i.cis.db.tool;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.eclipse.persistence.config.SessionCustomizer;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author David Matějček
  */
-public abstract class EclipseLinkSessionCustomizer implements SessionCustomizer {
+public class EclipseLinkSessionCustomizer implements SessionCustomizer {
 
   private static final Logger LOG = LoggerFactory.getLogger(EclipseLinkSessionCustomizer.class);
 

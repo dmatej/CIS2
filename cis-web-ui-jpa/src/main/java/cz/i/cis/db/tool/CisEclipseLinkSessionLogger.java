@@ -1,7 +1,7 @@
 /**
  *
  */
-package cz.zcu.jet.cis2.db.tool;
+package cz.i.cis.db.tool;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

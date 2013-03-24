@@ -24,14 +24,16 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <JET.repository.directory>${basedir}/maven-repo</JET.repository.directory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
 
     <cis.db.host>localhost</cis.db.host>
     <cis.db.server>localcis</cis.db.server>
     <cis.db.port>1520</cis.db.port>
+    <cis.db.name>cis</cis.db.name>
     <cis.db.user>informix</cis.db.user>
     <cis.db.password>localcis</cis.db.password>
+    <cis.db.locale>cs_cz.912@sis</cis.db.locale>
   </properties>
 
   <dependencyManagement>
@@ -114,11 +116,27 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
         <version>2.2.0-m09</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.openejb</groupId>
+        <artifactId>openejb-core</artifactId>
+        <version>4.5.1</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <artifactId>slf4j-jdk14</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-  </dependencies>
 
   <repositories>
     <repository>
@@ -137,8 +155,27 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
   </repositories>
 
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+    </plugins>
+
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.0</version>
+          <configuration>
+            <fork>true</fork>
+            <compilerVersion>1.7</compilerVersion>
+            <compilerArguments>
+              <encoding>${project.build.sourceEncoding}</encoding>
+              <verbose />
+            </compilerArguments>
+          </configuration>
+        </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>2.13</version>
@@ -168,6 +205,7 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
                 <trimStackTrace>false</trimStackTrace>
                 <failIfNoTests>false</failIfNoTests>
                 <verbose>true</verbose>
+                <encoding>${project.build.sourceEncoding}</encoding>
                 <argLine> </argLine>
                 <includes>
                   <include>**/*ITest.java</include>
