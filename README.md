@@ -10,6 +10,7 @@ Informix 11.70DE
 (úprava spouštěcího skriptu pro cmd)... C:\Program Files\IBM\Informix\11.70\ol_informix1170.cmd
 - změnit oprávnění pro uživatele
 - editovat, přidat ... v mém případě:
+
         set INFORMIXDIR=C:\PROGRA~1\IBM\Informix\11.70
         set REGMACHINE=\\DMATEJ-VIRTUAL
         set INFORMIXSERVER=ol_informix1170
@@ -22,12 +23,16 @@ Informix 11.70DE
         set DBMONEY=.Kc
 
 - vytvořit prázdný soubor na nějaké cestě (to je na vás, parametr -p) a pak spustit:
+
         onspaces -c -d dbspacecis -p /app/informix/informix/dbspaces/dbspacecis -o 0 -s 7340032
 
 - vytvořte databázi v dbspace; pozor na locale, viz set výše - po změně pak nejde spustit žádné SQL proti db, tj. ani drop!
+
         echo  drop database cis; | dbaccess
         echo  create database cis in dbspacecis with buffered log; | dbaccess
+
 - vytvořte schéma:
+
         dbaccess -a -e cis < f:\db\jet.sql 
 
 Spuštění buildu
@@ -38,7 +43,9 @@ Instalace EAR na Glassfish3
 -----------------------
 1. vytvořit jdbc pool cis
 2. vytvořit jdbc resource jdbc/cis
+
 V domain.xml pak bude tohle:
+
     <jdbc-connection-pool
       connection-validation-method="meta-data" max-pool-size="8"
       datasource-classname="com.informix.jdbcx.IfxXADataSource" pool-resize-quantity="1"
