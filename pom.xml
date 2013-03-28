@@ -24,8 +24,8 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <JET.repository.directory>${basedir}/maven-repo</JET.repository.directory>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
 
     <cis.db.host>localhost</cis.db.host>
     <cis.db.server>localcis</cis.db.server>
