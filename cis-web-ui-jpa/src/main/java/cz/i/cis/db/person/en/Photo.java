@@ -21,22 +21,21 @@ import javax.persistence.Table;
 @NamedQueries(
   @NamedQuery(name="CountOfImages", query = "select count(p) from Photo p")
 )
-@Table(name="cisblobpool")
+@Table(name="image")
 public class Photo implements Serializable {
 
   private static final long serialVersionUID = -888447339618899883L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "idblobpool")
-  private int id;
+  private Integer id;
 
   @Column(name = "idevidence")
-  private int idEvidence;
+  private Integer idEvidence;
 
   @Lob
   @Basic(fetch = FetchType.LAZY)
-  @Column(name = "obraz")
+  @Column(name = "data")
   private byte[] image;
 
 
