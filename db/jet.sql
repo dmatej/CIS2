@@ -5,210 +5,177 @@ grant dba to "cis";
 grant "extend" to "cis" ;
 
 
-{ TABLE "cis".cisblobpool row size = 64 number of columns = 3 index size = 14 }
-create table "cis".cisblobpool
+{ TABLE "cis".image row size = 64 number of columns = 3 index size = 14 }
+create table "cis".image
   (
-    idblobpool serial not null constraint "cis".n_cisblobpool_idblobpool,
+    id serial not null constraint "cis".n_image_id,
     idevidence integer,
-    obraz byte
+    data byte
   );
 
-revoke all on "cis".cisblobpool from "public" as "cis";
+revoke all on "cis".image from "public" as "cis";
 
 
-{ TABLE "cis".cisidentita row size = 278 number of columns = 20 index size = 300
+{ TABLE "cis".identity row size = 278 number of columns = 20 index size = 300
               }
-create table "cis".cisidentita
+create table "cis".identity
   (
-    ididentita serial not null constraint "cis".n_cisidentita_ididentita,
-    idevidence integer not null constraint "cis".n_cisidentita_idevidence,
-    idutvar integer
-        default -1 not null constraint "cis".n_cisidentita_idutvar,
-    idosoba integer,
-    datnar char(8)
-        default '00000000' not null constraint "cis".n_cisidentita_datnar,
-    kodpohlavi char(1),
-    idstat integer
-        default 1 not null constraint "cis".n_cisidentita_idstat,
-    datidentod date,
-    datidentdo date,
-    idstatnar integer
-        default 1 not null constraint "cis".n_cisidentita_idstatnar,
+    id serial not null constraint "cis".n_identity_id,
+    idevidence integer not null constraint "cis".n_identity_idevidence,
+    idorgunit integer
+        default -1 not null constraint "cis".n_identity_idorgunit,
+    idperson integer,
+    birthdate char(8)
+        default '00000000' not null constraint "cis".n_identity_birthdate,
+    sex char(1),
+    idstate integer
+        default 1 not null constraint "cis".n_identity_idstate,
+    validfrom date,
+    validto date,
+    idstateofbirth integer
+        default 1 not null constraint "cis".n_identity_idstateofbirth,
     rstatus integer
-        default 0 not null constraint "cis".n_cisidentita_rstatus,
-    rodcis varchar(10)
-        default '' not null constraint "cis".n_cisidentita_rodcis,
-    jmeno nvarchar(24)
-        default '' not null constraint "cis".n_cisidentita_jmeno,
-    prijmeni nvarchar(50)
-        default '' not null constraint "cis".n_cisidentita_prijmeni,
-    rodne nvarchar(35)
-        default '' not null constraint "cis".n_cisidentita_rodne,
-    jmena_ost nvarchar(35)
-        default '' not null constraint "cis".n_cisidentita_jmena_ost,
-    mistonar nvarchar(48)
-        default '' not null constraint "cis".n_cisidentita_mistonar,
+        default 0 not null constraint "cis".n_identity_rstatus,
+    birthnumber varchar(10)
+        default '' not null constraint "cis".n_identity_birthnumber,
+    firstname nvarchar(24)
+        default '' not null constraint "cis".n_identity_firstname,
+    lastname nvarchar(50)
+        default '' not null constraint "cis".n_identity_lastname,
+    birthname nvarchar(35)
+        default '' not null constraint "cis".n_identity_birthname,
+    othernames nvarchar(35)
+        default '' not null constraint "cis".n_identity_othernames,
+    birthplace nvarchar(48)
+        default '' not null constraint "cis".n_identity_birthplace,
 
-    check ((kodpohlavi IS NULL ) OR (kodpohlavi IN ('X' ,'M' ,'Z' )) ) constraint
-              "cis".c_cisidentita_kodpohlavi
+    check ((sex IS NULL ) OR (sex IN ('X' ,'M' ,'Z' )) ) constraint
+              "cis".c_identity_sex
   );
 
-revoke all on "cis".cisidentita from "public" as "cis";
+revoke all on "cis".identity from "public" as "cis";
 
 
-{ TABLE "cis".cismsg row size = 289 number of columns = 7 index size = 9 }
-create table "cis".cismsg
+{ TABLE "cis".message row size = 289 number of columns = 7 index size = 9 }
+create table "cis".message
   (
-    id serial not null constraint "cis".n_cismsg_id,
+    id serial not null constraint "cis".n_message_id,
     type char(1)
         default 'A',
     validfrom datetime year to second
         default current year to second,
-    validto datetime year to second not null constraint "cis".n_cismsg_validto,
-    txt varchar(255),
-    ciduser integer not null constraint "cis".n_cismsg_ciduser,
+    validto datetime year to second not null constraint "cis".n_message_validto,
+    text varchar(255),
+    cidcisuser integer not null constraint "cis".n_message_cidcisuser,
     cdate datetime year to second
         default current year to second,
 
-    check ((type IS NULL ) OR (type IN ('A' ,'L' )) ) constraint "cis".c_cismsg_type
+    check ((type IS NULL ) OR (type IN ('A' ,'L' )) ) constraint "cis".c_message_type
   );
 
-revoke all on "cis".cismsg from "public" as "cis";
+revoke all on "cis".message from "public" as "cis";
 
 
-{ TABLE "cis".koddokladdruh row size = 338 number of columns = 15 index size = 16
+{ TABLE "cis".code_documenttype row size = 338 number of columns = 15 index size = 16
               }
-create table "cis".koddokladdruh
+create table "cis".code_documenttype
   (
-    idkod serial not null constraint "cis".n_koddokladdruh_idkod,
-    kod char(2) not null constraint "cis".n_koddokladdruh_kod,
-    poradi smallint,
-    platod date
+    id serial not null constraint "cis".n_code_documenttype_id,
+    code char(2) not null constraint "cis".n_code_documenttype_code,
+    rank smallint,
+    validfrom date
         default  '01.01.1900',
-    platdo date
+    validto date
         default  '31.12.2999',
-    nazev nvarchar(50),
-    pozn varchar(255)
+    name nvarchar(50),
+    note varchar(255)
   );
 
-revoke all on "cis".koddokladdruh from "public" as "cis";
+revoke all on "cis".code_documenttype from "public" as "cis";
 
 
-{ TABLE "cis".kodpobytucel row size = 442 number of columns = 18 index size = 30
-              }
-create table "cis".kodpobytucel
-  (
-    idkod serial not null constraint "cis".n_kodpobytucel_idkod,
-    idkoducelpobytu integer,
-    kod char(3) not null constraint "cis".n_kodpobytucel_kod,
-    poradi smallint,
-    platod date
-        default  '01.01.1900',
-    platdo date
-        default  '31.12.2999',
-    menuupa smallint,
-    menupoz smallint,
-    menuviz smallint,
-    menuevc smallint,
-    vizak smallint,
-    vizad smallint,
-    vydelkat smallint,
-    nazev nvarchar(100),
-    tiskkod varchar(5),
-    pozn varchar(255)
-  );
-
-revoke all on "cis".kodpobytucel from "public" as "cis";
-
-
-{ TABLE "cis".kodpovolenidruh row size = 498 number of columns = 14 index size =
+{ TABLE "cis".code_permissiontype row size = 498 number of columns = 14 index size =
               25 }
-create table "cis".kodpovolenidruh
+create table "cis".code_permissiontype
   (
-    idkod serial not null constraint "cis".n_kodpovolenidruh_idkod,
-    kod char(2) not null constraint "cis".n_kodpovolenidruh_kod,
-    poradi smallint,
-    platod date
+    id serial not null constraint "cis".n_code_permissiontype_id,
+    code char(2) not null constraint "cis".n_code_permissiontype_code,
+    rank smallint,
+    validfrom date
         default  '01.01.1900',
-    platdo date
+    validto date
         default  '31.12.2999',
-    plattrvale smallint,
-    znakviza smallint,
-    idkodvis integer,
-    nazev varchar(72),
-    tiskkod varchar(2),
-    tiskinfo1 varchar(50),
-    tiskinfo2 varchar(50),
-    pozn varchar(255)
+    name varchar(72),
+    note varchar(255)
   );
 
-revoke all on "cis".kodpovolenidruh from "public" as "cis";
+revoke all on "cis".code_permissiontype from "public" as "cis";
 
 
-{ TABLE "cis".kodstat row size = 2452 number of columns = 33 index size = 339 }
-create table "cis".kodstat
+{ TABLE "cis".code_state row size = 2452 number of columns = 33 index size = 339 }
+create table "cis".code_state
   (
-    idkod serial not null constraint "cis".n_kodstat_idkod,
-    idstat integer,
-    poradi smallint,
-    kod char(3) not null constraint "cis".n_kodstat_kod,
-    kod_icao char(3) not null constraint "cis".n_kodstat_kod_icao,
-    zkr_iso char(2),
-    nazev nvarchar(23,3),
-    nazev_cz nvarchar(50) not null constraint "cis".n_kodstat_nazev_cz,
-    nazev_en varchar(50) not null constraint "cis".n_kodstat_nazev_en,
-    nazev_nativ varchar(50),
-    nazev_full nvarchar(60),
-    nazev_upper nvarchar(50),
-    pozn varchar(50),
-    platod date
-        default  '01.01.1900' not null constraint "cis".n_kodstat_platod,
-    platdo date
-        default  '31.12.2999' not null constraint "cis".n_kodstat_platdo
+    id serial not null constraint "cis".n_code_state_id,
+    idstate integer,
+    rank smallint,
+    code char(3) not null constraint "cis".n_code_state_code,
+    code_icao char(3) not null constraint "cis".n_code_state_code_icao,
+    code_iso char(2),
+    name nvarchar(23,3),
+    name_cz nvarchar(50) not null constraint "cis".n_code_state_name_cz,
+    name_en varchar(50) not null constraint "cis".n_code_state_name_en,
+    name_nativ varchar(50),
+    name_full nvarchar(60),
+    name_upper nvarchar(50),
+    note varchar(50),
+    validfrom date
+        default  '01.01.1900' not null constraint "cis".n_code_state_validfrom,
+    validto date
+        default  '31.12.2999' not null constraint "cis".n_code_state_validto
   );
 
-revoke all on "cis".kodstat from "public" as "cis";
+revoke all on "cis".code_state from "public" as "cis";
 
 
-{ TABLE "cis".koducelpobytu row size = 335 number of columns = 8 index size = 16
+{ TABLE "cis".code_purposeofstay row size = 335 number of columns = 8 index size = 16
               }
-create table "cis".koducelpobytu
+create table "cis".code_purposeofstay
   (
-    idkod serial not null constraint "cis".n_koducelpobytu_idkod,
-    kod char(2) not null constraint "cis".n_koducelpobytu_kod,
-    poradi smallint,
-    platod date
+    id serial not null constraint "cis".n_code_purposeofstay_id,
+    code char(2) not null constraint "cis".n_code_purposeofstay_code,
+    rank smallint,
+    validfrom date
         default  '01.01.1900',
-    platdo date
+    validto date
         default  '31.12.2999',
-    nazev varchar(60) not null constraint "cis".n_koducelpobytu_nazev,
-    pozn varchar(255)
+    name varchar(60) not null constraint "cis".n_code_purposeofstay_name,
+    note varchar(255)
   );
 
-revoke all on "cis".koducelpobytu from "public" as "cis";
+revoke all on "cis".code_purposeofstay from "public" as "cis";
 
 
-{ TABLE "cis".supclient row size = 2241 number of columns = 23 index size = 109 }
-create table "cis".supclient
+{ TABLE "cis".cisuser row size = 2241 number of columns = 23 index size = 109 }
+create table "cis".cisuser
   (
-    idclient serial not null constraint "cis".n_supclient_idclient,
+    id serial not null constraint "cis".n_cisuser_id,
     idorgunit integer,
-    uid char(8) not null constraint "cis".n_supclient_uid,
-    surname nvarchar(35) not null constraint "cis".n_supclient_surname,
-    name nvarchar(24) not null constraint "cis".n_supclient_name,
+    uid char(8) not null constraint "cis".n_cisuser_uid,
+    surname nvarchar(35) not null constraint "cis".n_cisuser_surname,
+    name nvarchar(24) not null constraint "cis".n_cisuser_name,
     degreeprefix varchar(35),
     degreesuffix varchar(10),
     blocked integer,
     forcepwdchange integer,
-    cidclient integer,
-    cdate datetime year to second not null constraint "cis".n_supclient_cdate,
+    cidcisuser integer,
+    cdate datetime year to second not null constraint "cis".n_cisuser_cdate,
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_supclient_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_cisuser_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_supclient_validto,
-    didclient integer,
+        default  '31.12.2999' not null constraint "cis".n_cisuser_validto,
+    didcisuser integer,
     ddate datetime year to second,
-    uidclient integer,
+    uidcisuser integer,
     udate datetime year to second,
     lastbadlogin datetime year to second,
     badlogincount smallint,
@@ -216,621 +183,552 @@ create table "cis".supclient
     info lvarchar(2040)
   );
 
-revoke all on "cis".supclient from "public" as "cis";
+revoke all on "cis".cisuser from "public" as "cis";
 
-{ TABLE "cis".suppassword row size = 317 number of columns = 10 index size = 295
+{ TABLE "cis".password row size = 317 number of columns = 10 index size = 295
               }
-create table "cis".suppassword
+create table "cis".password
   (
-    idpassword serial not null constraint "cis".n_suppassword_idpassword,
-    idclient integer not null constraint "cis".n_suppassword_idclient,
+    id serial not null constraint "cis".n_password_id,
+    idcisuser integer not null constraint "cis".n_password_idcisuser,
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_suppassword_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_password_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_suppassword_validto,
-    cidclient integer,
-    cdate datetime year to second not null constraint "cis".n_suppassword_cdate,
-    didclient integer,
+        default  '31.12.2999' not null constraint "cis".n_password_validto,
+    cidcisuser integer,
+    cdate datetime year to second not null constraint "cis".n_password_cdate,
+    didcisuser integer,
     ddate datetime year to second,
     algorithm varchar(20),
-    passwd varchar(255) not null constraint "cis".n_suppassword_passwd
+    password varchar(255) not null constraint "cis".n_password_password
   );
-revoke all on "cis".suppassword from "public" as "cis";
+revoke all on "cis".password from "public" as "cis";
 
-{ TABLE "cis".supoperation row size = 650 number of columns = 13 index size = 74
+{ TABLE "cis".cispermission row size = 650 number of columns = 13 index size = 74
               }
-create table "cis".supoperation
+create table "cis".cispermission
   (
-    idoperation serial not null constraint "cis".n_supoperation_idoperation,
-    code varchar(30) not null constraint "cis".n_supoperation_code,
-    name varchar(50) not null constraint "cis".n_supoperation_name,
+    id serial not null constraint "cis".n_cispermission_id,
+    code varchar(30) not null constraint "cis".n_cispermission_code,
+    name varchar(50) not null constraint "cis".n_cispermission_name,
     description varchar(255),
     validfrom datetime year to second
         default  datetime (1900-01-01 00:00:00) year to second not null constraint
-              "cis".n_supoperation_validfrom,
+              "cis".n_cispermission_validfrom,
     validto datetime year to second
         default  datetime (2999-12-31 23:59:59) year to second not null constraint
-              "cis".n_supoperation_validto,
-    cidclient integer,
+              "cis".n_cispermission_validto,
+    cidcisuser integer,
     cdate datetime year to second
-        default current year to second not null constraint "cis".n_supoperation_cdate,
-    didclient integer,
+        default current year to second not null constraint "cis".n_cispermission_cdate,
+    didcisuser integer,
     ddate datetime year to second,
-    uidclient integer,
+    uidcisuser integer,
     udate datetime year to second,
     annotation varchar(255)
   );
 
-revoke all on "cis".supoperation from "public" as "cis";
+revoke all on "cis".cispermission from "public" as "cis";
 
 
-{ TABLE "cis".suporgunit row size = 516 number of columns = 24 index size = 80 }
-create table "cis".suporgunit
+{ TABLE "cis".orgunit row size = 516 number of columns = 24 index size = 80 }
+create table "cis".orgunit
   (
-    idorgunit serial not null constraint "cis".n_suporgunit_idorgunit,
-    unitcode char(7) not null constraint "cis".n_suporgunit_unitcode,
-    unittype integer not null constraint "cis".n_suporgunit_unittype,
+    id serial not null constraint "cis".n_orgunit_id,
+    code char(7) not null constraint "cis".n_orgunit_code,
+    unittype integer not null constraint "cis".n_orgunit_unittype,
     phone1 char(13),
     phone2 char(13),
     fax char(13),
     email varchar(65),
-    idaddress integer,
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_suporgunit_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_orgunit_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_suporgunit_validto,
-    unitname nvarchar(65) not null constraint "cis".n_suporgunit_unitname,
-    kodtudu char(4),
-    cidclient integer,
+        default  '31.12.2999' not null constraint "cis".n_orgunit_validto,
+    unitname nvarchar(65) not null constraint "cis".n_orgunit_unitname,
+    cidcisuser integer,
     cdate datetime year to second,
-    didclient integer,
+    didcisuser integer,
     ddate datetime year to second,
-    uidclient integer,
+    uidcisuser integer,
     udate datetime year to second,
-    pozn varchar(255)
+    note varchar(255)
   );
 
-revoke all on "cis".suporgunit from "public" as "cis";
+revoke all on "cis".orgunit from "public" as "cis";
 
 
-{ TABLE "cis".suprole row size = 388 number of columns = 13 index size = 73 }
-create table "cis".suprole
+{ TABLE "cis".cisrole row size = 388 number of columns = 13 index size = 73 }
+create table "cis".cisrole
   (
-    idrole serial not null constraint "cis".n_suprole_idrole,
-    type smallint not null constraint "cis".n_suprole_type,
-    code varchar(30) not null constraint "cis".n_suprole_code,
-    name varchar(50) not null constraint "cis".n_suprole_name,
+    id serial not null constraint "cis".n_cisrole_id,
+    type smallint not null constraint "cis".n_cisrole_type,
+    code varchar(30) not null constraint "cis".n_cisrole_code,
+    name varchar(50) not null constraint "cis".n_cisrole_name,
     description varchar(255),
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_suprole_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_cisrole_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_suprole_validto,
-    cidclient integer,
-    cdate datetime year to second not null constraint "cis".n_suprole_cdate,
-    didclient integer,
+        default  '31.12.2999' not null constraint "cis".n_cisrole_validto,
+    cidcisuser integer,
+    cdate datetime year to second not null constraint "cis".n_cisrole_cdate,
+    didcisuser integer,
     ddate datetime year to second,
-    uidclient integer,
+    uidcisuser integer,
     udate datetime year to second
   );
 
-revoke all on "cis".suprole from "public" as "cis";
+revoke all on "cis".cisrole from "public" as "cis";
 
 
-{ TABLE "cis".supclientrole row size = 44 number of columns = 9 index size = 52 }
-create table "cis".supclientrole
+{ TABLE "cis".cisuserrole row size = 44 number of columns = 9 index size = 52 }
+create table "cis".cisuserrole
   (
-    idclientrole serial not null constraint "cis".n_supclientrole_idclientrole,
-    idclient integer not null constraint "cis".n_supclientrole_idclient,
-    idrole integer not null constraint "cis".n_supclientrole_idrole,
+    id serial not null constraint "cis".n_cisuserrole_id,
+    idcisuser integer not null constraint "cis".n_cisuserrole_idcisuser,
+    idrole integer not null constraint "cis".n_cisuserrole_idrole,
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_supclientrole_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_cisuserrole_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_supclientrole_validto,
-    cidclient integer,
-    cdate datetime year to second not null constraint "cis".n_supclientrole_cdate,
-    didclient integer,
+        default  '31.12.2999' not null constraint "cis".n_cisuserrole_validto,
+    cidcisuser integer,
+    cdate datetime year to second not null constraint "cis".n_cisuserrole_cdate,
+    didcisuser integer,
     ddate datetime year to second
   );
 
-revoke all on "cis".supclientrole from "public" as "cis";
+revoke all on "cis".cisuserrole from "public" as "cis";
 
 
-{ TABLE "cis".suproleoper row size = 44 number of columns = 9 index size = 43 }
-create table "cis".suproleoper
+{ TABLE "cis".cisrolepermission row size = 44 number of columns = 9 index size = 43 }
+create table "cis".cisrolepermission
   (
-    idroleoper serial not null constraint "cis".n_suproleoper_idroleoper,
-    idrole integer not null constraint "cis".n_suproleoper_idrole,
-    idoperation integer not null constraint "cis".n_suproleoper_idoperation,
+    id serial not null constraint "cis".n_cisrolepermission_id,
+    idrole integer not null constraint "cis".n_cisrolepermission_idrole,
+    idpermission integer not null constraint "cis".n_cisrolepermission_idpermission,
     validfrom date
-        default  '01.01.1900' not null constraint "cis".n_suproleoper_validfrom,
+        default  '01.01.1900' not null constraint "cis".n_cisrolepermission_validfrom,
     validto date
-        default  '31.12.2999' not null constraint "cis".n_suproleoper_validto,
-    cidclient integer,
-    cdate datetime year to second not null constraint "cis".n_suproleoper_cdate,
-    didclient integer,
+        default  '31.12.2999' not null constraint "cis".n_cisrolepermission_validto,
+    cidcisuser integer,
+    cdate datetime year to second not null constraint "cis".n_cisrolepermission_cdate,
+    didcisuser integer,
     ddate datetime year to second
   );
 
-revoke all on "cis".suproleoper from "public" as "cis";
+revoke all on "cis".cisrolepermission from "public" as "cis";
 
 
-{ TABLE "cis".tduosoba row size = 2388 number of columns = 55 index size = 80 }
-create table "cis".tduosoba
+{ TABLE "cis".tduperson row size = 2388 number of columns = 55 index size = 80 }
+create table "cis".tduperson
   (
-    idosoba integer not null constraint "cis".n_tduosoba_idosoba,
-    idosoori integer,
-    ididentakt integer,
-    idpobytakt integer
+    id integer not null constraint "cis".n_tduperson_id,
+    idperson_original integer,
+    ididentity_actual integer,
+    idstay_actual integer
         default -1,
-    idmpakt integer
+    idstayplace_actual integer
         default -1,
-    idblobpool integer,
-    idmistoumrti integer,
-    idstatumrti integer,
-    idpobytkatos integer,
-    idvydelkat integer,
-    idutvarosoby integer,
-    idutvarosobyminul integer,
-    idutvaruziv integer,
-    iduziv integer,
-    kodpohlavi char(1),
-    datnpmpozm char(8),
-    kodrodstav char(1),
-    datumrti date,
-    datskartpl date,
-    datskartsk date,
-    datakt datetime year to second,
-    titul_pred varchar(15),
-    titul_za varchar(15),
-    mistoumrti varchar(30),
-    ico varchar(8),
-    zivnlist varchar(15),
-    txtzkpu varchar(60),
-    pozn lvarchar,
+    idimage integer,
+    iddeathplace integer,
+    iddeathstate integer,
+    idcisuser integer,
+    sex char(1),
+    deathdate date,
+    degreeprefix varchar(15),
+    degreesuffix varchar(15),
+    deathplace varchar(30),
+    note lvarchar,
     rstatus integer
-        default 0 not null constraint "cis".n_tduosoba_rstatus,
-    ciduser integer
-        default -2 not null constraint "cis".n_tduosoba_ciduser,
-    uiduser integer,
-    diduser integer,
+        default 0 not null constraint "cis".n_tduperson_rstatus,
+    cidcisuser integer
+        default -2 not null constraint "cis".n_tduperson_cidcisuser,
+    uidcisuser integer,
+    didcisuser integer,
     cdate datetime year to second
-        default current year to second not null constraint "cis".n_tduosoba_cdate,
+        default current year to second not null constraint "cis".n_tduperson_cdate,
     udate datetime year to second,
-    ddate datetime year to second,
-    idkodspisznak integer,
-    skartznak char(1),
-    rokskartpl smallint,
-    idkodvyrazeni integer,
-    datskartdg date,
-    zlikvidovat char(1)
-        default 'N' not null constraint "cis".n_tduosoba_zlikvidovat,
-    check (zlikvidovat IN ('A' ,'N' )) constraint "cis".c_tduosoba_zlikvidovat_an
+    ddate datetime year to second
   );
 
-revoke all on "cis".tduosoba from "public" as "cis";
+revoke all on "cis".tduperson from "public" as "cis";
 
 
-{ TABLE "cis".tdumistopobytu row size = 399 number of columns = 25 index size = 99
+{ TABLE "cis".tdustayplace row size = 399 number of columns = 25 index size = 99
               }
-create table "cis".tdumistopobytu
+create table "cis".tdustayplace
   (
-    idtdumistopobytu serial not null constraint "cis".n_tdumistopobytu_idtdumistopobytu,
-    idosoba integer not null constraint "cis".n_tdumistopobytu_idosoba,
-    idosoori integer,
-    idtdupobyt integer,
-    idtduuby integer,
-    idadrpcdmp integer,
-    idtduadresamp integer,
-    idkodbydldruh integer,
-    idutvarmp integer,
-    idam integer,
-    idutvaruziv integer,
-    datod date
-        default  '01.01.1900' not null constraint "cis".n_tdumistopobytu_datod,
-    datdo date
-        default  '31.12.2999' not null constraint "cis".n_tdumistopobytu_datdo,
-    datakt datetime year to second,
-    koduby char(4),
-    icouby char(8),
-    nazevuby varchar(30),
+    id serial not null constraint "cis".n_tdustayplace_id,
+    idperson integer not null constraint "cis".n_tdustayplace_idperson,
+    idperson_original integer,
+    idtdustay integer,
+    idaddress integer,
+    idorgunit integer,
+    datefrom date
+        default  '01.01.1900' not null constraint "cis".n_tdustayplace_datefrom,
+    dateto date
+        default  '31.12.2999' not null constraint "cis".n_tdustayplace_dateto,
     rstatus integer
-        default 0 not null constraint "cis".n_tdumistopobytu_rstatus,
-    ciduser integer
-        default -2 not null constraint "cis".n_tdumistopobytu_ciduser,
-    uiduser integer,
-    diduser integer,
+        default 0 not null constraint "cis".n_tdustayplace_rstatus,
+    cidcisuser integer
+        default -2 not null constraint "cis".n_tdustayplace_cidcisuser,
+    uidcisuser integer,
+    didcisuser integer,
     cdate datetime year to second
-        default current year to second not null constraint "cis".n_tdumistopobytu_cdate,
+        default current year to second not null constraint "cis".n_tdustayplace_cdate,
     udate datetime year to second,
     ddate datetime year to second,
-    pozn varchar(255)
+    note varchar(255)
   );
 
-revoke all on "cis".tdumistopobytu from "public" as "cis";
+revoke all on "cis".tdustayplace from "public" as "cis";
 
 
-{ TABLE "cis".tdupobyt row size = 2232 number of columns = 35 index size = 126 }
-create table "cis".tdupobyt
+{ TABLE "cis".tdustay row size = 2232 number of columns = 35 index size = 126 }
+create table "cis".tdustay
   (
-    idtdupobyt serial not null constraint "cis".n_tdupobyt_idtdupobyt,
-    idtduall integer,
-    idosoba integer not null constraint "cis".n_tdupobyt_idosoba,
-    idosoori integer,
-    idtdupobytprodl integer,
-    idpobytkat integer not null constraint "cis".n_tdupobyt_idpobytkat,
+    id serial not null constraint "cis".n_tdustay_id,
+    idperson integer not null constraint "cis".n_tdustay_idperson,
+    idperson_original integer,
     idpobytucel integer,
-    idpobytstav integer not null constraint "cis".n_tdupobyt_idpobytstav,
-    idutvarpobytu integer not null constraint "cis".n_tdupobyt_idutvarpobytu,
-    iduradpobytu integer,
-    idstatbydl integer,
-    idkodpobytkonec integer,
-    idutvar integer,
-    idutvaruziv integer,
+    idorgunit integer,
+    idorgunituziv integer,
     pkp char(10),
-    pocdeti smallint,
-    cisjednaci char(27),
-    datpobytod date,
-    datpkpod date
-        default  '01.01.1900' not null constraint "cis".n_tdupobyt_datpkpod,
-    datpkpdo date
-        default  '01.01.1900' not null constraint "cis".n_tdupobyt_datpkpdo,
-    datnabytipm date,
-    datprijezd date,
-    datukoncen date,
-    priznakbez char(1),
-    datakt datetime year to second,
-    cislozov varchar(16),
-    pozn lvarchar(2040),
+    refnumber char(27),
+    datefrom date,
+    grantedfrom date
+        default  '01.01.1900' not null constraint "cis".n_tdustay_grantedfrom,
+    grantedto date
+        default  '01.01.1900' not null constraint "cis".n_tdustay_grantedto,
+    arrivaldate date,
+    terminationdate date,
+    visaapplicationnumber varchar(16),
+    note lvarchar(2040),
     rstatus integer
-        default 0 not null constraint "cis".n_tdupobyt_rstatus,
-    ciduser integer
-        default -2 not null constraint "cis".n_tdupobyt_ciduser,
-    uiduser integer,
-    diduser integer,
+        default 0 not null constraint "cis".n_tdustay_rstatus,
+    cidcisuser integer
+        default -2 not null constraint "cis".n_tdustay_cidcisuser,
+    uidcisuser integer,
+    didcisuser integer,
     cdate datetime year to second
-        default current year to second not null constraint "cis".n_tdupobyt_cdate,
+        default current year to second not null constraint "cis".n_tdustay_cdate,
     udate datetime year to second,
-    ddate datetime year to second,
-    platnostdoprukaz date
+    ddate datetime year to second
   );
 
-revoke all on "cis".tdupobyt from "public" as "cis";
+revoke all on "cis".tdustay from "public" as "cis";
 
 
-{ TABLE "cis".tdudoklad row size = 2203 number of columns = 31 index size = 96 }
-create table "cis".tdudoklad
+{ TABLE "cis".tdudocument row size = 2203 number of columns = 31 index size = 96 }
+create table "cis".tdudocument
   (
-    idtdudoklad serial not null constraint "cis".n_tdudoklad_idtdudoklad,
-    idosoba integer not null constraint "cis".n_tdudoklad_idosoba,
-    idosoori integer,
-    ididentita integer not null constraint "cis".n_tdudoklad_ididentita,
-    idtdupobyt integer,
-    iddokladdruh integer not null constraint "cis".n_tdudoklad_iddokladdruh,
-    idstatvydal integer,
-    idutvarvydal integer,
-    iduziv integer,
-    idutvaruziv integer,
-    cisdoklad char(15),
-    datvydal date,
-    datplatod date
-        default  '01.01.1900' not null constraint "cis".n_tdudoklad_datplatod,
-    datplatdo date
-        default  '31.12.2999' not null constraint "cis".n_tdudoklad_datplatdo,
-    datprevzeti date,
-    datprodlouzeni date,
-    datzruseni date,
-    datakt datetime year to second,
-    pozn lvarchar(2040),
+    id serial not null constraint "cis".n_tdudocument_id,
+    idperson integer not null constraint "cis".n_tdudocument_idperson,
+    idperson_original integer,
+    ididentity integer not null constraint "cis".n_tdudocument_ididentity,
+    idtdustay integer,
+    idcodedocumenttype integer not null constraint "cis".n_tdudocument_idcodedocumenttype,
+    idstateissued integer,
+    idorgunitissued integer,
+    idcisuser integer,
+    number char(15),
+    issued date,
+    validfrom date
+        default  '01.01.1900' not null constraint "cis".n_tdudocument_validfrom,
+    validto date
+        default  '31.12.2999' not null constraint "cis".n_tdudocument_validto,
+    dateofreceipt date,
+    dateofrenewal date,
+    dateofcancel date,
+    note lvarchar(2040),
     rstatus integer
-        default 0 not null constraint "cis".n_tdudoklad_rstatus,
-    ciduser integer
-        default -2 not null constraint "cis".n_tdudoklad_ciduser,
-    uiduser integer,
-    diduser integer,
+        default 0 not null constraint "cis".n_tdudocument_rstatus,
+    cidcisuser integer
+        default -2 not null constraint "cis".n_tdudocument_cidcisuser,
+    uidcisuser integer,
+    didcisuser integer,
     cdate datetime year to second
-        default current year to second not null constraint "cis".n_tdudoklad_cdate,
+        default current year to second not null constraint "cis".n_tdudocument_cdate,
     udate datetime year to second,
     ddate datetime year to second,
-    cislozov varchar(16)
+    visaapplicationnumber varchar(16)
   );
-revoke all on "cis".tdudoklad from "public" as "cis";
+revoke all on "cis".tdudocument from "public" as "cis";
 
 -- OPERATIONS -********************************************************************************************
-grant select on "cis".cisblobpool to "public" as "cis";
-grant update on "cis".cisblobpool to "public" as "cis";
-grant insert on "cis".cisblobpool to "public" as "cis";
-grant delete on "cis".cisblobpool to "public" as "cis";
-grant index on "cis".cisblobpool to "public" as "cis";
-grant select on "cis".cisidentita to "public" as "cis";
-grant update on "cis".cisidentita to "public" as "cis";
-grant insert on "cis".cisidentita to "public" as "cis";
-grant delete on "cis".cisidentita to "public" as "cis";
-grant index on "cis".cisidentita to "public" as "cis";
-grant select on "cis".cismsg to "public" as "cis";
-grant update on "cis".cismsg to "public" as "cis";
-grant insert on "cis".cismsg to "public" as "cis";
-grant delete on "cis".cismsg to "public" as "cis";
-grant index on "cis".cismsg to "public" as "cis";
-grant select on "cis".koddokladdruh to "public" as "cis";
-grant update on "cis".koddokladdruh to "public" as "cis";
-grant insert on "cis".koddokladdruh to "public" as "cis";
-grant delete on "cis".koddokladdruh to "public" as "cis";
-grant index on "cis".koddokladdruh to "public" as "cis";
-grant select on "cis".kodpobytucel to "public" as "cis";
-grant update on "cis".kodpobytucel to "public" as "cis";
-grant insert on "cis".kodpobytucel to "public" as "cis";
-grant delete on "cis".kodpobytucel to "public" as "cis";
-grant index on "cis".kodpobytucel to "public" as "cis";
-grant select on "cis".kodpovolenidruh to "public" as "cis";
-grant update on "cis".kodpovolenidruh to "public" as "cis";
-grant insert on "cis".kodpovolenidruh to "public" as "cis";
-grant delete on "cis".kodpovolenidruh to "public" as "cis";
-grant index on "cis".kodpovolenidruh to "public" as "cis";
-grant select on "cis".kodstat to "public" as "cis";
-grant update on "cis".kodstat to "public" as "cis";
-grant insert on "cis".kodstat to "public" as "cis";
-grant delete on "cis".kodstat to "public" as "cis";
-grant index on "cis".kodstat to "public" as "cis";
-grant select on "cis".koducelpobytu to "public" as "cis";
-grant update on "cis".koducelpobytu to "public" as "cis";
-grant insert on "cis".koducelpobytu to "public" as "cis";
-grant delete on "cis".koducelpobytu to "public" as "cis";
-grant index on "cis".koducelpobytu to "public" as "cis";
-grant select on "cis".supclient to "public" as "cis";
-grant update on "cis".supclient to "public" as "cis";
-grant insert on "cis".supclient to "public" as "cis";
-grant delete on "cis".supclient to "public" as "cis";
-grant index on "cis".supclient to "public" as "cis";
-grant select on "cis".supclientrole to "public" as "cis";
-grant update on "cis".supclientrole to "public" as "cis";
-grant insert on "cis".supclientrole to "public" as "cis";
-grant delete on "cis".supclientrole to "public" as "cis";
-grant index on "cis".supclientrole to "public" as "cis";
-grant select on "cis".supoperation to "public" as "cis";
-grant update on "cis".supoperation to "public" as "cis";
-grant insert on "cis".supoperation to "public" as "cis";
-grant delete on "cis".supoperation to "public" as "cis";
-grant index on "cis".supoperation to "public" as "cis";
-grant select on "cis".suporgunit to "public" as "cis";
-grant update on "cis".suporgunit to "public" as "cis";
-grant insert on "cis".suporgunit to "public" as "cis";
-grant delete on "cis".suporgunit to "public" as "cis";
-grant index on "cis".suporgunit to "public" as "cis";
-grant select on "cis".suppassword to "public" as "cis";
-grant update on "cis".suppassword to "public" as "cis";
-grant insert on "cis".suppassword to "public" as "cis";
-grant delete on "cis".suppassword to "public" as "cis";
-grant index on "cis".suppassword to "public" as "cis";
-grant select on "cis".suprole to "public" as "cis";
-grant update on "cis".suprole to "public" as "cis";
-grant insert on "cis".suprole to "public" as "cis";
-grant delete on "cis".suprole to "public" as "cis";
-grant index on "cis".suprole to "public" as "cis";
-grant select on "cis".suproleoper to "public" as "cis";
-grant update on "cis".suproleoper to "public" as "cis";
-grant insert on "cis".suproleoper to "public" as "cis";
-grant delete on "cis".suproleoper to "public" as "cis";
-grant index on "cis".suproleoper to "public" as "cis";
-grant select on "cis".tdumistopobytu to "public" as "cis";
-grant update on "cis".tdumistopobytu to "public" as "cis";
-grant insert on "cis".tdumistopobytu to "public" as "cis";
-grant delete on "cis".tdumistopobytu to "public" as "cis";
-grant index on "cis".tdumistopobytu to "public" as "cis";
-grant select on "cis".tdupobyt to "public" as "cis";
-grant update on "cis".tdupobyt to "public" as "cis";
-grant insert on "cis".tdupobyt to "public" as "cis";
-grant delete on "cis".tdupobyt to "public" as "cis";
-grant index on "cis".tdupobyt to "public" as "cis";
-grant select on "cis".tduosoba to "public" as "cis";
-grant update on "cis".tduosoba to "public" as "cis";
-grant insert on "cis".tduosoba to "public" as "cis";
-grant delete on "cis".tduosoba to "public" as "cis";
-grant index on "cis".tduosoba to "public" as "cis";
-grant select on "cis".tdudoklad to "public" as "cis";
-grant update on "cis".tdudoklad to "public" as "cis";
-grant insert on "cis".tdudoklad to "public" as "cis";
-grant delete on "cis".tdudoklad to "public" as "cis";
-grant index on "cis".tdudoklad to "public" as "cis";
-grant select on "cis".tdupobyt to "public" as "cis";
-grant update on "cis".tdupobyt to "public" as "cis";
-grant insert on "cis".tdupobyt to "public" as "cis";
-grant delete on "cis".tdupobyt to "public" as "cis";
-grant index on "cis".tdupobyt to "public" as "cis";
+grant select on "cis".image to "public" as "cis";
+grant update on "cis".image to "public" as "cis";
+grant insert on "cis".image to "public" as "cis";
+grant delete on "cis".image to "public" as "cis";
+grant index on "cis".image to "public" as "cis";
+grant select on "cis".identity to "public" as "cis";
+grant update on "cis".identity to "public" as "cis";
+grant insert on "cis".identity to "public" as "cis";
+grant delete on "cis".identity to "public" as "cis";
+grant index on "cis".identity to "public" as "cis";
+grant select on "cis".message to "public" as "cis";
+grant update on "cis".message to "public" as "cis";
+grant insert on "cis".message to "public" as "cis";
+grant delete on "cis".message to "public" as "cis";
+grant index on "cis".message to "public" as "cis";
+grant select on "cis".code_documenttype to "public" as "cis";
+grant update on "cis".code_documenttype to "public" as "cis";
+grant insert on "cis".code_documenttype to "public" as "cis";
+grant delete on "cis".code_documenttype to "public" as "cis";
+grant index on "cis".code_documenttype to "public" as "cis";
+grant select on "cis".code_permissiontype to "public" as "cis";
+grant update on "cis".code_permissiontype to "public" as "cis";
+grant insert on "cis".code_permissiontype to "public" as "cis";
+grant delete on "cis".code_permissiontype to "public" as "cis";
+grant index on "cis".code_permissiontype to "public" as "cis";
+grant select on "cis".code_state to "public" as "cis";
+grant update on "cis".code_state to "public" as "cis";
+grant insert on "cis".code_state to "public" as "cis";
+grant delete on "cis".code_state to "public" as "cis";
+grant index on "cis".code_state to "public" as "cis";
+grant select on "cis".code_purposeofstay to "public" as "cis";
+grant update on "cis".code_purposeofstay to "public" as "cis";
+grant insert on "cis".code_purposeofstay to "public" as "cis";
+grant delete on "cis".code_purposeofstay to "public" as "cis";
+grant index on "cis".code_purposeofstay to "public" as "cis";
+grant select on "cis".cisuser to "public" as "cis";
+grant update on "cis".cisuser to "public" as "cis";
+grant insert on "cis".cisuser to "public" as "cis";
+grant delete on "cis".cisuser to "public" as "cis";
+grant index on "cis".cisuser to "public" as "cis";
+grant select on "cis".cisuserrole to "public" as "cis";
+grant update on "cis".cisuserrole to "public" as "cis";
+grant insert on "cis".cisuserrole to "public" as "cis";
+grant delete on "cis".cisuserrole to "public" as "cis";
+grant index on "cis".cisuserrole to "public" as "cis";
+grant select on "cis".cispermission to "public" as "cis";
+grant update on "cis".cispermission to "public" as "cis";
+grant insert on "cis".cispermission to "public" as "cis";
+grant delete on "cis".cispermission to "public" as "cis";
+grant index on "cis".cispermission to "public" as "cis";
+grant select on "cis".orgunit to "public" as "cis";
+grant update on "cis".orgunit to "public" as "cis";
+grant insert on "cis".orgunit to "public" as "cis";
+grant delete on "cis".orgunit to "public" as "cis";
+grant index on "cis".orgunit to "public" as "cis";
+grant select on "cis".password to "public" as "cis";
+grant update on "cis".password to "public" as "cis";
+grant insert on "cis".password to "public" as "cis";
+grant delete on "cis".password to "public" as "cis";
+grant index on "cis".password to "public" as "cis";
+grant select on "cis".cisrole to "public" as "cis";
+grant update on "cis".cisrole to "public" as "cis";
+grant insert on "cis".cisrole to "public" as "cis";
+grant delete on "cis".cisrole to "public" as "cis";
+grant index on "cis".cisrole to "public" as "cis";
+grant select on "cis".cisrolepermission to "public" as "cis";
+grant update on "cis".cisrolepermission to "public" as "cis";
+grant insert on "cis".cisrolepermission to "public" as "cis";
+grant delete on "cis".cisrolepermission to "public" as "cis";
+grant index on "cis".cisrolepermission to "public" as "cis";
+grant select on "cis".tdustayplace to "public" as "cis";
+grant update on "cis".tdustayplace to "public" as "cis";
+grant insert on "cis".tdustayplace to "public" as "cis";
+grant delete on "cis".tdustayplace to "public" as "cis";
+grant index on "cis".tdustayplace to "public" as "cis";
+grant select on "cis".tdustay to "public" as "cis";
+grant update on "cis".tdustay to "public" as "cis";
+grant insert on "cis".tdustay to "public" as "cis";
+grant delete on "cis".tdustay to "public" as "cis";
+grant index on "cis".tdustay to "public" as "cis";
+grant select on "cis".tduperson to "public" as "cis";
+grant update on "cis".tduperson to "public" as "cis";
+grant insert on "cis".tduperson to "public" as "cis";
+grant delete on "cis".tduperson to "public" as "cis";
+grant index on "cis".tduperson to "public" as "cis";
+grant select on "cis".tdudocument to "public" as "cis";
+grant update on "cis".tdudocument to "public" as "cis";
+grant insert on "cis".tdudocument to "public" as "cis";
+grant delete on "cis".tdudocument to "public" as "cis";
+grant index on "cis".tdudocument to "public" as "cis";
+grant select on "cis".tdustay to "public" as "cis";
+grant update on "cis".tdustay to "public" as "cis";
+grant insert on "cis".tdustay to "public" as "cis";
+grant delete on "cis".tdustay to "public" as "cis";
+grant index on "cis".tdustay to "public" as "cis";
 
 
 -- CONSTRAINTS -********************************************************************************************
-create unique index "cis".ip_kodstat_idkod on "cis".kodstat (idkod)
+create unique index "cis".ip_code_state_id on "cis".code_state (id)
     using btree ;
-create unique index "cis".iu_kodstat_idstat on "cis".kodstat (idstat)
+create unique index "cis".iu_code_state_idstate on "cis".code_state (idstate)
     using btree ;
-create unique index "cis".iu_kodstat_kod on "cis".kodstat (kod)
+create unique index "cis".iu_code_state_code on "cis".code_state (code)
     using btree ;
-create unique index "cis".iu_kodstat_kod_icao on "cis".kodstat
-    (kod_icao) using btree ;
-create unique index "cis".iu_kodstat_nazev on "cis".kodstat (nazev)
+create unique index "cis".iu_code_state_code_icao on "cis".code_state
+    (code_icao) using btree ;
+create unique index "cis".iu_code_state_name on "cis".code_state (name)
     using btree ;
-create index "cis".i_kodstat_nazev_cz on "cis".kodstat (nazev_cz)
+create index "cis".i_code_state_name_cz on "cis".code_state (name_cz)
     using btree ;
-create index "cis".i_kodstat_nazev_en on "cis".kodstat (nazev_en)
+create index "cis".i_code_state_name_en on "cis".code_state (name_en)
     using btree ;
-create index "cis".i_kodstat_nazev_full on "cis".kodstat (nazev_full)
+create index "cis".i_code_state_name_full on "cis".code_state (name_full)
     using btree ;
-create index "cis".i_kodstat_nazev_upper on "cis".kodstat (nazev_upper)
+create index "cis".i_code_state_name_upper on "cis".code_state (name_upper)
     using btree ;
-create index "cis".i_kodstat_poradi on "cis".kodstat (poradi)
+create index "cis".i_code_state_rank on "cis".code_state (rank)
     using btree ;
-alter table "cis".kodstat add constraint primary key (idkod)
-    constraint "cis".pk_kodstat  ;
-create unique index "cis".ip_koddokladdruh_idkod on "cis".koddokladdruh
-    (idkod) using btree ;
-create unique index "cis".iu_koddokladdruh_kod on "cis".koddokladdruh
-    (kod) using btree ;
-alter table "cis".koddokladdruh add constraint primary key (idkod)
-    constraint "cis".pk_koddokladdruh  ;
-create unique index "cis".ip_kodpobytucel_idkod on "cis".kodpobytucel
-    (idkod) using btree ;
-alter table "cis".kodpobytucel add constraint primary key (idkod)
-    constraint "cis".pk_kodpobytucel  ;
-create unique index "cis".ip_kodpovolenidruh_idkod on "cis".kodpovolenidruh
-    (idkod) using btree ;
-create unique index "cis".iu_kodpovolenidruh_kod on "cis".kodpovolenidruh
-    (kod) using btree ;
-alter table "cis".kodpovolenidruh add constraint primary key
-    (idkod) constraint "cis".pk_kodpovolenidruh  ;
+alter table "cis".code_state add constraint primary key (id)
+    constraint "cis".pk_code_state  ;
+create unique index "cis".ip_code_documenttype_id on "cis".code_documenttype
+    (id) using btree ;
+create unique index "cis".iu_code_documenttype_code on "cis".code_documenttype
+    (code) using btree ;
+alter table "cis".code_documenttype add constraint primary key (id)
+    constraint "cis".pk_code_documenttype  ;
+create unique index "cis".ip_code_purposeofstay_id on "cis".code_purposeofstay
+    (id) using btree ;
+alter table "cis".code_purposeofstay add constraint primary key (id)
+    constraint "cis".pk_code_purposeofstay  ;
+create unique index "cis".ip_code_permissiontype_id on "cis".code_permissiontype
+    (id) using btree ;
+create unique index "cis".iu_code_permissiontype_code on "cis".code_permissiontype
+    (code) using btree ;
+alter table "cis".code_permissiontype add constraint primary key
+    (id) constraint "cis".pk_code_permissiontype  ;
 
-create unique index "cis".ip_supclient_idclient on "cis".supclient
-    (idclient) using btree ;
-create unique index "cis".iu_supclient_uid_ddate on "cis".supclient
+create unique index "cis".ip_cisuser_id on "cis".cisuser
+    (id) using btree ;
+create unique index "cis".iu_cisuser_uid_ddate on "cis".cisuser
     (uid,ddate) using btree ;
-create index "cis".i_supclient_surname_name on "cis".supclient
+create index "cis".i_cisuser_surname_name on "cis".cisuser
     (surname,name) using btree ;
-create index "cis".i_supclient_validfrom_validto on "cis".supclient
+create index "cis".i_cisuser_validfrom_validto on "cis".cisuser
     (validfrom,validto) using btree ;
-alter table "cis".supclient add constraint primary key (idclient)
-    constraint "cis".pk_supclient  ;
+alter table "cis".cisuser add constraint primary key (id)
+    constraint "cis".pk_cisuser  ;
 
-create unique index "cis".ip_suppassword_idpassword on "cis".suppassword
-    (idpassword) using btree ;
-create unique index "cis".iu_suppassword_idclient_passwd_ddate
-    on "cis".suppassword (idclient,passwd,ddate) using btree ;
-create index "cis".i_suppassword_validfrom_validto on "cis".suppassword
+create unique index "cis".ip_password_id on "cis".password
+    (id) using btree ;
+create unique index "cis".iu_password_idcisuser_password_ddate
+    on "cis".password (idcisuser,password,ddate) using btree ;
+create index "cis".i_password_validfrom_validto on "cis".password
     (validfrom,validto) using btree ;
-alter table "cis".suppassword add constraint primary key (idpassword)
-    constraint "cis".pk_suppassword  ;
+alter table "cis".password add constraint primary key (id)
+    constraint "cis".pk_password  ;
 
-create unique index "cis".iu_supoperation_code_ddate on "cis".supoperation
+create unique index "cis".iu_cispermission_code_ddate on "cis".cispermission
     (code,ddate) using btree ;
-create index "cis".i_supoperation_validfrom_validto on "cis".supoperation
+create index "cis".i_cispermission_validfrom_validto on "cis".cispermission
     (validfrom,validto) using btree ;
-alter table "cis".supoperation add constraint primary key (idoperation)
-    constraint "cis".pk_supoperation  ;
-create unique index "cis".ip_suporgunit_idorgunit on "cis".suporgunit
-    (idorgunit) using btree ;
-create unique index "cis".iu_suporgunit_unitcode_ddate on "cis"
-    .suporgunit (unitcode,ddate) using btree ;
-create index "cis".i_suporgunit_kodtudu on "cis".suporgunit (kodtudu)
+alter table "cis".cispermission add constraint primary key (id)
+    constraint "cis".pk_cispermission  ;
+create unique index "cis".ip_orgunit_idorgunit on "cis".orgunit
+    (id) using btree ;
+create unique index "cis".iu_orgunit_code_ddate on "cis"
+    .orgunit (code,ddate) using btree ;
+create index "cis".i_orgunit_unittype on "cis".orgunit (unittype)
     using btree ;
-create index "cis".i_suporgunit_unittype on "cis".suporgunit (unittype)
-    using btree ;
-create index "cis".i_suporgunit_validfrom_validto on "cis".suporgunit
+create index "cis".i_orgunit_validfrom_validto on "cis".orgunit
     (validfrom,validto) using btree ;
-alter table "cis".suporgunit add constraint primary key (idorgunit)
-    constraint "cis".pk_suporgunit  ;
+alter table "cis".orgunit add constraint primary key (id)
+    constraint "cis".pk_orgunit  ;
 
-create unique index "cis".ip_supclientrole_idclientrole on "cis"
-    .supclientrole (idclientrole) using btree ;
-create unique index "cis".iu_supclientrole_idclient_idrole_ddate
-    on "cis".supclientrole (idclient,idrole,ddate) using btree ;
-create index "cis".i_supclientrole_idrole on "cis".supclientrole
+create unique index "cis".ip_cisuserrole_id on "cis"
+    .cisuserrole (id) using btree ;
+create unique index "cis".iu_cisuserrole_idcisuser_idrole_ddate
+    on "cis".cisuserrole (idcisuser,idrole,ddate) using btree ;
+create index "cis".i_cisuserrole_idrole on "cis".cisuserrole
     (idrole) using btree ;
-create index "cis".i_supclientrole_validfrom_validto on "cis".supclientrole
+create index "cis".i_cisuserrole_validfrom_validto on "cis".cisuserrole
     (validfrom,validto) using btree ;
-alter table "cis".supclientrole add constraint primary key (idclientrole)
-    constraint "cis".pk_supclientrole  ;
+alter table "cis".cisuserrole add constraint primary key (id)
+    constraint "cis".pk_cisuserrole  ;
 
-create unique index "cis".ip_suprole_idrole on "cis".suprole (idrole)
+create unique index "cis".ip_cisrole_idrole on "cis".cisrole (id)
     using btree ;
-create unique index "cis".iu_suprole_code_ddate on "cis".suprole
+create unique index "cis".iu_cisrole_code_ddate on "cis".cisrole
     (code,ddate) using btree ;
-create index "cis".i_suprole_type on "cis".suprole (type) using
+create index "cis".i_cisrole_type on "cis".cisrole (type) using
     btree ;
-create index "cis".i_suprole_validfrom_validto on "cis".suprole
+create index "cis".i_cisrole_validfrom_validto on "cis".cisrole
     (validfrom,validto) using btree ;
-alter table "cis".suprole add constraint primary key (idrole)
-    constraint "cis".pk_suprole  ;
-create unique index "cis".ip_suproleoper_idroleoper on "cis".suproleoper
-    (idroleoper) using btree ;
-create unique index "cis".iu_suproleoper_idrole_idoperation_ddate
-    on "cis".suproleoper (idrole,idoperation,ddate) using btree
+alter table "cis".cisrole add constraint primary key (id)
+    constraint "cis".pk_cisrole  ;
+create unique index "cis".ip_cisrolepermission_idroleoper on "cis".cisrolepermission
+    (id) using btree ;
+create unique index "cis".iu_cisrolepermission_idrole_idpermission_ddate
+    on "cis".cisrolepermission (idrole,idpermission,ddate) using btree
     ;
-create index "cis".i_suproleoper_validfrom_validto on "cis".suproleoper
+create index "cis".i_cisrolepermission_validfrom_validto on "cis".cisrolepermission
     (validfrom,validto) using btree ;
-alter table "cis".suproleoper add constraint primary key (idroleoper)
-    constraint "cis".pk_suproleoper  ;
+alter table "cis".cisrolepermission add constraint primary key (id)
+    constraint "cis".pk_cisrolepermission  ;
 
-create index "cis".if_tdupobyt_idkodpobytkonec on "cis".tdupobyt
-    (idkodpobytkonec) using btree ;
-create index "cis".if_tdupobyt_idosoba on "cis".tdupobyt (idosoba)
+create index "cis".if_tdustay_idperson on "cis".tdustay (idperson)
     using btree ;
-create index "cis".if_tdupobyt_idstatbydl on "cis".tdupobyt (idstatbydl)
+create unique index "cis".ip_tdustay_id on "cis".tdustay
+    (id) using btree ;
+create index "cis".i_tdustay_visaapplicationnumber on "cis".tdustay (visaapplicationnumber)
     using btree ;
-create unique index "cis".ip_tdupobyt_idtdupobyt on "cis".tdupobyt
-    (idtdupobyt) using btree ;
-create index "cis".i_tdupobyt_cislozov on "cis".tdupobyt (cislozov)
+create index "cis".i_tdustay_grantedto on "cis".tdustay (grantedto)
     using btree ;
-create index "cis".i_tdupobyt_datpkpdo on "cis".tdupobyt (datpkpdo)
+create index "cis".i_tdustay_grantedfrom on "cis".tdustay (grantedfrom)
     using btree ;
-create index "cis".i_tdupobyt_datpkpod on "cis".tdupobyt (datpkpod)
+create index "cis".i_tdustay_datefrom on "cis".tdustay (datefrom)
     using btree ;
-create index "cis".i_tdupobyt_datpobytod on "cis".tdupobyt (datpobytod)
+create index "cis".i_tdustay_terminationdate on "cis".tdustay (terminationdate)
     using btree ;
-create index "cis".i_tdupobyt_datukoncen on "cis".tdupobyt (datukoncen)
-    using btree ;
-create index "cis".i_tdupobyt_idutvar_idutvaruziv on "cis".tdupobyt
-    (idutvar,idutvaruziv,datukoncen) using btree ;
-create index "cis".i_tdupobyt_pkp on "cis".tdupobyt (pkp) using
+create index "cis".i_tdustay_idorgunit_idorgunituziv on "cis".tdustay
+    (idorgunit,idorgunituziv,terminationdate) using btree ;
+create index "cis".i_tdustay_pkp on "cis".tdustay (pkp) using
     btree ;
-alter table "cis".tdupobyt add constraint primary key (idtdupobyt)
-    constraint "cis".pk_tdupobyt  ;
+alter table "cis".tdustay add constraint primary key (id)
+    constraint "cis".pk_tdustay  ;
 
-create index "cis".if_tdumistopobytu_idosoba on "cis".tdumistopobytu
-    (idosoba) using btree ;
-create unique index "cis".ip_tdumistopobytu_idtdumistopobytu
-    on "cis".tdumistopobytu (idtdumistopobytu) using btree ;
-create index "cis".i_tdumistopobytu_datdo on "cis".tdumistopobytu
-    (datdo) using btree ;
-create index "cis".i_tdumistopobytu_datod on "cis".tdumistopobytu
-    (datod) using btree ;
-create index "cis".i_tdumistopobytu_nazevuby on "cis".tdumistopobytu
-    (nazevuby) using btree ;
-alter table "cis".tdumistopobytu add constraint primary key (idtdumistopobytu)
-    constraint "cis".pk_tdumistopobytu  ;
+create index "cis".if_tdustayplace_idperson on "cis".tdustayplace
+    (idperson) using btree ;
+create unique index "cis".ip_tdustayplace_idtdustayplace
+    on "cis".tdustayplace (id) using btree ;
+create index "cis".i_tdustayplace_dateto on "cis".tdustayplace
+    (dateto) using btree ;
+create index "cis".i_tdustayplace_datefrom on "cis".tdustayplace
+    (datefrom) using btree ;
+alter table "cis".tdustayplace add constraint primary key (id)
+    constraint "cis".pk_tdustayplace  ;
 
-create index "cis".if_tduosoba_idblobpool on "cis".tduosoba (idblobpool)
+create index "cis".if_tduperson_idimage on "cis".tduperson (idimage)
     using btree ;
-create index "cis".if_tduosoba_idstatumrti on "cis".tduosoba (idstatumrti)
+create index "cis".if_tduperson_iddeathstate on "cis".tduperson (iddeathstate)
     using btree ;
-create unique index "cis".ip_tduosoba_idosoba on "cis".tduosoba
-    (idosoba) using btree ;
-create index "cis".i_tduosoba_datakt on "cis".tduosoba (datakt)
+create unique index "cis".ip_tduperson_idperson on "cis".tduperson
+    (id) using btree ;
+create index "cis".i_tduperson_ididentity_actual on "cis".tduperson (ididentity_actual)
     using btree ;
-create index "cis".i_tduosoba_ididentakt on "cis".tduosoba (ididentakt)
-    using btree ;
-create index "cis".i_tduosoba_idutvaruziv_idpobytkatos on "cis"
-    .tduosoba (idutvaruziv,idpobytkatos) using btree ;
-create index "cis".i_tduosoba_idutvar_idutvarosoby_idpobytkatos
-    on "cis".tduosoba (idutvarosoby,idpobytkatos) using btree
-    ;
 
-alter table "cis".cisblobpool add constraint primary key (idblobpool)
-    constraint "cis".pk_cisblobpool  ;
-create function "cis".tduosoba_idblobpool_1(a integer) returning integer with (not variant)
+alter table "cis".image add constraint primary key (id)
+    constraint "cis".pk_image  ;
+create function "cis".tduperson_idimage_1(a integer) returning integer with (not variant)
  return a+1;
 end function;
-grant execute on function "cis".tduosoba_idblobpool_1 (integer) to "public" as "cis";
-create index "cis".cisblobpool_x_idblobpool_1 on "cis".cisblobpool
-    ("cis".tduosoba_idblobpool_1(idblobpool)) using btree ;
-create index "cis".tduosoba_x_idblobpool_1 on "cis".tduosoba (
-    "cis".tduosoba_idblobpool_1(idblobpool)) using btree ;
-alter table "cis".tduosoba add constraint primary key (idosoba)
-    constraint "cis".pk_tduosoba  ;
+grant execute on function "cis".tduperson_idimage_1 (integer) to "public" as "cis";
+create index "cis".image_x_idimage_1 on "cis".image
+    ("cis".tduperson_idimage_1(id)) using btree ;
+create index "cis".tduperson_x_idimage_1 on "cis".tduperson (
+    "cis".tduperson_idimage_1(id)) using btree ;
+alter table "cis".tduperson add constraint primary key (id)
+    constraint "cis".pk_tduperson  ;
 
 
-alter table "cis".tdupobyt add constraint (foreign key (idstatbydl)
-    references "cis".kodstat  constraint "cis".fk_tdupobyt_idstatbydl);
-alter table "cis".tdupobyt add constraint (foreign key (idosoba)
-    references "cis".tduosoba  constraint "cis".fk_tdupobyt_idosoba);
+alter table "cis".tdustay add constraint (foreign key (idperson)
+    references "cis".tduperson  constraint "cis".fk_tdustay_idperson);
 
-alter table "cis".tduosoba add constraint (foreign key (idstatumrti)
-    references "cis".kodstat  constraint "cis".fk_tduosoba_idstatumrti);
-alter table "cis".tduosoba add constraint (foreign key (idblobpool)
-    references "cis".cisblobpool  constraint "cis".fk_tduosoba_idblobpool);
+alter table "cis".tduperson add constraint (foreign key (iddeathstate)
+    references "cis".code_state  constraint "cis".fk_tduperson_iddeathstate);
+alter table "cis".tduperson add constraint (foreign key (idimage)
+    references "cis".image  constraint "cis".fk_tduperson_idimage);
 
-alter table "cis".tdudoklad add constraint (foreign key (idstatvydal)
-    references "cis".kodstat  constraint "cis".fk_tdudoklad_idstatvydal);
-alter table "cis".tdudoklad add constraint (foreign key (idosoba)
-    references "cis".tduosoba  constraint "cis".fk_tdudoklad_idosoba);
+alter table "cis".tdudocument add constraint (foreign key (idstateissued)
+    references "cis".code_state  constraint "cis".fk_tdudocument_idstateissued);
+alter table "cis".tdudocument add constraint (foreign key (idperson)
+    references "cis".tduperson  constraint "cis".fk_tdudocument_idperson);
 
-alter table "cis".tdumistopobytu add constraint (foreign key
-    (idosoba) references "cis".tduosoba  constraint "cis".fk_tdumistopobytu_idosoba);
+alter table "cis".tdustayplace add constraint (foreign key
+    (idperson) references "cis".tduperson  constraint "cis".fk_tdustayplace_idperson);
 
