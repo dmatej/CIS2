@@ -1,4 +1,4 @@
-package model;
+package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -6,12 +6,12 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the code_documenttype database table.
+ * The persistent class for the code_permissiontype database table.
  * 
  */
 @Entity
-@Table(name="code_documenttype")
-public class CodeDocumenttype implements Serializable {
+@Table(name="code_permissiontype")
+public class CodePermissiontype implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -31,7 +31,7 @@ public class CodeDocumenttype implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date validto;
 
-	public CodeDocumenttype() {
+	public CodePermissiontype() {
 	}
 
 	public int getId() {

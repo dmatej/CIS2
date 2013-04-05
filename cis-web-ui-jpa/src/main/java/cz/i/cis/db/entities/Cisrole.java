@@ -1,4 +1,4 @@
-package model;
+package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,11 +7,11 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the cisrolepermission database table.
+ * The persistent class for the cisrole database table.
  * 
  */
 @Entity
-public class Cisrolepermission implements Serializable {
+public class Cisrole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -21,13 +21,21 @@ public class Cisrolepermission implements Serializable {
 
 	private int cidcisuser;
 
+	private String code;
+
 	private Timestamp ddate;
+
+	private String description;
 
 	private int didcisuser;
 
-	private int idpermission;
+	private String name;
 
-	private int idrole;
+	private short type;
+
+	private Timestamp udate;
+
+	private int uidcisuser;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -35,7 +43,7 @@ public class Cisrolepermission implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date validto;
 
-	public Cisrolepermission() {
+	public Cisrole() {
 	}
 
 	public int getId() {
@@ -62,12 +70,28 @@ public class Cisrolepermission implements Serializable {
 		this.cidcisuser = cidcisuser;
 	}
 
+	public String getCode() {
+		return this.code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public Timestamp getDdate() {
 		return this.ddate;
 	}
 
 	public void setDdate(Timestamp ddate) {
 		this.ddate = ddate;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getDidcisuser() {
@@ -78,20 +102,36 @@ public class Cisrolepermission implements Serializable {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getIdpermission() {
-		return this.idpermission;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setIdpermission(int idpermission) {
-		this.idpermission = idpermission;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public int getIdrole() {
-		return this.idrole;
+	public short getType() {
+		return this.type;
 	}
 
-	public void setIdrole(int idrole) {
-		this.idrole = idrole;
+	public void setType(short type) {
+		this.type = type;
+	}
+
+	public Timestamp getUdate() {
+		return this.udate;
+	}
+
+	public void setUdate(Timestamp udate) {
+		this.udate = udate;
+	}
+
+	public int getUidcisuser() {
+		return this.uidcisuser;
+	}
+
+	public void setUidcisuser(int uidcisuser) {
+		this.uidcisuser = uidcisuser;
 	}
 
 	public Date getValidfrom() {

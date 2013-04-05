@@ -7,6 +7,24 @@
   <persistence-unit name="cis" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/cis</jta-data-source>
+    <class>cz.i.cis.db.entities.Cisuser</class>
+    <class>cz.i.cis.db.entities.Cisrolepermission</class>
+    <class>cz.i.cis.db.entities.Cisrole</class>
+    <class>cz.i.cis.db.entities.Cispermission</class>
+    <class>cz.i.cis.db.entities.Cisuserrole</class>
+    <class>cz.i.cis.db.entities.CodeDocumenttype</class>
+    <class>cz.i.cis.db.entities.CodePermissiontype</class>
+    <class>cz.i.cis.db.entities.CodePurposeofstay</class>
+    <class>cz.i.cis.db.entities.CodeState</class>
+    <class>cz.i.cis.db.entities.Identity</class>
+    <class>cz.i.cis.db.entities.Image</class>
+    <class>cz.i.cis.db.entities.Message</class>
+    <class>cz.i.cis.db.entities.Orgunit</class>
+    <class>cz.i.cis.db.entities.Password</class>
+    <class>cz.i.cis.db.entities.Tdudocument</class>
+    <class>cz.i.cis.db.entities.Tduperson</class>
+    <class>cz.i.cis.db.entities.Tdustay</class>
+    <class>cz.i.cis.db.entities.Tdustayplace</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.session.customizer" value="cz.i.cis.db.tool.EclipseLinkSessionCustomizer"/>

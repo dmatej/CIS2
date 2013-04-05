@@ -1,4 +1,4 @@
-package model;
+package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;

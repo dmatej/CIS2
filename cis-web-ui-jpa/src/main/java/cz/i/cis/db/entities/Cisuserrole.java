@@ -1,4 +1,4 @@
-package model;
+package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -7,17 +7,15 @@ import java.util.Date;
 
 
 /**
- * The persistent class for the password database table.
+ * The persistent class for the cisuserrole database table.
  * 
  */
 @Entity
-public class Password implements Serializable {
+public class Cisuserrole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int id;
-
-	private String algorithm;
 
 	private Timestamp cdate;
 
@@ -29,7 +27,7 @@ public class Password implements Serializable {
 
 	private int idcisuser;
 
-	private String password;
+	private int idrole;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -37,7 +35,7 @@ public class Password implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date validto;
 
-	public Password() {
+	public Cisuserrole() {
 	}
 
 	public int getId() {
@@ -46,14 +44,6 @@ public class Password implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getAlgorithm() {
-		return this.algorithm;
-	}
-
-	public void setAlgorithm(String algorithm) {
-		this.algorithm = algorithm;
 	}
 
 	public Timestamp getCdate() {
@@ -96,12 +86,12 @@ public class Password implements Serializable {
 		this.idcisuser = idcisuser;
 	}
 
-	public String getPassword() {
-		return this.password;
+	public int getIdrole() {
+		return this.idrole;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setIdrole(int idrole) {
+		this.idrole = idrole;
 	}
 
 	public Date getValidfrom() {
