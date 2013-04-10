@@ -2,6 +2,7 @@ package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.io.*;
 
 
@@ -37,7 +38,7 @@ public class Image implements Serializable {
         try {
             return this.data !=null ? this.data : (this.data = new ObjectInputStream(new ByteArrayInputStream(this.binData)).readObject());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new PersistenceException(e);
         }
     }
 
@@ -50,7 +51,7 @@ public class Image implements Serializable {
             oos.close();
             this.binData = baos.toByteArray();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new PersistenceException(e);
         }
     }
 
