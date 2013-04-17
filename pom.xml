@@ -111,9 +111,9 @@ V praxi by se jpa modul mohl pouzit i jinde, proto by bylo i pod jinym pomem - t
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>com.sun.faces</groupId>
-        <artifactId>jsf-impl</artifactId>
-        <version>2.2.0-m09</version>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.faces</artifactId>
+        <version>2.2.0-m12</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
