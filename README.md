@@ -65,6 +65,17 @@ V domain.xml pak bude tohle:
 A pak ještě tohle:
     <resource-ref ref="jdbc/cis"></resource-ref>
 
+3. Upgrade JSF
+3.1. Smazat obsah osgi-cache (měl jsem tam jen adresář felix)
+/app/appservers/glassfish3.1.1.2/glassfish/domains/domain1/osgi-cache
+
+3.2. Přejmenovat javax.faces.jar na javax.faces.Orig
+/app/appservers/glassfish3.1.1.2/glassfish/modules/javax.faces.jar.Orig
+
+3.3. Nainstalovat nový soubor java.faces, stažený z https://maven.java.net/service/local/artifact/maven/redirect?r=snapshots&g=org.glassfish&a=javax.faces&v=LATEST
+/app/appservers/glassfish3.1.1.2/glassfish/modules/javax.faces-2.2.1-20130416.081925-12.jar
+
+
 Funguje to?
 -----------
 
