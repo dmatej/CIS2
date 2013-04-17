@@ -24,7 +24,8 @@ Informix 11.70DE
 
 - vytvořit prázdný soubor na nějaké cestě (to je na vás, parametr -p) a pak spustit:
 
-        onspaces -c -d dbspacecis -p /app/informix/informix/dbspaces/dbspacecis -o 0 -s 7340032
+        pro linux: onspaces -c -d dbspacecis -p /app/informix/informix/dbspaces/dbspacecis -o 0 -s 4340032 
+        pro windows: onspaces -c -d dbspacecis -p c:\ifx\dbspacecis -o 0 -s 4340032
 
 - vytvořte databázi v dbspace; pozor na locale, viz set výše - po změně pak nejde spustit žádné SQL proti db, tj. ani drop!
 
@@ -61,6 +62,8 @@ V domain.xml pak bude tohle:
       <property name="JDBC30DataSource" value="true"></property><!-- ifxjdbc nepodporuje JDBC4, jen 3 -->
     </jdbc-connection-pool>
     <jdbc-resource pool-name="cis" description="" jndi-name="jdbc/cis"></jdbc-resource>
+A pak ještě tohle:
+    <resource-ref ref="jdbc/cis"></resource-ref>
 
 Funguje to?
 -----------
