@@ -15,7 +15,6 @@ public class PersonFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-
     private String firstname;
     private String lastname;
     private String birthplace;
@@ -26,9 +25,6 @@ public class PersonFormBean implements Serializable {
     private PersonService personservicebean;
 
 
-    public PersonFormBean() {
-    }
-
     public void createPerson() {
         if(personservicebean == null)
         {
@@ -37,6 +33,8 @@ public class PersonFormBean implements Serializable {
 
             return;
         }
+
+        personservicebean.create(firstname, lastname, birthnumber, birthplace, sex);
 
         FacesMessage message = new FacesMessage("Identita vytvořena!");
         FacesContext.getCurrentInstance().addMessage(null, message);

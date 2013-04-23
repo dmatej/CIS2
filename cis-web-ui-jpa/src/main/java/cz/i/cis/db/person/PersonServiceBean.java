@@ -25,7 +25,7 @@ public class PersonServiceBean implements Serializable, PersonService {
     { }
 
     @Override
-    public Identity create(String firstname, String lastname, String birthnumber, String birthplace)
+    public Identity create(String firstname, String lastname, String birthnumber, String birthplace, String sex)
     {
         Identity identity = new Identity();
 
@@ -33,6 +33,7 @@ public class PersonServiceBean implements Serializable, PersonService {
         identity.setLastname(lastname);
         identity.setBirthnumber(birthnumber);
         identity.setBirthplace(birthplace);
+        identity.setSex(sex);
 
         identity.setOthernames("ostatni jmena");
         identity.setBirthname("Jan Šváb");
