@@ -1,15 +1,22 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:j="http://java.sun.com/jsf/flow"
+>
 
-<h:html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
-<h:head xmlns:h="http://java.sun.com/jsf/html">
-  <h:title>Hlavní stránka</h:title>
-</h:head>
-<h:body>
+  <h:head>
+    <title>Hlavní stránka</title>
+  </h:head>
+  <h:body>
+    <h2>JSF2 Faces Flow Experiment</h2>
+    <h:form prependId="false">
+      <p>
+        <h:outputText value="HelloBean says: #{helloBean.greeting}" /><br />
+        <h:outputText value="Number of images: #{photoService.countOfImages}" /><br />
+        <h:commandButton id="start_a" value="Enter flow_a" action="flow_a" />
+      </p>
+    </h:form>
     <a href="person.xhtml">Nová osoba</a>
-</h:body>
-</h:html>
+  </h:body>
+
+</html>
