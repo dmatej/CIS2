@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head xmlns:h="http://java.sun.com/jsf/html">
+  <h:title>Nový uživatel</h:title>
+</h:head>
+<h:body>
+  <center>
+    <h:outputText value="Nová osoba v1" styleClass="header"></h:outputText>
+  </center>
+  <h:form>
+    <h:messages errorClass="errorMessage" infoClass="infoMessage"
+      warnClass="warnMessage"></h:messages>
+
+    <h:panelGrid columns="2">
+      <h:outputText value="Jméno :" />
+      <h:inputText id="firstname"
+        value="#{person.firstname}" required="true"
+        requiredMessage="Není vyplněno křestní jméno!">
+      </h:inputText>
+
+      <h:outputText value="Příjmení :" />
+      <h:inputText id="lastname"
+        value="#{person.lastname}" required="true"
+        requiredMessage="Není vyplněno příjmení!">
+      </h:inputText>
+
+      <h:outputText value="Rodné číslo :" />
+      <h:inputText id="birthnumber"
+        value="#{person.birthnumber}" required="true"
+        requiredMessage="Není vyplněno rodné číslo!">
+      </h:inputText>
+
+      <h:outputText value="Místo narození :" />
+      <h:inputText id="birthplache"
+        value="#{person.birthplace}" required="true"
+        requiredMessage="Není vyplněno místo narození!">
+      </h:inputText>
+
+      <h:outputText value="Pohlaví :" />
+      <h:selectOneMenu value="person.sex" id="sex">
+        <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
+        <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
+      </h:selectOneMenu>
+
+    <h:commandButton type="submit" value="Registrovat"
+        action="#{person.createPerson}">
+      </h:commandButton>
+      <h:commandButton type="reset" value="Reset" />
+    </h:panelGrid>
+    <br />
+    <c:forEach items="#{person.persons}" var="current">
+        ${current.firstname} ${current.lastname} <br />
+    </c:forEach>
+  </h:form>
+</h:body>
+</h:html>
