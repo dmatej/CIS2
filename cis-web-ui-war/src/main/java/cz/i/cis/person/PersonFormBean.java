@@ -1,4 +1,4 @@
-package cz.i.cis.db.person;
+package cz.i.cis.person;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
 import cz.i.cis.db.entities.Identity;
+import cz.i.cis.db.person.PersonService;
 
 @ManagedBean(name="person")
 public class PersonFormBean implements Serializable {
