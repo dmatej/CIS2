@@ -5,8 +5,7 @@ package cz.i.cis.db.person;
 
 import static org.junit.Assert.assertEquals;
 
-import javax.annotation.ManagedBean;
-import javax.ejb.EJB;
+import javax.inject.Inject;
 
 import org.junit.Test;
 
@@ -16,10 +15,9 @@ import cz.i.cis.db.test.ITestSupport;
 /**
  * @author David Matějček
  */
-@ManagedBean
 public class PhotoServiceBeanITest extends ITestSupport {
 
-  @EJB
+  @Inject
   private PhotoService service;
 
 
