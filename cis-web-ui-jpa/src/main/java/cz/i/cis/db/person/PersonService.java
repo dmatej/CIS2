@@ -2,10 +2,10 @@ package cz.i.cis.db.person;
 
 import java.util.List;
 
-import cz.i.cis.db.entities.Identity;
+import cz.i.cis.db.entities.Tduperson;
 
 public interface PersonService {
-    public Identity create(String firstname, String lastname, String birthnumber, String birthplace, String sex);
+    public Tduperson create(Tduperson person);
 
-    public List<Identity> getPersons();
+    public List<Tduperson> getPersons();
 }

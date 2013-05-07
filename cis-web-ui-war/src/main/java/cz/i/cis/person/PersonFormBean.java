@@ -8,7 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
-import cz.i.cis.db.entities.Identity;
+import cz.i.cis.db.entities.Tduperson;
 import cz.i.cis.db.person.PersonService;
 
 @ManagedBean(name="person")
@@ -16,32 +16,30 @@ public class PersonFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String firstname;
-    private String lastname;
-    private String birthplace;
-    private String birthnumber;
-    private String sex;
-
     @EJB
     private PersonService personservicebean;
 
+    private Integer ididentityActual;
 
-    public void createPerson() {
+    public Tduperson createPerson() {
         if(personservicebean == null)
         {
             FacesMessage message = new FacesMessage("personservicebean null!");
             FacesContext.getCurrentInstance().addMessage(null, message);
 
-            return;
+            return null;
         }
+        Tduperson person = new Tduperson();
+        person.setIdidentityActual(ididentityActual);
 
-        personservicebean.create(firstname, lastname, birthnumber, birthplace, sex);
+        person = personservicebean.create(person);
 
-        FacesMessage message = new FacesMessage("Identita vytvořena!");
+        FacesMessage message = new FacesMessage("Persona vytvořena!");
         FacesContext.getCurrentInstance().addMessage(null, message);
+        return person;
     }
 
-    public List<Identity> getPersons() {
+    public List<Tduperson> getPersons() {
         if(personservicebean == null)
         {
             FacesMessage message = new FacesMessage("personservicebean null!");
@@ -63,44 +61,14 @@ public class PersonFormBean implements Serializable {
         return "Vše připraveno";
     }
 
+	public Integer getIdidentityActual() {
+		return ididentityActual;
+	}
 
-    public String getFirstname() {
-        return firstname;
-    }
+	public void setIdidentityActual(Integer ididentityActual) {
+		this.ididentityActual = ididentityActual;
+	}
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
 
-    public String getLastname() {
-        return lastname;
-    }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getBirthplace() {
-        return birthplace;
-    }
-
-    public void setBirthplace(String birthplace) {
-        this.birthplace = birthplace;
-    }
-
-    public String getBirthnumber() {
-        return birthnumber;
-    }
-
-    public void setBirthnumber(String birthnumber) {
-        this.birthnumber = birthnumber;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
 }

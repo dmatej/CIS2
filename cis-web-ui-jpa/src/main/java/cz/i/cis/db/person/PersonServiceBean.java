@@ -1,7 +1,6 @@
 package cz.i.cis.db.person;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -10,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import cz.i.cis.db.entities.Identity;
+import cz.i.cis.db.entities.Tduperson;
 
 @Stateless
 @Local(PersonService.class)
@@ -25,38 +24,19 @@ public class PersonServiceBean implements Serializable, PersonService {
     { }
 
     @Override
-    public Identity create(String firstname, String lastname, String birthnumber, String birthplace, String sex)
+    public Tduperson create(Tduperson person)
     {
-        Identity identity = new Identity();
-
-        identity.setFirstname(firstname);
-        identity.setLastname(lastname);
-        identity.setBirthnumber(birthnumber);
-        identity.setBirthplace(birthplace);
-        identity.setSex(sex);
-
-        identity.setOthernames("ostatni jmena");
-        identity.setBirthname("Jan Šváb");
-        identity.setRstatus(0);
-        identity.setIdstateofbirth(0);
-        identity.setValidfrom(new Date());
-        identity.setValidto(new Date());
-        identity.setIdstate(0);
-        identity.setBirthdate("10082012");
-        identity.setIdorgunit(0);
-        identity.setIdevidence(0);
-
-        em.persist(identity);
-
-        return identity;
+        em.persist(person);
+        return person;
     }
 
     @Override
-    public List<Identity> getPersons() {
-        final String query = "SELECT i from Identity i";
-        TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
-        final List<Identity> identities = query1.getResultList();
+    public List<Tduperson> getPersons() {
+        final String query = "SELECT i from Tduperson i";
+        TypedQuery<Tduperson> query1 = em.createQuery(query, Tduperson.class);
+        final List<Tduperson> persons = query1.getResultList();
 
-        return identities;
+        return persons;
     }
+
 }
