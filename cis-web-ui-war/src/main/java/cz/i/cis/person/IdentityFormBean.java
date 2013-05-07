@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 
-@ManagedBean(name="person")
+@ManagedBean(name="identity")
 public class IdentityFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
