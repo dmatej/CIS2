@@ -7,11 +7,52 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head xmlns:h="http://java.sun.com/jsf/html">
-  <h:title>Nový uživatel</h:title>
+  <title>Zobrazení uživatele</title>
+  <!-- [template css] begin -->
+	<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="css/960.css" type="text/css" media="screen, projection" />
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+    <!--[if IE]>
+        <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
+    <![endif]-->
+    <!-- [template css] end -->
+
+    <!-- [template css javascript] begin -->
+    <link rel="stylesheet" href="css/project.css" type="text/css" media="screen, projection" />
+    <!-- [template css javascript] end -->
 </h:head>
 <h:body>
-  <center>
-    <h:outputText value="Nová osoba v1" styleClass="header"></h:outputText>
+    <!-- START TOP SECTION -->
+	<div class="container_12">
+
+		<!-- START LOGO -->
+		<div class="grid_4 header">
+			<a href="viewPerson.xhtml"><img src="images/logo.gif" alt="YIW minimal" /></a>
+		</div>
+		<!-- END LOGO -->
+
+		<!-- START NAVIGATION -->
+   	  	<div class="grid_8 header">
+   	  		<div id="navigation">
+				<ul id="nav">
+					<li id="viewPerson"><a href="viewPerson.xhtml" title="Procházení osob">Procházení osob</a></li>
+					<li id="registerPerson"><a href="person.xhtml" title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- END NAVIGATION -->
+
+		<div class="clear"></div>
+	</div>
+	<!-- END TOP SECTION -->
+
+
+
+	<!-- START BOTTOM SECTION -->
+	<div class="container_12 bottom">
+      <center>
+    <h2>Nová osoba v1</h2>
+    <h2>Nová osoba v1</h2>
   </center>
   <h:form>
     <h:messages errorClass="errorMessage" infoClass="infoMessage"
@@ -20,30 +61,30 @@
     <h:panelGrid columns="2">
       <h:outputText value="Jméno :" />
       <h:inputText id="firstname"
-        value="#{person.firstname}" required="true"
+        value="#{identity.firstname}" required="true"
         requiredMessage="Není vyplněno křestní jméno!">
       </h:inputText>
 
       <h:outputText value="Příjmení :" />
       <h:inputText id="lastname"
-        value="#{person.lastname}" required="true"
+        value="#{identity.lastname}" required="true"
         requiredMessage="Není vyplněno příjmení!">
       </h:inputText>
 
       <h:outputText value="Rodné číslo :" />
       <h:inputText id="birthnumber"
-        value="#{person.birthnumber}" required="true"
+        value="#{identity.birthnumber}" required="true"
         requiredMessage="Není vyplněno rodné číslo!">
       </h:inputText>
 
       <h:outputText value="Místo narození :" />
       <h:inputText id="birthplache"
-        value="#{person.birthplace}" required="true"
+        value="#{identity.birthplace}" required="true"
         requiredMessage="Není vyplněno místo narození!">
       </h:inputText>
 
       <h:outputText value="Pohlaví :" />
-      <h:selectOneMenu value="person.sex" id="sex">
+      <h:selectOneMenu value="identity.sex" id="sex">
         <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
         <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
       </h:selectOneMenu>
@@ -58,5 +99,22 @@
         ${current.firstname} ${current.lastname} <br />
     </c:forEach>
   </h:form>
+
+
+	   	<div class="clear"></div>
+   	</div>
+   	<!-- END BOTTOM SECTION -->
+
+   	<!-- START FOOTER -->
+   	<div class="container_12">
+	   	<p class="footer">
+	   		Created by <strong>ICZ</strong> a.s. <br/>
+	   		<a href="http://i.cz">http://i.cz</a>
+		</p>
+	</div>
+	<!-- END FOOTER -->
+
+
+
 </h:body>
 </h:html>
