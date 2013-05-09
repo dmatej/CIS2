@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 
-@ManagedBean(name="identity")
+@Named("identity")
 public class IdentityFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;

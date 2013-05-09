@@ -3,8 +3,8 @@ package cz.i.cis.db.person;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 import cz.i.cis.db.entities.Tduperson;
 
 @Stateless
-@Local(PersonService.class)
+@Named
 public class PersonServiceBean implements Serializable, PersonService {
 
     private static final long serialVersionUID = 1L;

@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
 import cz.i.cis.db.entities.Tduperson;
 import cz.i.cis.db.person.PersonService;
 
-@ManagedBean(name="person")
+@Named("person")
 public class PersonFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,13 +61,13 @@ public class PersonFormBean implements Serializable {
         return "Vše připraveno";
     }
 
-	public Integer getIdidentityActual() {
-		return ididentityActual;
-	}
+  public Integer getIdidentityActual() {
+    return ididentityActual;
+  }
 
-	public void setIdidentityActual(Integer ididentityActual) {
-		this.ididentityActual = ididentityActual;
-	}
+  public void setIdidentityActual(Integer ididentityActual) {
+    this.ididentityActual = ididentityActual;
+  }
 
 
 
