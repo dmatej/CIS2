@@ -103,7 +103,8 @@ public class PersonFormBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             return person;
         }else{
-            FacesMessage message = new FacesMessage("Chyba při validaci persony!");
+            FacesMessage message = new FacesMessage(
+                    "Chyba při validaci persony!");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return null;
         }
