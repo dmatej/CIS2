@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * The persistent class for the message database table.
- * 
+ *
  */
 @Entity
 public class Message implements Serializable {
@@ -15,10 +15,10 @@ public class Message implements Serializable {
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private String text;
 
@@ -39,19 +39,19 @@ public class Message implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

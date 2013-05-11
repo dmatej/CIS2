@@ -15,22 +15,22 @@ public class Image implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private int id;
+    private Integer id;
 
     @Transient private Object data;
 
     @Lob private byte[] binData;
 
-    private int idevidence;
+    private Integer idevidence;
 
     public Image() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -55,11 +55,11 @@ public class Image implements Serializable {
         }
     }
 
-    public int getIdevidence() {
+    public Integer getIdevidence() {
         return this.idevidence;
     }
 
-    public void setIdevidence(int idevidence) {
+    public void setIdevidence(Integer idevidence) {
         this.idevidence = idevidence;
     }
 

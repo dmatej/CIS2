@@ -8,18 +8,18 @@ import java.util.Date;
 
 /**
  * The persistent class for the tdustayplace database table.
- * 
+ *
  */
 @Entity
 public class Tdustayplace implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	@Temporal(TemporalType.DATE)
 	private Date datefrom;
@@ -29,35 +29,35 @@ public class Tdustayplace implements Serializable {
 
 	private Timestamp ddate;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
-	private int idaddress;
+	private Integer idaddress;
 
-	private int idorgunit;
+	private Integer idorgunit;
 
-	private int idperson;
+	private Integer idperson;
 
 	@Column(name="idperson_original")
-	private int idpersonOriginal;
+	private Integer idpersonOriginal;
 
-	private int idtdustay;
+	private Integer idtdustay;
 
 	private String note;
 
-	private int rstatus;
+	private Integer rstatus;
 
 	private Timestamp udate;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	public Tdustayplace() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -69,11 +69,11 @@ public class Tdustayplace implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -101,51 +101,51 @@ public class Tdustayplace implements Serializable {
 		this.ddate = ddate;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getIdaddress() {
+	public Integer getIdaddress() {
 		return this.idaddress;
 	}
 
-	public void setIdaddress(int idaddress) {
+	public void setIdaddress(Integer idaddress) {
 		this.idaddress = idaddress;
 	}
 
-	public int getIdorgunit() {
+	public Integer getIdorgunit() {
 		return this.idorgunit;
 	}
 
-	public void setIdorgunit(int idorgunit) {
+	public void setIdorgunit(Integer idorgunit) {
 		this.idorgunit = idorgunit;
 	}
 
-	public int getIdperson() {
+	public Integer getIdperson() {
 		return this.idperson;
 	}
 
-	public void setIdperson(int idperson) {
+	public void setIdperson(Integer idperson) {
 		this.idperson = idperson;
 	}
 
-	public int getIdpersonOriginal() {
+	public Integer getIdpersonOriginal() {
 		return this.idpersonOriginal;
 	}
 
-	public void setIdpersonOriginal(int idpersonOriginal) {
+	public void setIdpersonOriginal(Integer idpersonOriginal) {
 		this.idpersonOriginal = idpersonOriginal;
 	}
 
-	public int getIdtdustay() {
+	public Integer getIdtdustay() {
 		return this.idtdustay;
 	}
 
-	public void setIdtdustay(int idtdustay) {
+	public void setIdtdustay(Integer idtdustay) {
 		this.idtdustay = idtdustay;
 	}
 
@@ -157,11 +157,11 @@ public class Tdustayplace implements Serializable {
 		this.note = note;
 	}
 
-	public int getRstatus() {
+	public Integer getRstatus() {
 		return this.rstatus;
 	}
 
-	public void setRstatus(int rstatus) {
+	public void setRstatus(Integer rstatus) {
 		this.rstatus = rstatus;
 	}
 
@@ -173,11 +173,11 @@ public class Tdustayplace implements Serializable {
 		this.udate = udate;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 

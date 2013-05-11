@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the identity database table.
- * 
+ *
  */
 @Entity
 public class Identity implements Serializable {
@@ -24,23 +24,23 @@ public class Identity implements Serializable {
 	private String firstname;
 
 	@Id
-	private int id;
+	private Integer id;
 
-	private int idevidence;
+	private Integer idevidence;
 
-	private int idorgunit;
+	private Integer idorgunit;
 
-	private int idperson;
+	private Integer idperson;
 
-	private int idstate;
+	private Integer idstate;
 
-	private int idstateofbirth;
+	private Integer idstateofbirth;
 
 	private String lastname;
 
 	private String othernames;
 
-	private int rstatus;
+	private Integer rstatus;
 
 	private String sex;
 
@@ -93,51 +93,51 @@ public class Identity implements Serializable {
 		this.firstname = firstname;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getIdevidence() {
+	public Integer getIdevidence() {
 		return this.idevidence;
 	}
 
-	public void setIdevidence(int idevidence) {
+	public void setIdevidence(Integer idevidence) {
 		this.idevidence = idevidence;
 	}
 
-	public int getIdorgunit() {
+	public Integer getIdorgunit() {
 		return this.idorgunit;
 	}
 
-	public void setIdorgunit(int idorgunit) {
+	public void setIdorgunit(Integer idorgunit) {
 		this.idorgunit = idorgunit;
 	}
 
-	public int getIdperson() {
+	public Integer getIdperson() {
 		return this.idperson;
 	}
 
-	public void setIdperson(int idperson) {
+	public void setIdperson(Integer idperson) {
 		this.idperson = idperson;
 	}
 
-	public int getIdstate() {
+	public Integer getIdstate() {
 		return this.idstate;
 	}
 
-	public void setIdstate(int idstate) {
+	public void setIdstate(Integer idstate) {
 		this.idstate = idstate;
 	}
 
-	public int getIdstateofbirth() {
+	public Integer getIdstateofbirth() {
 		return this.idstateofbirth;
 	}
 
-	public void setIdstateofbirth(int idstateofbirth) {
+	public void setIdstateofbirth(Integer idstateofbirth) {
 		this.idstateofbirth = idstateofbirth;
 	}
 
@@ -157,11 +157,11 @@ public class Identity implements Serializable {
 		this.othernames = othernames;
 	}
 
-	public int getRstatus() {
+	public Integer getRstatus() {
 		return this.rstatus;
 	}
 
-	public void setRstatus(int rstatus) {
+	public void setRstatus(Integer rstatus) {
 		this.rstatus = rstatus;
 	}
 

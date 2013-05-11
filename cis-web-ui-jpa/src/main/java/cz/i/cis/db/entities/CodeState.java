@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the code_state database table.
- * 
+ *
  */
 @Entity
 @Table(name="code_state")
@@ -15,7 +15,7 @@ public class CodeState implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private String code;
 
@@ -25,7 +25,7 @@ public class CodeState implements Serializable {
 	@Column(name="code_iso")
 	private String codeIso;
 
-	private int idstate;
+	private Integer idstate;
 
 	private String name;
 
@@ -46,7 +46,7 @@ public class CodeState implements Serializable {
 
 	private String note;
 
-	private short rank;
+	private Short rank;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -57,11 +57,11 @@ public class CodeState implements Serializable {
 	public CodeState() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -89,11 +89,11 @@ public class CodeState implements Serializable {
 		this.codeIso = codeIso;
 	}
 
-	public int getIdstate() {
+	public Integer getIdstate() {
 		return this.idstate;
 	}
 
-	public void setIdstate(int idstate) {
+	public void setIdstate(Integer idstate) {
 		this.idstate = idstate;
 	}
 
@@ -153,11 +153,11 @@ public class CodeState implements Serializable {
 		this.note = note;
 	}
 
-	public short getRank() {
+	public Short getRank() {
 		return this.rank;
 	}
 
-	public void setRank(short rank) {
+	public void setRank(Short rank) {
 		this.rank = rank;
 	}
 

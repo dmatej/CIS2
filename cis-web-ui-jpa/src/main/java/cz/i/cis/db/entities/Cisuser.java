@@ -8,22 +8,22 @@ import java.util.Date;
 
 /**
  * The persistent class for the cisuser database table.
- * 
+ *
  */
 @Entity
 public class Cisuser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
-	private short badlogincount;
+	private Short badlogincount;
 
-	private int blocked;
+	private Integer blocked;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private Timestamp ddate;
 
@@ -31,11 +31,11 @@ public class Cisuser implements Serializable {
 
 	private String degreesuffix;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
-	private int forcepwdchange;
+	private Integer forcepwdchange;
 
-	private int idorgunit;
+	private Integer idorgunit;
 
 	private String info;
 
@@ -51,7 +51,7 @@ public class Cisuser implements Serializable {
 
 	private String uid;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -62,27 +62,27 @@ public class Cisuser implements Serializable {
 	public Cisuser() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public short getBadlogincount() {
+	public Short getBadlogincount() {
 		return this.badlogincount;
 	}
 
-	public void setBadlogincount(short badlogincount) {
+	public void setBadlogincount(Short badlogincount) {
 		this.badlogincount = badlogincount;
 	}
 
-	public int getBlocked() {
+	public Integer getBlocked() {
 		return this.blocked;
 	}
 
-	public void setBlocked(int blocked) {
+	public void setBlocked(Integer blocked) {
 		this.blocked = blocked;
 	}
 
@@ -94,11 +94,11 @@ public class Cisuser implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -126,27 +126,27 @@ public class Cisuser implements Serializable {
 		this.degreesuffix = degreesuffix;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getForcepwdchange() {
+	public Integer getForcepwdchange() {
 		return this.forcepwdchange;
 	}
 
-	public void setForcepwdchange(int forcepwdchange) {
+	public void setForcepwdchange(Integer forcepwdchange) {
 		this.forcepwdchange = forcepwdchange;
 	}
 
-	public int getIdorgunit() {
+	public Integer getIdorgunit() {
 		return this.idorgunit;
 	}
 
-	public void setIdorgunit(int idorgunit) {
+	public void setIdorgunit(Integer idorgunit) {
 		this.idorgunit = idorgunit;
 	}
 
@@ -206,11 +206,11 @@ public class Cisuser implements Serializable {
 		this.uid = uid;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 

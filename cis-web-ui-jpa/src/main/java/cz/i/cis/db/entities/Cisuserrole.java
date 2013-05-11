@@ -8,26 +8,26 @@ import java.util.Date;
 
 /**
  * The persistent class for the cisuserrole database table.
- * 
+ *
  */
 @Entity
 public class Cisuserrole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private Timestamp ddate;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
-	private int idcisuser;
+	private Integer idcisuser;
 
-	private int idrole;
+	private Integer idrole;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -38,11 +38,11 @@ public class Cisuserrole implements Serializable {
 	public Cisuserrole() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -54,11 +54,11 @@ public class Cisuserrole implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -70,27 +70,27 @@ public class Cisuserrole implements Serializable {
 		this.ddate = ddate;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getIdcisuser() {
+	public Integer getIdcisuser() {
 		return this.idcisuser;
 	}
 
-	public void setIdcisuser(int idcisuser) {
+	public void setIdcisuser(Integer idcisuser) {
 		this.idcisuser = idcisuser;
 	}
 
-	public int getIdrole() {
+	public Integer getIdrole() {
 		return this.idrole;
 	}
 
-	public void setIdrole(int idrole) {
+	public void setIdrole(Integer idrole) {
 		this.idrole = idrole;
 	}
 

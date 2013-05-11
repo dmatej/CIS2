@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the code_documenttype database table.
- * 
+ *
  */
 @Entity
 @Table(name="code_documenttype")
@@ -15,7 +15,7 @@ public class CodeDocumenttype implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private String code;
 
@@ -23,7 +23,7 @@ public class CodeDocumenttype implements Serializable {
 
 	private String note;
 
-	private short rank;
+	private Short rank;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -34,11 +34,11 @@ public class CodeDocumenttype implements Serializable {
 	public CodeDocumenttype() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -66,11 +66,11 @@ public class CodeDocumenttype implements Serializable {
 		this.note = note;
 	}
 
-	public short getRank() {
+	public Short getRank() {
 		return this.rank;
 	}
 
-	public void setRank(short rank) {
+	public void setRank(Short rank) {
 		this.rank = rank;
 	}
 

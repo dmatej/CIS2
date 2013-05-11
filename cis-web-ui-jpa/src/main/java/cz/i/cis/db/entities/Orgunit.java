@@ -8,24 +8,24 @@ import java.util.Date;
 
 /**
  * The persistent class for the orgunit database table.
- * 
+ *
  */
 @Entity
 public class Orgunit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private String code;
 
 	private Timestamp ddate;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
 	private String email;
 
@@ -39,11 +39,11 @@ public class Orgunit implements Serializable {
 
 	private Timestamp udate;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	private String unitname;
 
-	private int unittype;
+	private Integer unittype;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -54,11 +54,11 @@ public class Orgunit implements Serializable {
 	public Orgunit() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -70,11 +70,11 @@ public class Orgunit implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -94,11 +94,11 @@ public class Orgunit implements Serializable {
 		this.ddate = ddate;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
@@ -150,11 +150,11 @@ public class Orgunit implements Serializable {
 		this.udate = udate;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 
@@ -166,11 +166,11 @@ public class Orgunit implements Serializable {
 		this.unitname = unitname;
 	}
 
-	public int getUnittype() {
+	public Integer getUnittype() {
 		return this.unittype;
 	}
 
-	public void setUnittype(int unittype) {
+	public void setUnittype(Integer unittype) {
 		this.unittype = unittype;
 	}
 

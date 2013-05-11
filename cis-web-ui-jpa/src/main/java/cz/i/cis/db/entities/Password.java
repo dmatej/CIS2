@@ -8,26 +8,26 @@ import java.util.Date;
 
 /**
  * The persistent class for the password database table.
- * 
+ *
  */
 @Entity
 public class Password implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private String algorithm;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private Timestamp ddate;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
-	private int idcisuser;
+	private Integer idcisuser;
 
 	private String password;
 
@@ -40,11 +40,11 @@ public class Password implements Serializable {
 	public Password() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -64,11 +64,11 @@ public class Password implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -80,19 +80,19 @@ public class Password implements Serializable {
 		this.ddate = ddate;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getIdcisuser() {
+	public Integer getIdcisuser() {
 		return this.idcisuser;
 	}
 
-	public void setIdcisuser(int idcisuser) {
+	public void setIdcisuser(Integer idcisuser) {
 		this.idcisuser = idcisuser;
 	}
 

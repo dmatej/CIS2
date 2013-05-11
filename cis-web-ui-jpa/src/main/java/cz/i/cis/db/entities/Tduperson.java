@@ -8,18 +8,18 @@ import java.util.Date;
 
 /**
  * The persistent class for the tduperson database table.
- * 
+ *
  */
 @Entity
 public class Tduperson implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private Timestamp ddate;
 
@@ -32,46 +32,46 @@ public class Tduperson implements Serializable {
 
 	private String degreesuffix;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
-	private int idcisuser;
+	private Integer idcisuser;
 
-	private int iddeathplace;
+	private Integer iddeathplace;
 
-	private int iddeathstate;
+	private Integer iddeathstate;
 
 	@Column(name="ididentity_actual")
-	private int ididentityActual;
+	private Integer ididentityActual;
 
-	private int idimage;
+	private Integer idimage;
 
 	@Column(name="idperson_original")
-	private int idpersonOriginal;
+	private Integer idpersonOriginal;
 
 	@Column(name="idstay_actual")
-	private int idstayActual;
+	private Integer idstayActual;
 
 	@Column(name="idstayplace_actual")
-	private int idstayplaceActual;
+	private Integer idstayplaceActual;
 
 	private String note;
 
-	private int rstatus;
+	private Integer rstatus;
 
 	private String sex;
 
 	private Timestamp udate;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	public Tduperson() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -83,11 +83,11 @@ public class Tduperson implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -131,75 +131,75 @@ public class Tduperson implements Serializable {
 		this.degreesuffix = degreesuffix;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
-	public int getIdcisuser() {
+	public Integer getIdcisuser() {
 		return this.idcisuser;
 	}
 
-	public void setIdcisuser(int idcisuser) {
+	public void setIdcisuser(Integer idcisuser) {
 		this.idcisuser = idcisuser;
 	}
 
-	public int getIddeathplace() {
+	public Integer getIddeathplace() {
 		return this.iddeathplace;
 	}
 
-	public void setIddeathplace(int iddeathplace) {
+	public void setIddeathplace(Integer iddeathplace) {
 		this.iddeathplace = iddeathplace;
 	}
 
-	public int getIddeathstate() {
+	public Integer getIddeathstate() {
 		return this.iddeathstate;
 	}
 
-	public void setIddeathstate(int iddeathstate) {
+	public void setIddeathstate(Integer iddeathstate) {
 		this.iddeathstate = iddeathstate;
 	}
 
-	public int getIdidentityActual() {
+	public Integer getIdidentityActual() {
 		return this.ididentityActual;
 	}
 
-	public void setIdidentityActual(int ididentityActual) {
+	public void setIdidentityActual(Integer ididentityActual) {
 		this.ididentityActual = ididentityActual;
 	}
 
-	public int getIdimage() {
+	public Integer getIdimage() {
 		return this.idimage;
 	}
 
-	public void setIdimage(int idimage) {
+	public void setIdimage(Integer idimage) {
 		this.idimage = idimage;
 	}
 
-	public int getIdpersonOriginal() {
+	public Integer getIdpersonOriginal() {
 		return this.idpersonOriginal;
 	}
 
-	public void setIdpersonOriginal(int idpersonOriginal) {
+	public void setIdpersonOriginal(Integer idpersonOriginal) {
 		this.idpersonOriginal = idpersonOriginal;
 	}
 
-	public int getIdstayActual() {
+	public Integer getIdstayActual() {
 		return this.idstayActual;
 	}
 
-	public void setIdstayActual(int idstayActual) {
+	public void setIdstayActual(Integer idstayActual) {
 		this.idstayActual = idstayActual;
 	}
 
-	public int getIdstayplaceActual() {
+	public Integer getIdstayplaceActual() {
 		return this.idstayplaceActual;
 	}
 
-	public void setIdstayplaceActual(int idstayplaceActual) {
+	public void setIdstayplaceActual(Integer idstayplaceActual) {
 		this.idstayplaceActual = idstayplaceActual;
 	}
 
@@ -211,11 +211,11 @@ public class Tduperson implements Serializable {
 		this.note = note;
 	}
 
-	public int getRstatus() {
+	public Integer getRstatus() {
 		return this.rstatus;
 	}
 
-	public void setRstatus(int rstatus) {
+	public void setRstatus(Integer rstatus) {
 		this.rstatus = rstatus;
 	}
 
@@ -235,11 +235,11 @@ public class Tduperson implements Serializable {
 		this.udate = udate;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 

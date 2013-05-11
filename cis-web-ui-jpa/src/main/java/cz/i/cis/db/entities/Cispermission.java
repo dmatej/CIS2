@@ -7,20 +7,20 @@ import java.sql.Timestamp;
 
 /**
  * The persistent class for the cispermission database table.
- * 
+ *
  */
 @Entity
 public class Cispermission implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+    private Integer id;
 
 	private String annotation;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private String code;
 
@@ -28,13 +28,13 @@ public class Cispermission implements Serializable {
 
 	private String description;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
 	private String name;
 
 	private Timestamp udate;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	private Timestamp validfrom;
 
@@ -43,11 +43,11 @@ public class Cispermission implements Serializable {
 	public Cispermission() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -67,11 +67,11 @@ public class Cispermission implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -99,11 +99,11 @@ public class Cispermission implements Serializable {
 		this.description = description;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
@@ -123,11 +123,11 @@ public class Cispermission implements Serializable {
 		this.udate = udate;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 

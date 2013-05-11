@@ -8,18 +8,18 @@ import java.util.Date;
 
 /**
  * The persistent class for the cisrole database table.
- * 
+ *
  */
 @Entity
 public class Cisrole implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private int id;
+	private Integer id;
 
 	private Timestamp cdate;
 
-	private int cidcisuser;
+	private Integer cidcisuser;
 
 	private String code;
 
@@ -27,15 +27,15 @@ public class Cisrole implements Serializable {
 
 	private String description;
 
-	private int didcisuser;
+	private Integer didcisuser;
 
 	private String name;
 
-	private short type;
+	private Short type;
 
 	private Timestamp udate;
 
-	private int uidcisuser;
+	private Integer uidcisuser;
 
 	@Temporal(TemporalType.DATE)
 	private Date validfrom;
@@ -46,11 +46,11 @@ public class Cisrole implements Serializable {
 	public Cisrole() {
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -62,11 +62,11 @@ public class Cisrole implements Serializable {
 		this.cdate = cdate;
 	}
 
-	public int getCidcisuser() {
+	public Integer getCidcisuser() {
 		return this.cidcisuser;
 	}
 
-	public void setCidcisuser(int cidcisuser) {
+	public void setCidcisuser(Integer cidcisuser) {
 		this.cidcisuser = cidcisuser;
 	}
 
@@ -94,11 +94,11 @@ public class Cisrole implements Serializable {
 		this.description = description;
 	}
 
-	public int getDidcisuser() {
+	public Integer getDidcisuser() {
 		return this.didcisuser;
 	}
 
-	public void setDidcisuser(int didcisuser) {
+	public void setDidcisuser(Integer didcisuser) {
 		this.didcisuser = didcisuser;
 	}
 
@@ -110,11 +110,11 @@ public class Cisrole implements Serializable {
 		this.name = name;
 	}
 
-	public short getType() {
+	public Short getType() {
 		return this.type;
 	}
 
-	public void setType(short type) {
+	public void setType(Short type) {
 		this.type = type;
 	}
 
@@ -126,11 +126,11 @@ public class Cisrole implements Serializable {
 		this.udate = udate;
 	}
 
-	public int getUidcisuser() {
+	public Integer getUidcisuser() {
 		return this.uidcisuser;
 	}
 
-	public void setUidcisuser(int uidcisuser) {
+	public void setUidcisuser(Integer uidcisuser) {
 		this.uidcisuser = uidcisuser;
 	}
 
