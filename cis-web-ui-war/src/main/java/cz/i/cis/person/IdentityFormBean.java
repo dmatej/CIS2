@@ -134,7 +134,63 @@ public class IdentityFormBean implements Serializable {
         return birthplace;
     }
 
-    public void setBirthplace(String birthplace) {
+    public String getBirthname() {
+		return birthname;
+	}
+
+	public void setBirthname(String birthname) {
+		this.birthname = birthname;
+	}
+
+	public Integer getIdevidence() {
+		return idevidence;
+	}
+
+	public void setIdevidence(Integer idevidence) {
+		this.idevidence = idevidence;
+	}
+
+	public Integer getIdorgunit() {
+		return idorgunit;
+	}
+
+	public void setIdorgunit(Integer idorgunit) {
+		this.idorgunit = idorgunit;
+	}
+
+	public Integer getIdstate() {
+		return idstate;
+	}
+
+	public void setIdstate(Integer idstate) {
+		this.idstate = idstate;
+	}
+
+	public Integer getIdstateofbirth() {
+		return idstateofbirth;
+	}
+
+	public void setIdstateofbirth(Integer idstateofbirth) {
+		this.idstateofbirth = idstateofbirth;
+	}
+
+	public String getOthernames() {
+		return othernames;
+	}
+
+	public void setOthernames(String othernames) {
+		this.othernames = othernames;
+	}
+
+	public Integer getRstatus() {
+		return rstatus;
+	}
+
+	public void setRstatus(Integer rstatus) {
+		this.rstatus = rstatus;
+	}
+
+	public void setBirthplace(String birthplace) {
         this.birthplace = birthplace;
     }
 

@@ -79,6 +79,18 @@
         requiredMessage="Není vyplněno příjmení!">
       </h:inputText>
 
+      <h:outputText value="Rodné příjmení :" />
+      <h:inputText id="birthname"
+        value="#{identity.birthname}" required="true"
+        requiredMessage="Není vyplněno rodné příjmení!">
+      </h:inputText>
+
+      <h:outputText value="Ostatní jména :" />
+      <h:inputText id="othernames"
+        value="#{identity.othernames}" required="true"
+        requiredMessage="Není vyplněno pole Ostatní jména!">
+      </h:inputText>
+
       <h:outputText value="Rodné číslo :" />
       <h:inputText id="birthnumber"
         value="#{identity.birthnumber}" required="true"
@@ -89,6 +101,36 @@
       <h:inputText id="birthplache"
         value="#{identity.birthplace}" required="true"
         requiredMessage="Není vyplněno místo narození!">
+      </h:inputText>
+
+	  <h:outputText value="Rstatus :" />
+      <h:inputText id="rstatus"
+        value="#{identity.rstatus}" required="true"
+        requiredMessage="Není vyplněn rstatus!">
+      </h:inputText>
+
+      <h:outputText value="Idstateofbrith :" />
+      <h:inputText id="idstateofbrith"
+        value="#{identity.idstateofbrith}" required="true"
+        requiredMessage="Není vyplněn idstateofbrith!">
+      </h:inputText>
+
+      <h:outputText value="Idstate :" />
+      <h:inputText id="idstate"
+        value="#{identity.idstate}" required="true"
+        requiredMessage="Není vyplněn idstate!">
+      </h:inputText>
+
+      <h:outputText value="Idorgunit :" />
+      <h:inputText id="idorgunit"
+        value="#{identity.idorgunit}" required="true"
+        requiredMessage="Není vyplněn idorgunit!">
+      </h:inputText>
+
+      <h:outputText value="Idevidence :" />
+      <h:inputText id="idevidence"
+        value="#{identity.idevidence}" required="true"
+        requiredMessage="Není vyplněn idevidence!">
       </h:inputText>
 
       <h:outputText value="Pohlaví :" />
