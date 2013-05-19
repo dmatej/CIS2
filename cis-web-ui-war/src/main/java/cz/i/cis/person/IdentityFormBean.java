@@ -186,6 +186,14 @@ public class IdentityFormBean implements Serializable {
 		return rstatus;
 	}
 
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
+	}
+
 	public void setRstatus(Integer rstatus) {
 		this.rstatus = rstatus;
 	}

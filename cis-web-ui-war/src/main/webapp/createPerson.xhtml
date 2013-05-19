@@ -98,9 +98,15 @@
       </h:inputText>
 
       <h:outputText value="Místo narození :" />
-      <h:inputText id="birthplache"
+      <h:inputText id="birthplace"
         value="#{identity.birthplace}" required="true"
         requiredMessage="Není vyplněno místo narození!">
+      </h:inputText>
+
+      <h:outputText value="Datum narození :" />
+      <h:inputText id="birthdate"
+        value="#{identity.birthdate}" required="true"
+        requiredMessage="Není vyplněno datum narození!">
       </h:inputText>
 
 	  <h:outputText value="Rstatus :" />
