@@ -109,23 +109,28 @@
         requiredMessage="Není vyplněn rstatus!">
       </h:inputText>
 
+      <h:outputText value="Idstateofbirth :" />
+      <h:inputText id="idstateofbirth"
+        value="#{identity.idstateofbirth}" required="true"
+        requiredMessage="Není vyplněn idstateofbrith!">
+      </h:inputText>
+
       <h:outputText value="Idstate :" />
       <h:inputText id="idstate"
         value="#{identity.idstate}" required="true"
         requiredMessage="Není vyplněn idstate!">
       </h:inputText>
 
-
-      <h:inputText id="amount"
-                         value="#{identity.amount}" required="true">
-               <f:convertNumber minFractionDigits="2"/>
-               <f:validateDoubleRange minimum="10" maximum="10000"/>
-      </h:inputText>
-
       <h:outputText value="Idorgunit :" />
       <h:inputText id="idorgunit"
         value="#{identity.idorgunit}" required="true"
         requiredMessage="Není vyplněn idorgunit!">
+      </h:inputText>
+
+      <h:outputText value="Idevidence :" />
+      <h:inputText id="idevidence"
+        value="#{identity.idevidence}" required="true"
+        requiredMessage="Není vyplněn idevidence!">
       </h:inputText>
 
       <h:outputText value="Pohlaví :" />
