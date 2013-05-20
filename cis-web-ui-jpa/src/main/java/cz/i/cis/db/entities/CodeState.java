@@ -12,169 +12,170 @@ import java.util.Date;
 @Entity
 @Table(name="code_state")
 public class CodeState implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private String code;
+    private String code;
 
-	@Column(name="code_icao")
-	private String codeIcao;
+    @Column(name="code_icao")
+    private String codeIcao;
 
-	@Column(name="code_iso")
-	private String codeIso;
+    @Column(name="code_iso")
+    private String codeIso;
 
-	private Integer idstate;
+    private Integer idstate;
 
-	private String name;
+    private String name;
 
-	@Column(name="name_cz")
-	private String nameCz;
+    @Column(name="name_cz")
+    private String nameCz;
 
-	@Column(name="name_en")
-	private String nameEn;
+    @Column(name="name_en")
+    private String nameEn;
 
-	@Column(name="name_full")
-	private String nameFull;
+    @Column(name="name_full")
+    private String nameFull;
 
-	@Column(name="name_nativ")
-	private String nameNativ;
+    @Column(name="name_nativ")
+    private String nameNativ;
 
-	@Column(name="name_upper")
-	private String nameUpper;
+    @Column(name="name_upper")
+    private String nameUpper;
 
-	private String note;
+    private String note;
 
-	private Short rank;
+    private Short rank;
 
-	@Temporal(TemporalType.DATE)
-	private Date validfrom;
+    @Temporal(TemporalType.DATE)
+    private Date validfrom;
 
-	@Temporal(TemporalType.DATE)
-	private Date validto;
+    @Temporal(TemporalType.DATE)
+    private Date validto;
 
-	public CodeState() {
-	}
+    public CodeState() {
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getCode() {
-		return this.code;
-	}
+    public String getCode() {
+        return this.code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public String getCodeIcao() {
-		return this.codeIcao;
-	}
+    public String getCodeIcao() {
+        return this.codeIcao;
+    }
 
-	public void setCodeIcao(String codeIcao) {
-		this.codeIcao = codeIcao;
-	}
+    public void setCodeIcao(String codeIcao) {
+        this.codeIcao = codeIcao;
+    }
 
-	public String getCodeIso() {
-		return this.codeIso;
-	}
+    public String getCodeIso() {
+        return this.codeIso;
+    }
 
-	public void setCodeIso(String codeIso) {
-		this.codeIso = codeIso;
-	}
+    public void setCodeIso(String codeIso) {
+        this.codeIso = codeIso;
+    }
 
-	public Integer getIdstate() {
-		return this.idstate;
-	}
+    public Integer getIdstate() {
+        return this.idstate;
+    }
 
-	public void setIdstate(Integer idstate) {
-		this.idstate = idstate;
-	}
+    public void setIdstate(Integer idstate) {
+        this.idstate = idstate;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getNameCz() {
-		return this.nameCz;
-	}
+    public String getNameCz() {
+        return this.nameCz;
+    }
 
-	public void setNameCz(String nameCz) {
-		this.nameCz = nameCz;
-	}
+    public void setNameCz(String nameCz) {
+        this.nameCz = nameCz;
+    }
 
-	public String getNameEn() {
-		return this.nameEn;
-	}
+    public String getNameEn() {
+        return this.nameEn;
+    }
 
-	public void setNameEn(String nameEn) {
-		this.nameEn = nameEn;
-	}
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
 
-	public String getNameFull() {
-		return this.nameFull;
-	}
+    public String getNameFull() {
+        return this.nameFull;
+    }
 
-	public void setNameFull(String nameFull) {
-		this.nameFull = nameFull;
-	}
+    public void setNameFull(String nameFull) {
+        this.nameFull = nameFull;
+    }
 
-	public String getNameNativ() {
-		return this.nameNativ;
-	}
+    public String getNameNativ() {
+        return this.nameNativ;
+    }
 
-	public void setNameNativ(String nameNativ) {
-		this.nameNativ = nameNativ;
-	}
+    public void setNameNativ(String nameNativ) {
+        this.nameNativ = nameNativ;
+    }
 
-	public String getNameUpper() {
-		return this.nameUpper;
-	}
+    public String getNameUpper() {
+        return this.nameUpper;
+    }
 
-	public void setNameUpper(String nameUpper) {
-		this.nameUpper = nameUpper;
-	}
+    public void setNameUpper(String nameUpper) {
+        this.nameUpper = nameUpper;
+    }
 
-	public String getNote() {
-		return this.note;
-	}
+    public String getNote() {
+        return this.note;
+    }
 
-	public void setNote(String note) {
-		this.note = note;
-	}
+    public void setNote(String note) {
+        this.note = note;
+    }
 
-	public Short getRank() {
-		return this.rank;
-	}
+    public Short getRank() {
+        return this.rank;
+    }
 
-	public void setRank(Short rank) {
-		this.rank = rank;
-	}
+    public void setRank(Short rank) {
+        this.rank = rank;
+    }
 
-	public Date getValidfrom() {
-		return this.validfrom;
-	}
+    public Date getValidfrom() {
+        return this.validfrom;
+    }
 
-	public void setValidfrom(Date validfrom) {
-		this.validfrom = validfrom;
-	}
+    public void setValidfrom(Date validfrom) {
+        this.validfrom = validfrom;
+    }
 
-	public Date getValidto() {
-		return this.validto;
-	}
+    public Date getValidto() {
+        return this.validto;
+    }
 
-	public void setValidto(Date validto) {
-		this.validto = validto;
-	}
+    public void setValidto(Date validto) {
+        this.validto = validto;
+    }
 
 }

@@ -12,142 +12,143 @@ import java.util.Date;
  */
 @Entity
 public class Cisrole implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private Timestamp cdate;
+    private Timestamp cdate;
 
-	private Integer cidcisuser;
+    private Integer cidcisuser;
 
-	private String code;
+    private String code;
 
-	private Timestamp ddate;
+    private Timestamp ddate;
 
-	private String description;
+    private String description;
 
-	private Integer didcisuser;
+    private Integer didcisuser;
 
-	private String name;
+    private String name;
 
-	private Short type;
+    private Short type;
 
-	private Timestamp udate;
+    private Timestamp udate;
 
-	private Integer uidcisuser;
+    private Integer uidcisuser;
 
-	@Temporal(TemporalType.DATE)
-	private Date validfrom;
+    @Temporal(TemporalType.DATE)
+    private Date validfrom;
 
-	@Temporal(TemporalType.DATE)
-	private Date validto;
+    @Temporal(TemporalType.DATE)
+    private Date validto;
 
-	public Cisrole() {
-	}
+    public Cisrole() {
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Timestamp getCdate() {
-		return this.cdate;
-	}
+    public Timestamp getCdate() {
+        return this.cdate;
+    }
 
-	public void setCdate(Timestamp cdate) {
-		this.cdate = cdate;
-	}
+    public void setCdate(Timestamp cdate) {
+        this.cdate = cdate;
+    }
 
-	public Integer getCidcisuser() {
-		return this.cidcisuser;
-	}
+    public Integer getCidcisuser() {
+        return this.cidcisuser;
+    }
 
-	public void setCidcisuser(Integer cidcisuser) {
-		this.cidcisuser = cidcisuser;
-	}
+    public void setCidcisuser(Integer cidcisuser) {
+        this.cidcisuser = cidcisuser;
+    }
 
-	public String getCode() {
-		return this.code;
-	}
+    public String getCode() {
+        return this.code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public Timestamp getDdate() {
-		return this.ddate;
-	}
+    public Timestamp getDdate() {
+        return this.ddate;
+    }
 
-	public void setDdate(Timestamp ddate) {
-		this.ddate = ddate;
-	}
+    public void setDdate(Timestamp ddate) {
+        this.ddate = ddate;
+    }
 
-	public String getDescription() {
-		return this.description;
-	}
+    public String getDescription() {
+        return this.description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public Integer getDidcisuser() {
-		return this.didcisuser;
-	}
+    public Integer getDidcisuser() {
+        return this.didcisuser;
+    }
 
-	public void setDidcisuser(Integer didcisuser) {
-		this.didcisuser = didcisuser;
-	}
+    public void setDidcisuser(Integer didcisuser) {
+        this.didcisuser = didcisuser;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public Short getType() {
-		return this.type;
-	}
+    public Short getType() {
+        return this.type;
+    }
 
-	public void setType(Short type) {
-		this.type = type;
-	}
+    public void setType(Short type) {
+        this.type = type;
+    }
 
-	public Timestamp getUdate() {
-		return this.udate;
-	}
+    public Timestamp getUdate() {
+        return this.udate;
+    }
 
-	public void setUdate(Timestamp udate) {
-		this.udate = udate;
-	}
+    public void setUdate(Timestamp udate) {
+        this.udate = udate;
+    }
 
-	public Integer getUidcisuser() {
-		return this.uidcisuser;
-	}
+    public Integer getUidcisuser() {
+        return this.uidcisuser;
+    }
 
-	public void setUidcisuser(Integer uidcisuser) {
-		this.uidcisuser = uidcisuser;
-	}
+    public void setUidcisuser(Integer uidcisuser) {
+        this.uidcisuser = uidcisuser;
+    }
 
-	public Date getValidfrom() {
-		return this.validfrom;
-	}
+    public Date getValidfrom() {
+        return this.validfrom;
+    }
 
-	public void setValidfrom(Date validfrom) {
-		this.validfrom = validfrom;
-	}
+    public void setValidfrom(Date validfrom) {
+        this.validfrom = validfrom;
+    }
 
-	public Date getValidto() {
-		return this.validto;
-	}
+    public Date getValidto() {
+        return this.validto;
+    }
 
-	public void setValidto(Date validto) {
-		this.validto = validto;
-	}
+    public void setValidto(Date validto) {
+        this.validto = validto;
+    }
 
 }

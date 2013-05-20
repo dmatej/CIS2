@@ -12,235 +12,236 @@ import java.util.Date;
  */
 @Entity
 public class Tduperson implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private Timestamp cdate;
+    private Timestamp cdate;
 
-	private Integer cidcisuser;
+    private Integer cidcisuser;
 
-	private Timestamp ddate;
+    private Timestamp ddate;
 
-	@Temporal(TemporalType.DATE)
-	private Date deathdate;
+    @Temporal(TemporalType.DATE)
+    private Date deathdate;
 
-	private String deathplace;
+    private String deathplace;
 
-	private String degreeprefix;
+    private String degreeprefix;
 
-	private String degreesuffix;
+    private String degreesuffix;
 
-	private Integer didcisuser;
+    private Integer didcisuser;
 
-	private Integer idcisuser;
+    private Integer idcisuser;
 
-	private Integer iddeathplace;
+    private Integer iddeathplace;
 
-	private Integer iddeathstate;
+    private Integer iddeathstate;
 
-	@Column(name="ididentity_actual")
-	private Integer ididentityActual;
+    @Column(name="ididentity_actual")
+    private Integer ididentityActual;
 
-	private Integer idimage;
+    private Integer idimage;
 
-	@Column(name="idperson_original")
-	private Integer idpersonOriginal;
+    @Column(name="idperson_original")
+    private Integer idpersonOriginal;
 
-	@Column(name="idstay_actual")
-	private Integer idstayActual;
+    @Column(name="idstay_actual")
+    private Integer idstayActual;
 
-	@Column(name="idstayplace_actual")
-	private Integer idstayplaceActual;
+    @Column(name="idstayplace_actual")
+    private Integer idstayplaceActual;
 
-	private String note;
+    private String note;
 
-	private Integer rstatus;
+    private Integer rstatus;
 
-	private String sex;
+    private String sex;
 
-	private Timestamp udate;
+    private Timestamp udate;
 
-	private Integer uidcisuser;
+    private Integer uidcisuser;
 
-	public Tduperson() {
-	}
+    public Tduperson() {
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public Timestamp getCdate() {
-		return this.cdate;
-	}
+    public Timestamp getCdate() {
+        return this.cdate;
+    }
 
-	public void setCdate(Timestamp cdate) {
-		this.cdate = cdate;
-	}
+    public void setCdate(Timestamp cdate) {
+        this.cdate = cdate;
+    }
 
-	public Integer getCidcisuser() {
-		return this.cidcisuser;
-	}
+    public Integer getCidcisuser() {
+        return this.cidcisuser;
+    }
 
-	public void setCidcisuser(Integer cidcisuser) {
-		this.cidcisuser = cidcisuser;
-	}
+    public void setCidcisuser(Integer cidcisuser) {
+        this.cidcisuser = cidcisuser;
+    }
 
-	public Timestamp getDdate() {
-		return this.ddate;
-	}
+    public Timestamp getDdate() {
+        return this.ddate;
+    }
 
-	public void setDdate(Timestamp ddate) {
-		this.ddate = ddate;
-	}
+    public void setDdate(Timestamp ddate) {
+        this.ddate = ddate;
+    }
 
-	public Date getDeathdate() {
-		return this.deathdate;
-	}
+    public Date getDeathdate() {
+        return this.deathdate;
+    }
 
-	public void setDeathdate(Date deathdate) {
-		this.deathdate = deathdate;
-	}
+    public void setDeathdate(Date deathdate) {
+        this.deathdate = deathdate;
+    }
 
-	public String getDeathplace() {
-		return this.deathplace;
-	}
+    public String getDeathplace() {
+        return this.deathplace;
+    }
 
-	public void setDeathplace(String deathplace) {
-		this.deathplace = deathplace;
-	}
-
-	public String getDegreeprefix() {
-		return this.degreeprefix;
-	}
-
-	public void setDegreeprefix(String degreeprefix) {
-		this.degreeprefix = degreeprefix;
-	}
-
-	public String getDegreesuffix() {
-		return this.degreesuffix;
-	}
-
-	public void setDegreesuffix(String degreesuffix) {
-		this.degreesuffix = degreesuffix;
-	}
-
-	public Integer getDidcisuser() {
-		return this.didcisuser;
-	}
-
-	public void setDidcisuser(Integer didcisuser) {
-		this.didcisuser = didcisuser;
-	}
-
-	public Integer getIdcisuser() {
-		return this.idcisuser;
-	}
-
-	public void setIdcisuser(Integer idcisuser) {
-		this.idcisuser = idcisuser;
-	}
-
-	public Integer getIddeathplace() {
-		return this.iddeathplace;
-	}
-
-	public void setIddeathplace(Integer iddeathplace) {
-		this.iddeathplace = iddeathplace;
-	}
-
-	public Integer getIddeathstate() {
-		return this.iddeathstate;
-	}
-
-	public void setIddeathstate(Integer iddeathstate) {
-		this.iddeathstate = iddeathstate;
-	}
-
-	public Integer getIdidentityActual() {
-		return this.ididentityActual;
-	}
-
-	public void setIdidentityActual(Integer ididentityActual) {
-		this.ididentityActual = ididentityActual;
-	}
-
-	public Integer getIdimage() {
-		return this.idimage;
-	}
-
-	public void setIdimage(Integer idimage) {
-		this.idimage = idimage;
-	}
-
-	public Integer getIdpersonOriginal() {
-		return this.idpersonOriginal;
-	}
-
-	public void setIdpersonOriginal(Integer idpersonOriginal) {
-		this.idpersonOriginal = idpersonOriginal;
-	}
-
-	public Integer getIdstayActual() {
-		return this.idstayActual;
-	}
-
-	public void setIdstayActual(Integer idstayActual) {
-		this.idstayActual = idstayActual;
-	}
-
-	public Integer getIdstayplaceActual() {
-		return this.idstayplaceActual;
-	}
-
-	public void setIdstayplaceActual(Integer idstayplaceActual) {
-		this.idstayplaceActual = idstayplaceActual;
-	}
-
-	public String getNote() {
-		return this.note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
-	}
-
-	public Integer getRstatus() {
-		return this.rstatus;
-	}
-
-	public void setRstatus(Integer rstatus) {
-		this.rstatus = rstatus;
-	}
-
-	public String getSex() {
-		return this.sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public Timestamp getUdate() {
-		return this.udate;
-	}
-
-	public void setUdate(Timestamp udate) {
-		this.udate = udate;
-	}
-
-	public Integer getUidcisuser() {
-		return this.uidcisuser;
-	}
-
-	public void setUidcisuser(Integer uidcisuser) {
-		this.uidcisuser = uidcisuser;
-	}
+    public void setDeathplace(String deathplace) {
+        this.deathplace = deathplace;
+    }
+
+    public String getDegreeprefix() {
+        return this.degreeprefix;
+    }
+
+    public void setDegreeprefix(String degreeprefix) {
+        this.degreeprefix = degreeprefix;
+    }
+
+    public String getDegreesuffix() {
+        return this.degreesuffix;
+    }
+
+    public void setDegreesuffix(String degreesuffix) {
+        this.degreesuffix = degreesuffix;
+    }
+
+    public Integer getDidcisuser() {
+        return this.didcisuser;
+    }
+
+    public void setDidcisuser(Integer didcisuser) {
+        this.didcisuser = didcisuser;
+    }
+
+    public Integer getIdcisuser() {
+        return this.idcisuser;
+    }
+
+    public void setIdcisuser(Integer idcisuser) {
+        this.idcisuser = idcisuser;
+    }
+
+    public Integer getIddeathplace() {
+        return this.iddeathplace;
+    }
+
+    public void setIddeathplace(Integer iddeathplace) {
+        this.iddeathplace = iddeathplace;
+    }
+
+    public Integer getIddeathstate() {
+        return this.iddeathstate;
+    }
+
+    public void setIddeathstate(Integer iddeathstate) {
+        this.iddeathstate = iddeathstate;
+    }
+
+    public Integer getIdidentityActual() {
+        return this.ididentityActual;
+    }
+
+    public void setIdidentityActual(Integer ididentityActual) {
+        this.ididentityActual = ididentityActual;
+    }
+
+    public Integer getIdimage() {
+        return this.idimage;
+    }
+
+    public void setIdimage(Integer idimage) {
+        this.idimage = idimage;
+    }
+
+    public Integer getIdpersonOriginal() {
+        return this.idpersonOriginal;
+    }
+
+    public void setIdpersonOriginal(Integer idpersonOriginal) {
+        this.idpersonOriginal = idpersonOriginal;
+    }
+
+    public Integer getIdstayActual() {
+        return this.idstayActual;
+    }
+
+    public void setIdstayActual(Integer idstayActual) {
+        this.idstayActual = idstayActual;
+    }
+
+    public Integer getIdstayplaceActual() {
+        return this.idstayplaceActual;
+    }
+
+    public void setIdstayplaceActual(Integer idstayplaceActual) {
+        this.idstayplaceActual = idstayplaceActual;
+    }
+
+    public String getNote() {
+        return this.note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Integer getRstatus() {
+        return this.rstatus;
+    }
+
+    public void setRstatus(Integer rstatus) {
+        this.rstatus = rstatus;
+    }
+
+    public String getSex() {
+        return this.sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public Timestamp getUdate() {
+        return this.udate;
+    }
+
+    public void setUdate(Timestamp udate) {
+        this.udate = udate;
+    }
+
+    public Integer getUidcisuser() {
+        return this.uidcisuser;
+    }
+
+    public void setUidcisuser(Integer uidcisuser) {
+        this.uidcisuser = uidcisuser;
+    }
 
 }

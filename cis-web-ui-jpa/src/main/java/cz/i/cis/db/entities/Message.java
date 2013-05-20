@@ -11,80 +11,81 @@ import java.sql.Timestamp;
  */
 @Entity
 public class Message implements Serializable {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Timestamp cdate;
+    private Timestamp cdate;
 
-	private Integer cidcisuser;
+    private Integer cidcisuser;
 
-	@Id
-	private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	private String text;
+    private String text;
 
-	private String type;
+    private String type;
 
-	private Timestamp validfrom;
+    private Timestamp validfrom;
 
-	private Timestamp validto;
+    private Timestamp validto;
 
-	public Message() {
-	}
+    public Message() {
+    }
 
-	public Timestamp getCdate() {
-		return this.cdate;
-	}
+    public Timestamp getCdate() {
+        return this.cdate;
+    }
 
-	public void setCdate(Timestamp cdate) {
-		this.cdate = cdate;
-	}
+    public void setCdate(Timestamp cdate) {
+        this.cdate = cdate;
+    }
 
-	public Integer getCidcisuser() {
-		return this.cidcisuser;
-	}
+    public Integer getCidcisuser() {
+        return this.cidcisuser;
+    }
 
-	public void setCidcisuser(Integer cidcisuser) {
-		this.cidcisuser = cidcisuser;
-	}
+    public void setCidcisuser(Integer cidcisuser) {
+        this.cidcisuser = cidcisuser;
+    }
 
-	public Integer getId() {
-		return this.id;
-	}
+    public Integer getId() {
+        return this.id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getText() {
-		return this.text;
-	}
+    public String getText() {
+        return this.text;
+    }
 
-	public void setText(String text) {
-		this.text = text;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public String getType() {
-		return this.type;
-	}
+    public String getType() {
+        return this.type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public Timestamp getValidfrom() {
-		return this.validfrom;
-	}
+    public Timestamp getValidfrom() {
+        return this.validfrom;
+    }
 
-	public void setValidfrom(Timestamp validfrom) {
-		this.validfrom = validfrom;
-	}
+    public void setValidfrom(Timestamp validfrom) {
+        this.validfrom = validfrom;
+    }
 
-	public Timestamp getValidto() {
-		return this.validto;
-	}
+    public Timestamp getValidto() {
+        return this.validto;
+    }
 
-	public void setValidto(Timestamp validto) {
-		this.validto = validto;
-	}
+    public void setValidto(Timestamp validto) {
+        this.validto = validto;
+    }
 
 }
