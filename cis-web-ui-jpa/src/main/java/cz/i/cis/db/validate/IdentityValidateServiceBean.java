@@ -28,39 +28,41 @@ public class IdentityValidateServiceBean implements Serializable,
     public String[] validate(Identity identity) {
         List<String> err = new ArrayList<String>();
         if (identity.getBirthplace() == null)
-            err.add("birthPlace");
+            err.add("BIRTHPLACE in IDENTITY cannot be null!");
         if (identity.getOthernames() == null)
-            err.add("otherNames");
+            err.add("OTHERNAMES in IDENTITY cannot be null!");
         if (identity.getBirthname() == null)
-            err.add("birthName");
+            err.add("BIRTHNAME in IDENTITY cannot be null!");
         if (identity.getFirstname() == null)
-            err.add("firstName");
+            err.add("FIRSTNAME in IDENTITY cannot be null!");
         /*
          * if (identity.getRstatus() == null) return false; if
          * (identity.getIdstateofbirth() == null) return false; if
          * (identity.getIdstate() == null) return false;
          */
         if (identity.getSex() != null && identity.getSex().length() != 1)
-            err.add("sex");
+            err.add("SEX in IDENTITY must has one char!");
         if (identity.getBirthdate() == null)
-            err.add("birthDate");
+            err.add("BIRTHDAY in IDENTITY cannot be null!");
         /*
          * if (identity.getIdorgunit() == null) return false; if
          * (identity.getIdevidence() == null) return false;
          */
 
-        if (identity.getBirthnumber() == null
-                || identity.getBirthnumber().length() != 10)
-            err.add("birthNumber");
+        if (identity.getBirthnumber() == null)
+            err.add("BIRTHNUMBER in IDENTITY cannot be null!");
+
+          if( identity.getBirthnumber().length() != 11)
+            err.add("BIRTHNUMBER in IDENTITY must has 11 chars!");
         else
             try {
                 int birthnumber = Integer.parseInt(identity.getBirthnumber()
-                        .substring(0, 4)
-                        + identity.getBirthnumber().substring(5));
+                        .substring(0, 6)
+                        + identity.getBirthnumber().substring(7));
                 if (birthnumber % 11 != 0)
-                    err.add("birthNumber");
+                    err.add("BIRTHNUMBER in IDENTITY must be divisible by 11 without remainder!");
             } catch (NumberFormatException e) {
-                err.add("birthNumber");
+                err.add("BIRTHNUMBER in IDENTITY must be in format XXXXXX/XXXX where X is a number!");
             }
         if (err.size() == 0)
             return null;

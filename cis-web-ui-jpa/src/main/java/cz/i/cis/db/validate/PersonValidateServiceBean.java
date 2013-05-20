@@ -27,13 +27,6 @@ public class PersonValidateServiceBean implements Serializable,
     @Override
     public String[] validate(Tduperson person) {
         List<String> err = new ArrayList<String>();
-        /*if (person.getCdate() == null)
-            return false;
-        if (person.getRstatus() == null)
-            return false;
-        if (person.getUidcisuser() == null)
-            return false;
-        return true;*/
         if (err.size() == 0)
             return null;
         String[] errs = new String[err.size()];
