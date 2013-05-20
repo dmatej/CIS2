@@ -68,23 +68,18 @@
 
   <!-- START BOTTOM SECTION -->
   <div class="container_12 bottom">
-      Vytvořené osoby <br />
-      <h:form>
-        <c:forEach items="#{identity.listPersonsByActualIdentities}" var="prsnIdentity">
-           ${prsnIdentity.firstname} ${prsnIdentity.lastname}
-            <h:commandLink value="Detail" action="person-detail.xhtml" actionListener="#{person.handlePersonSelection}"  >
-                <f:param name="personid" value="${prsnIdentity.idperson}" />
-            </h:commandLink>
-            <br />
-        </c:forEach>
-      </h:form>
-
     <div class="clear"></div>
   </div>
   <!-- END BOTTOM SECTION -->
 
   <!-- START FOOTER -->
   <div class="container_12">
+    Detail osoby <br />
+        Jméno: <h:outputText value="#{person.selectedPersonIdentity.firstname} #{person.selectedPersonIdentity.lastname}" />
+        <br />
+        Datum narození: <h:outputText value="#{person.selectedPersonIdentity.birthdate}" />
+        <br />
+
     <p class="footer">
       Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
     </p>

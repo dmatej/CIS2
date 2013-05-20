@@ -14,4 +14,6 @@ public interface IdentityService {
     public List<Identity> getIdentitiesForPerson(Integer idPerson);
 
     public List<Identity> getActualIdentitiesOfPersons();
+
+    public Identity getConcreteIdentityForPerson(Integer idIdentity);
 }

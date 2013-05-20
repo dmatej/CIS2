@@ -44,4 +44,16 @@ public class PersonServiceBean implements Serializable, PersonService {
         em.merge(person);
     }
 
+    @Override
+    public Tduperson getPerson(Integer id) {
+        final String queryStr = "SELECT p FROM Tduperson p WHERE p.id = :idp";
+        TypedQuery<Tduperson> query = em.createQuery(queryStr, Tduperson.class);
+        query.setParameter("idp", id);
+        final List<Tduperson> persons = query.getResultList();
+
+        if(persons.size() != 1) return null;
+
+        return persons.get(0);
+    }
+
 }

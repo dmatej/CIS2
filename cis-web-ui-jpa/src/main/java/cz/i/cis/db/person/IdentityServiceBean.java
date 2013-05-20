@@ -40,17 +40,29 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     }
 
     @Override
+    public Identity getConcreteIdentityForPerson(Integer idIdentity) {
+        final String query = "SELECT i from Identity i where i.id=:idIden";
+        TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
+        query1.setParameter("idIden", idIdentity);
+        final List<Identity> ident = query1.getResultList();
+
+        if(ident.size() != 1) return null;
+
+        return ident.get(0);
+    }
+
+    @Override
     public Identity update(Identity identity) {
         return em.merge(identity);
     }
 
     @Override
     public List<Identity> getActualIdentitiesOfPersons() {
-        final String queryStr = "SELECT i from Identity i where i.idperson IN (select p.ididentity_actual from Tduperson p)";
+        final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id";
         TypedQuery<Identity> query = em.createQuery(queryStr, Identity.class);
-        final List<Identity> ident = query.getResultList();
+        final List<Identity> idents = query.getResultList();
 
-        return ident;
+        return idents;
     }
 
 }

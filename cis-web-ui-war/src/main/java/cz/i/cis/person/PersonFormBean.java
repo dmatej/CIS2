@@ -9,6 +9,7 @@ import javax.ejb.EJB;
 import javax.el.ELContext;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -76,6 +77,10 @@ public class PersonFormBean implements Serializable {
     private Timestamp udate;
 
     private Integer uidcisuser;
+
+
+    private Tduperson selectedPerson;
+    private Identity selectedPersonIdentity;
 
     public Tduperson createPersonWithIdentity(Identity identity) {
         if (!testBeans())
@@ -191,6 +196,22 @@ public class PersonFormBean implements Serializable {
         }
 
         return "Vše připraveno";
+    }
+
+    public Boolean handlePersonSelection()
+    {
+        selectedPerson = null;
+        selectedPersonIdentity = null;
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Integer id = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
+
+        selectedPerson = personservicebean.getPerson(id);
+        if(selectedPerson == null) return false;
+
+        selectedPersonIdentity = identityservicebean.getConcreteIdentityForPerson(selectedPerson.getIdidentityActual());
+
+        return true;
     }
 
     public Integer getIdidentityActual() {
@@ -359,5 +380,21 @@ public class PersonFormBean implements Serializable {
 
     public void setUidcisuser(Integer uidcisuser) {
         this.uidcisuser = uidcisuser;
+    }
+
+    public Tduperson getSelectedPerson() {
+        return selectedPerson;
+    }
+
+    public void setSelectedPerson(Tduperson selectedPerson) {
+        this.selectedPerson = selectedPerson;
+    }
+
+    public Identity getSelectedPersonIdentity() {
+        return selectedPersonIdentity;
+    }
+
+    public void setSelectedPersonIdentity(Identity selectedPersonIdentity) {
+        this.selectedPersonIdentity = selectedPersonIdentity;
     }
 }

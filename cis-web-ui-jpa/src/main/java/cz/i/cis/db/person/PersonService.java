@@ -12,4 +12,6 @@ public interface PersonService {
     public void update(Tduperson person);
 
     public List<Tduperson> getPersons();
+
+    public Tduperson getPerson(Integer id);
 }
