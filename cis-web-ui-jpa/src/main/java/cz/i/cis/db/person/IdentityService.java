@@ -9,6 +9,7 @@ import cz.i.cis.db.entities.Identity;
 @Local
 public interface IdentityService {
     public Identity create(Identity identity);
+    public Identity update(Identity identity);
 
     public List<Identity> getIdentitiesForPerson(Integer idPerson);
 }

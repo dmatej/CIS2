@@ -6,5 +6,5 @@ import cz.i.cis.db.entities.Identity;
 
 @Local(IdentityValidateService.class)
 public interface IdentityValidateService {
-    public Boolean validate(Identity identity);
+    public String[] validate(Identity identity);
 }

@@ -17,28 +17,31 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
     private static final long serialVersionUID = 1L;
 
-    @PersistenceContext(unitName="cis")
+    @PersistenceContext(unitName = "cis")
     private EntityManager em;
 
-    public IdentityServiceBean()
-    { }
+    public IdentityServiceBean() {
+    }
 
     @Override
-    public Identity create(Identity identity)
-    {
+    public Identity create(Identity identity) {
         em.persist(identity);
         return identity;
     }
 
-
-  @Override
-  public List<Identity> getIdentitiesForPerson(Integer idPerson) {
-    final String query = "SELECT i from identity i whrere idperson=:personID";
+    @Override
+    public List<Identity> getIdentitiesForPerson(Integer idPerson) {
+        final String query = "SELECT i from identity i whrere idperson=:personID";
         TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
         query1.setParameter("personID", idPerson);
         final List<Identity> ident = query1.getResultList();
 
         return ident;
-  }
+    }
+
+    @Override
+    public Identity update(Identity identity) {
+        return em.merge(identity);
+    }
 
 }

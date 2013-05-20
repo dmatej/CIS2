@@ -1,6 +1,8 @@
 package cz.i.cis.db.validate;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
@@ -23,14 +25,20 @@ public class PersonValidateServiceBean implements Serializable,
     }
 
     @Override
-    public Boolean validate(Tduperson person) {
-        if (person.getCdate() == null)
+    public String[] validate(Tduperson person) {
+        List<String> err = new ArrayList<String>();
+        /*if (person.getCdate() == null)
             return false;
         if (person.getRstatus() == null)
             return false;
         if (person.getUidcisuser() == null)
             return false;
-        return true;
+        return true;*/
+        if (err.size() == 0)
+            return null;
+        String[] errs = new String[err.size()];
+        errs = err.toArray(errs);
+        return errs;
     }
 
 }

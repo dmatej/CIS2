@@ -39,4 +39,9 @@ public class PersonServiceBean implements Serializable, PersonService {
         return persons;
     }
 
+    @Override
+    public Tduperson update(Tduperson person) {
+        return em.merge(person);
+    }
+
 }

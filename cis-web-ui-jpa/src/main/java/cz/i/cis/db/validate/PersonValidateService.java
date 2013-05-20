@@ -6,5 +6,5 @@ import cz.i.cis.db.entities.Tduperson;
 
 @Local(PersonValidateService.class)
 public interface PersonValidateService {
-    public Boolean validate(Tduperson person);
+    public String[] validate(Tduperson person);
 }

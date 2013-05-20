@@ -10,8 +10,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.entities.Tduperson;
+import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
+import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.db.validate.PersonValidateService;
 
 @Named("person")
@@ -23,7 +26,13 @@ public class PersonFormBean implements Serializable {
     private PersonService personservicebean;
 
     @EJB
+    private IdentityService identityservicebean;
+
+    @EJB
     private PersonValidateService personValidateServicebean;
+
+    @EJB
+    private IdentityValidateService identityValidateServicebean;
 
     private Integer ididentityActual;
 
@@ -65,13 +74,87 @@ public class PersonFormBean implements Serializable {
 
     private Integer uidcisuser;
 
+    public Tduperson createPersonWithIdentity(Identity identity) {
+        if (!testBeans())
+            return null;
+
+        Tduperson person = generateEntity();
+        String[] validatePerson = personValidateServicebean.validate(person);
+        String[] validateIdentity = identityValidateServicebean.validate(identity);
+        if (validatePerson == null && validateIdentity == null) {
+
+            person = personservicebean.create(person);
+            identity.setIdperson(person.getId());
+            identity = identityservicebean.create(identity);
+            person.setIdidentityActual(identity.getId());
+            person = personservicebean.update(person);
+
+            FacesMessage message = new FacesMessage("Persona s hlavní identitou vytvořena!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return person;
+        } else {
+            for (int i = 0; i < validatePerson.length; i++) {
+                FacesMessage message = new FacesMessage(
+                        "Chyba při validaci identity! (" + validatePerson[i]
+                                + ")");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            return null;
+        }
+    }
+
     public Tduperson createPerson() {
+        if (!testBeans())
+            return null;
+
+        Tduperson person = generateEntity();
+        String[] validate = personValidateServicebean.validate(person);
+        if (validate == null) {
+
+            person = personservicebean.create(person);
+
+            FacesMessage message = new FacesMessage("Persona vytvořena!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return person;
+        } else {
+            for (int i = 0; i < validate.length; i++) {
+                FacesMessage message = new FacesMessage(
+                        "Chyba při validaci identity! (" + validate[i] + ")");
+                FacesContext.getCurrentInstance().addMessage(null, message);
+            }
+            return null;
+        }
+    }
+
+    private boolean testBeans() {
         if (personservicebean == null) {
             FacesMessage message = new FacesMessage("personservicebean null!");
             FacesContext.getCurrentInstance().addMessage(null, message);
-
-            return null;
+            return false;
         }
+
+        if (identityservicebean == null) {
+            FacesMessage message = new FacesMessage("identityservicebean null!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        if (personValidateServicebean == null) {
+            FacesMessage message = new FacesMessage("personValidateServicebean null!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        if (identityValidateServicebean == null) {
+            FacesMessage message = new FacesMessage("identityValidateServicebean null!");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return false;
+        }
+
+        return true;
+    }
+
+    private Tduperson generateEntity() {
         Tduperson person = new Tduperson();
 
         person.setIdidentityActual(ididentityActual);
@@ -94,20 +177,7 @@ public class PersonFormBean implements Serializable {
         person.setRstatus(rstatus);
         person.setUdate(udate);
         person.setUidcisuser(uidcisuser);
-
-        if (personValidateServicebean.validate(person)) {
-
-            person = personservicebean.create(person);
-
-            FacesMessage message = new FacesMessage("Persona vytvořena!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return person;
-        }else{
-            FacesMessage message = new FacesMessage(
-                    "Chyba při validaci persony!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return null;
-        }
+        return person;
     }
 
     public List<Tduperson> getPersons() {
