@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.el.ELContext;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -18,6 +20,7 @@ import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.db.validate.PersonValidateService;
 
 @Named("person")
+@RequestScoped
 public class PersonFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,7 +90,6 @@ public class PersonFormBean implements Serializable {
             identity.setIdperson(person.getId());
             identity = identityservicebean.create(identity);
             person.setIdidentityActual(identity.getId());
-            person = personservicebean.update(person);
 
             FacesMessage message = new FacesMessage("Persona s hlavní identitou vytvořena!");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -103,27 +105,19 @@ public class PersonFormBean implements Serializable {
         }
     }
 
-    public Tduperson createPerson() {
+    public void createPerson() {
         if (!testBeans())
-            return null;
+            return;
 
-        Tduperson person = generateEntity();
-        String[] validate = personValidateServicebean.validate(person);
-        if (validate == null) {
+        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+        Object ret = elContext.getELResolver().getValue(elContext, null, "identity");
 
-            person = personservicebean.create(person);
+        IdentityFormBean identityFormBean = (IdentityFormBean)ret;
+        Identity actualId = identityFormBean.generateEntity();
 
-            FacesMessage message = new FacesMessage("Persona vytvořena!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return person;
-        } else {
-            for (int i = 0; i < validate.length; i++) {
-                FacesMessage message = new FacesMessage(
-                        "Chyba při validaci identity! (" + validate[i] + ")");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-            return null;
-        }
+        createPersonWithIdentity(actualId);
+
+        return ;
     }
 
     private boolean testBeans() {
@@ -158,8 +152,8 @@ public class PersonFormBean implements Serializable {
         Tduperson person = new Tduperson();
 
         person.setIdidentityActual(ididentityActual);
-        person.setCdate(cdate);
-        person.setCidcisuser(cidcisuser);
+        person.setCdate(new Timestamp(new Date().getTime()));
+        person.setCidcisuser(0);
         person.setDdate(ddate);
         person.setDeathdate(deathdate);
         person.setDeathplace(deathplace);
@@ -174,7 +168,7 @@ public class PersonFormBean implements Serializable {
         person.setIdstayActual(idstayActual);
         person.setIdstayplaceActual(idstayplaceActual);
         person.setNote(note);
-        person.setRstatus(rstatus);
+        person.setRstatus(0);
         person.setUdate(udate);
         person.setUidcisuser(uidcisuser);
         return person;
@@ -366,5 +360,4 @@ public class PersonFormBean implements Serializable {
     public void setUidcisuser(Integer uidcisuser) {
         this.uidcisuser = uidcisuser;
     }
-
 }

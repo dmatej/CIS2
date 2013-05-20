@@ -12,4 +12,6 @@ public interface IdentityService {
     public Identity update(Identity identity);
 
     public List<Identity> getIdentitiesForPerson(Integer idPerson);
+
+    public List<Identity> getActualIdentitiesOfPersons();
 }

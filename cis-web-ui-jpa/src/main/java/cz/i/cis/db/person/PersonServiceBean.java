@@ -40,8 +40,8 @@ public class PersonServiceBean implements Serializable, PersonService {
     }
 
     @Override
-    public Tduperson update(Tduperson person) {
-        return em.merge(person);
+    public void update(Tduperson person) {
+        em.merge(person);
     }
 
 }

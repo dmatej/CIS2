@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -14,6 +15,7 @@ import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.validate.IdentityValidateService;
 
 @Named("identity")
+@RequestScoped
 public class IdentityFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,23 +65,8 @@ public class IdentityFormBean implements Serializable {
 
             return null;
         }
-        Identity identity = new Identity();
-        identity.setBirthdate(birthdate);
-        identity.setBirthname(birthname);
-        identity.setBirthnumber(birthnumber);
-        identity.setBirthplace(birthplace);
-        identity.setFirstname(firstname);
-        identity.setIdevidence(idevidence);
-        identity.setIdorgunit(idorgunit);
-        identity.setIdperson(idperson);
-        identity.setIdstate(idstate);
-        identity.setIdstateofbirth(idstateofbirth);
-        identity.setLastname(lastname);
-        identity.setOthernames(othernames);
-        identity.setRstatus(rstatus);
-        identity.setSex(sex);
-        identity.setValidfrom(validfrom);
-        identity.setValidto(validto);
+
+        Identity identity = generateEntity();
 
         String[] validate = identityValidateServicebean.validate(identity);
         if (validate == null) {
@@ -98,6 +85,30 @@ public class IdentityFormBean implements Serializable {
         return identity;
     }
 
+    public Identity generateEntity()
+    {
+        Identity identity = new Identity();
+        identity.setBirthdate(birthdate);
+        identity.setBirthname(birthname);
+        identity.setBirthnumber(birthnumber);
+        identity.setBirthplace(birthplace);
+        identity.setFirstname(firstname);
+        identity.setIdevidence(0); //TODO upravit
+        identity.setIdorgunit(0);
+        identity.setIdperson(idperson);
+        identity.setIdstate(0);
+        identity.setIdstateofbirth(0);
+        identity.setLastname(lastname);
+        identity.setOthernames(othernames);
+        identity.setRstatus(0);
+        identity.setSex(sex);
+        identity.setValidfrom(validfrom);
+        identity.setValidto(validto);
+
+        return identity;
+
+    }
+
     public List<Identity> getIdentitiesForPerson(Integer idPerson) {
         if (identityservicebean == null) {
             FacesMessage message = new FacesMessage("personservicebean null!");
@@ -107,6 +118,11 @@ public class IdentityFormBean implements Serializable {
         }
 
         return identityservicebean.getIdentitiesForPerson(idPerson);
+    }
+
+    public List<Identity> getListPersonsByActualIdentities()
+    {
+        return identityservicebean.getActualIdentitiesOfPersons();
     }
 
     public String getMessage() {

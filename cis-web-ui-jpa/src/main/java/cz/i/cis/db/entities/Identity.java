@@ -2,6 +2,7 @@ package cz.i.cis.db.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.Date;
 
 

@@ -9,8 +9,8 @@
 <h:head xmlns:h="http://java.sun.com/jsf/html">
   <title>Procházení osob | CIS</title>
   <!-- [template css] begin -->
-	<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="css/960.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" />
+  <link rel="stylesheet" href="css/960.css" type="text/css" media="screen, projection" />
     <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
     <!--[if IE]>
         <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
@@ -23,28 +23,28 @@
 </h:head>
 <h:body>
     <!-- START TOP SECTION -->
-	<div class="container_12">
+  <div class="container_12">
 
-		<!-- START LOGO -->
-		<div class="grid_4 header">
-			<a href="viewPerson.xhtml"><img src="images/logo.gif" alt="YIW minimal" /></a>
-		</div>
-		<!-- END LOGO -->
+    <!-- START LOGO -->
+    <div class="grid_4 header">
+      <a href="viewPerson.xhtml"><img src="images/logo.gif" alt="YIW minimal" /></a>
+    </div>
+    <!-- END LOGO -->
 
-		<!-- START NAVIGATION -->
-   	  	<div class="grid_8 header">
-   	  		<div id="navigation">
-				<ul id="nav">
-					<li id="viewPerson"><a href="viewPerson.xhtml" title="Procházení osob" class="currentPage">Procházení osob</a></li>
-					<li id="registerPerson"><a href="createPerson.xhtml" title="Registrace osoby">Registrace osoby</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- END NAVIGATION -->
+    <!-- START NAVIGATION -->
+         <div class="grid_8 header">
+           <div id="navigation">
+        <ul id="nav">
+          <li id="viewPerson"><a href="viewPerson.xhtml" title="Procházení osob" class="currentPage">Procházení osob</a></li>
+          <li id="registerPerson"><a href="createPerson.xhtml" title="Registrace osoby">Registrace osoby</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- END NAVIGATION -->
 
-		<div class="clear"></div>
-	</div>
-	<!-- END TOP SECTION -->
+    <div class="clear"></div>
+  </div>
+  <!-- END TOP SECTION -->
 
 
   <!-- START MEDIUM SECTION -->
@@ -52,6 +52,9 @@
        <div class="grid_6">
          <div class="getTouch">
            <h2>Procházení osob</h2>
+          <c:forEach items="#{identity.listPersonsByActualIdentities}" var="prsnIdentity">
+            ${prsnIdentity.firstname} ${prsnIdentity.lastname} <br />
+          </c:forEach>
          </div>
        </div>
     <div class="clear"></div>
@@ -59,21 +62,21 @@
   <!-- END MEDIUM SECTION -->
 
 
-	<!-- START BOTTOM SECTION -->
-	<div class="container_12 bottom">
+  <!-- START BOTTOM SECTION -->
+  <div class="container_12 bottom">
 
-	   	<div class="clear"></div>
-   	</div>
-   	<!-- END BOTTOM SECTION -->
+       <div class="clear"></div>
+     </div>
+     <!-- END BOTTOM SECTION -->
 
-   	<!-- START FOOTER -->
-   	<div class="container_12">
-	   	<p class="footer">
-	   		Created by <strong>ICZ</strong> a.s. <br/>
-	   		<a href="http://i.cz">http://i.cz</a>
-		</p>
-	</div>
-	<!-- END FOOTER -->
+     <!-- START FOOTER -->
+     <div class="container_12">
+       <p class="footer">
+         Created by <strong>ICZ</strong> a.s. <br/>
+         <a href="http://i.cz">http://i.cz</a>
+    </p>
+  </div>
+  <!-- END FOOTER -->
 
 
 
