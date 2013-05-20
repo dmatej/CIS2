@@ -52,17 +52,15 @@ public class IdentityValidateServiceBean implements Serializable,
         if (identity.getBirthnumber() == null)
             err.add("BIRTHNUMBER in IDENTITY cannot be null!");
 
-          if( identity.getBirthnumber().length() != 11)
-            err.add("BIRTHNUMBER in IDENTITY must has 11 chars!");
+          if( identity.getBirthnumber().length() != 10)
+            err.add("BIRTHNUMBER in IDENTITY must has 10 chars!");
         else
             try {
-                int birthnumber = Integer.parseInt(identity.getBirthnumber()
-                        .substring(0, 6)
-                        + identity.getBirthnumber().substring(7));
+                long birthnumber = Long.parseLong(identity.getBirthnumber());
                 if (birthnumber % 11 != 0)
                     err.add("BIRTHNUMBER in IDENTITY must be divisible by 11 without remainder!");
             } catch (NumberFormatException e) {
-                err.add("BIRTHNUMBER in IDENTITY must be in format XXXXXX/XXXX where X is a number!");
+                err.add("BIRTHNUMBER in IDENTITY must be in format XXXXXXXXXX where X is a number!");
             }
         if (err.size() == 0)
             return null;
