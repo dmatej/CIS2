@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head xmlns:h="http://java.sun.com/jsf/html">
+  <title>Správa států - Editace</title>
+</h:head>
+<h:body>
+  <center>
+    <h:outputText value="Stát - #{state.selectedState.name}" styleClass="header"></h:outputText>
+  </center>
+  <h:form>
+    <h:messages id="messages" globalOnly="true" layout="table" />
+
+    <h:panelGrid columns="3" style="width: 570px; ">
+      <h:outputText value="Hlavní název :" />
+      <h:inputText id="name" value="#{state.selectedState.name}" required="true"
+        requiredMessage="Není vyplněn název státu!">
+      </h:inputText>
+      <h:outputText value="" />
+
+      <h:outputText value="Název CZ :" />
+      <h:inputText id="nameCZ" value="#{state.selectedState.nameCZ}" />
+      <h:outputText
+        value="(Není vyžadován, pokud je shodný s hlavním názvem)" />
+
+      <h:outputText value="Název EN :" />
+      <h:inputText id="nameEN" value="#{state.selectedState.nameEN}" />
+      <h:outputText
+        value="(Není vyžadován, pokud je shodný s hlavním názvem)" />
+
+      <h:outputText value="Celý název :" />
+      <h:inputText id="nameFull" value="#{state.selectedState.nameFull}" />
+      <h:outputText
+        value="(Není vyžadován, pokud je shodný s hlavním názvem)" />
+
+      <h:outputText value="Nativ. název :" />
+      <h:inputText id="nameNat" value="#{state.selectedState.nameNativ}" />
+      <h:outputText
+        value="(Není vyžadován, pokud je shodný s hlavním názvem)" />
+
+      <h:outputText value="Kód státu :" />
+      <h:inputText id="code" value="#{state.selectedState.code}" required="true"
+        requiredMessage="Není vyplněn kód státu!">
+      </h:inputText>
+      <h:outputText value="" />
+
+      <h:outputText value="Ident.číslo :" />
+      <h:inputText id="idstate" value="#{state.selectedState.idstate}" required="true"
+        requiredMessage="Není vyplněno ID státu!">
+      </h:inputText>
+      <h:outputText value="" />
+
+      <h:commandButton type="submit" value="Upravit" action="#{state.edit}">
+      </h:commandButton>
+      <h:commandButton type="reset" value="Reset" />
+    </h:panelGrid>
+    <br />
+  </h:form>
+
+</h:body>
+
+</h:html>
