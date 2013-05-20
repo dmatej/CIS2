@@ -72,7 +72,7 @@
              ${st.id} ${st.name} ${st.code}
               <h:commandLink value="Detail">
         <f:ajax event="click" render="viewselstate"
-          listener="#{state.loadPerson(st.id)}" />
+          listener="#{state.loadState(st.id)}" />
       </h:commandLink>
       <br />
     </c:forEach>

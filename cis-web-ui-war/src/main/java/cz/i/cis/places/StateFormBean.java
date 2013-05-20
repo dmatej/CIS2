@@ -64,7 +64,7 @@ public class StateFormBean {
         return "states-edit";
     }
 
-    public void loadPerson(int id)
+    public void loadState(int id)
     {
         selectedState = stateServiceBean.loadState(id);
     }
