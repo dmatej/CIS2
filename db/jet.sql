@@ -322,7 +322,7 @@ revoke all on "cis".cisrolepermission from "public" as "cis";
 { TABLE "cis".tduperson row size = 2388 number of columns = 55 index size = 80 }
 create table "cis".tduperson
   (
-    id integer not null constraint "cis".n_tduperson_id,
+    id serial not null constraint "cis".n_tduperson_id,
     idperson_original integer,
     ididentity_actual integer,
     idstay_actual integer
@@ -362,7 +362,7 @@ create table "cis".tdustayplace
     idperson integer not null constraint "cis".n_tdustayplace_idperson,
     idperson_original integer,
     idtdustay integer,
-    idaddress integer,
+    address varchar(255),
     idorgunit integer,
     datefrom date
         default  '01.01.1900' not null constraint "cis".n_tdustayplace_datefrom,

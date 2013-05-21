@@ -32,7 +32,7 @@ public class Tdustayplace implements Serializable {
 
     private Integer didcisuser;
 
-    private Integer idaddress;
+    private String address;
 
     private Integer idorgunit;
 
@@ -110,12 +110,12 @@ public class Tdustayplace implements Serializable {
         this.didcisuser = didcisuser;
     }
 
-    public Integer getIdaddress() {
-        return this.idaddress;
+    public String getAddress() {
+        return this.address;
     }
 
-    public void setIdaddress(Integer idaddress) {
-        this.idaddress = idaddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getIdorgunit() {
