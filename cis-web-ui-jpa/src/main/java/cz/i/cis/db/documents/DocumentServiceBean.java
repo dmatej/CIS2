@@ -30,20 +30,25 @@ public class DocumentServiceBean implements Serializable, DocumentService {
     }
 
     @Override
-    public List<Tdudocument> getDocumentsForPerson(Integer idPerson) {
-        final String query = "SELECT i from tdudocument i where idperson=:personID";
-        TypedQuery<Tdudocument> query1 = em.createQuery(query, Tdudocument.class);
+    public List<Tdudocument> findDocumentsForPerson(Integer idPerson) {
+        final String query = "SELECT i from tdudocument i WHERE idperson=:personID and rstatus=0";
+        TypedQuery<Tdudocument> query1 = em.createQuery(query,
+                Tdudocument.class);
         query1.setParameter("personID", idPerson);
         final List<Tdudocument> docs = query1.getResultList();
 
         return docs;
     }
 
-
     @Override
     public Tdudocument update(Tdudocument document) {
         return em.merge(document);
     }
 
+    @Override
+    public Tdudocument delete(Tdudocument document) {
+        document.setRstatus(-1);
+        return update(document);
+    }
 
 }

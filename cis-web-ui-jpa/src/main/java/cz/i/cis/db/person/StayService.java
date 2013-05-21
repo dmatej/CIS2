@@ -10,6 +10,7 @@ import cz.i.cis.db.entities.Tdustay;
 public interface StayService {
     public Tdustay create(Tdustay stay);
     public Tdustay update(Tdustay stay);
+    public Tdustay delete(Tdustay stay);
 
     public List<Tdustay> getStaysForPerson(Integer idPerson);
 }

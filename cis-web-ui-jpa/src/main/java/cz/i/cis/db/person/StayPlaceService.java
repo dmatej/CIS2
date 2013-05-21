@@ -9,10 +9,10 @@ import cz.i.cis.db.entities.Tdustayplace;
 @Local
 public interface StayPlaceService {
     public Tdustayplace create(Tdustayplace stayPlace);
-
     public Tdustayplace update(Tdustayplace stayPlace);
+    public Tdustayplace delete(Tdustayplace stayPlace);
 
-    public List<Tdustayplace> getStayPlacesForPerson(Integer idPerson);
+    public List<Tdustayplace> findStayPlacesForPerson(Integer idPerson);
 
-    public List<Tdustayplace> getStayPlacesForStay(Integer idStay);
+    public List<Tdustayplace> findStayPlacesForStay(Integer idStay);
 }

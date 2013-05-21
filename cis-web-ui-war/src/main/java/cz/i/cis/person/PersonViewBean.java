@@ -38,10 +38,10 @@ public class PersonViewBean implements Serializable{
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Integer id = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
 
-        selectedPerson = personservicebean.getPerson(id);
+        selectedPerson = personservicebean.findPersonById(id);
 
         id = selectedPerson.getIdidentityActual();
-        actualPersonIdentity = identityservicebean.getConcreteIdentityForPerson(id);
+        actualPersonIdentity = identityservicebean.findConcreteIdentityForPerson(id);
 
         return true;
     }
@@ -50,12 +50,12 @@ public class PersonViewBean implements Serializable{
 
         if(selectedPerson == null) return new ArrayList<Identity>();
 
-        return identityservicebean.getIdentitiesForPerson(selectedPerson.getId());
+        return identityservicebean.findIdentitiesForPerson(selectedPerson.getId());
     }
 
     public List<Identity> getListPersonsByActualIdentities()
     {
-        return identityservicebean.getActualIdentitiesOfPersons();
+        return identityservicebean.findActualIdentitiesOfPersons();
     }
 
     public Tduperson getSelectedPerson() {
