@@ -32,7 +32,7 @@ public class PersonServiceBean implements Serializable, PersonService {
 
     @Override
     public List<Tduperson> getPersons() {
-        final String query = "SELECT i from Tduperson i WHERE rstatus=0";
+        final String query = "SELECT p from Tduperson p WHERE p.rstatus=0";
         TypedQuery<Tduperson> query1 = em.createQuery(query, Tduperson.class);
         final List<Tduperson> persons = query1.getResultList();
 

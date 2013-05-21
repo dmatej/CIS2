@@ -31,7 +31,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public List<Identity> findIdentitiesForPerson(Integer idPerson) {
-    final String query = "SELECT i from Identity i WHERE idperson=:personID and rstatus=0";
+    final String query = "SELECT i from Identity i WHERE i.idperson=:personID and i.rstatus=0";
     TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
     query1.setParameter("personID", idPerson);
     final List<Identity> ident = query1.getResultList();
@@ -41,7 +41,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public Identity findConcreteIdentityForPerson(Integer idIdentity) {
-    final String query = "SELECT i from Identity i WHERE i.id=:idIden and rstatus=0";
+    final String query = "SELECT i from Identity i WHERE i.id=:idIden and i.rstatus=0";
     TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
     query1.setParameter("idIden", idIdentity);
     final List<Identity> ident = query1.getResultList();
@@ -59,7 +59,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public List<Identity> findActualIdentitiesOfPersons() {
-    final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id and rstatus=0";
+    final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id and p.rstatus=0";
     TypedQuery<Identity> query = em.createQuery(queryStr, Identity.class);
     final List<Identity> idents = query.getResultList();
 
@@ -75,7 +75,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
   @Override
   public List<Identity> findIdentitiesByParams(String firstName,
       String lastName, Boolean isMale, String birthNumber) {
-    String queryStr = "SELECT i FROM identity i WHERE rstatus=0";
+    String queryStr = "SELECT i FROM identity i WHERE i.rstatus=0";
     if (firstName != null)
       queryStr += " and i.firstname LIKE :firstname";
 

@@ -8,11 +8,13 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import cz.i.cis.db.code.CodeService;
+import cz.i.cis.db.entities.CodeState;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
 
-@Named("personview")
+@Named("personsview")
 @RequestScoped
 public class PersonsViewBean implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -22,6 +24,10 @@ public class PersonsViewBean implements Serializable{
 
     @EJB
     private IdentityService identityservicebean;
+
+    @EJB
+    private CodeService codeservicebean;
+
 
     public List<Identity> listPersonsByActualIdentities()
     {
@@ -41,5 +47,18 @@ public class PersonsViewBean implements Serializable{
     {
         //TODO [Honza->Martin] implementovat
         return null;
+    }
+
+    public String formatSex(String sex)
+    {
+        if(sex.equalsIgnoreCase("M")) return "Muž";
+        else if (sex.equalsIgnoreCase("Z")) return "Žena";
+
+        return "-";
+    }
+
+    public CodeState findState(Integer id)
+    {
+        return codeservicebean.findStateById(id);
     }
 }

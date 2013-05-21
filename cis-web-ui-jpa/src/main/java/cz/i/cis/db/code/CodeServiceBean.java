@@ -67,7 +67,7 @@ public class CodeServiceBean implements Serializable, CodeService {
 
     @Override
     public CodeState findStateById(Integer id) {
-        final String query = "SELECT i from code_state i where i.id=:codeID";
+        final String query = "SELECT i from CodeState i where i.id=:codeID";
         TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
         query1.setParameter("codeID", id);
         final List<CodeState> res = query1.getResultList();

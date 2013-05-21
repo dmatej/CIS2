@@ -65,20 +65,20 @@
     <div class="grid_6">
       <div class="searchform">
 
-				<form id="searchform" action="" method="post">
-					<div class="formContent">
-					  <table><tr>
-					    <td>
-					    <label for="search">Vyhledat osobu</label>
-						<input type="text" name="search" id="search" class="input required" value="" />
-					    </td>
-					    <td>
-						<input type="submit" class="searchSubmit" value="Vyhledat" />
-					    </td>
-					  </tr></table>
-					</div>
-				</form>
-	   </div>
+        <form id="searchform" action="" method="post">
+          <div class="formContent">
+            <table><tr>
+              <td>
+              <label for="search">Vyhledat osobu</label>
+            <input type="text" name="search" id="search" class="input required" value="" />
+              </td>
+              <td>
+            <input type="submit" class="searchSubmit" value="Vyhledat" />
+              </td>
+            </tr></table>
+          </div>
+        </form>
+     </div>
     </div>
     <div class="clear"></div>
   </div>
@@ -87,40 +87,39 @@
 
   <!-- START BOTTOM SECTION -->
   <div class="container_12 bottom">
-	<div class="grid_12">
-	<table>
-	  <tr>
-	    <th>Jméno</th>
-	    <th>Příjmení</th>
-	    <th>Datum narození</th>
-	    <th>Aktuální stát</th>
-	    <th>Pohlaví</th>
-	  </tr>
-	  <tr>
-	    <td><a href="person-detail.xhtml">Antonín</a></td>
-	    <td><a href="person-detail.xhtml">Kumšt</a></td>
-	    <td><a href="person-detail.xhtml">9.8.1987</a></td>
-	    <td><a href="person-detail.xhtml">Česká republika</a></td>
-	    <td><a href="person-detail.xhtml">Muž</a></td>
-	  </tr>
-	  <tr>
-	    <td><a href="person-detail.xhtml">Martin</a></td>
-	    <td><a href="person-detail.xhtml">Matas</a></td>
-	    <td><a href="person-detail.xhtml">9.4.1988</a></td>
-	    <td><a href="person-detail.xhtml">Česká republika</a></td>
-	    <td><a href="person-detail.xhtml">Muž</a></td>
-	  </tr>
-	  <tr>
-	    <td><a href="person-detail.xhtml">Adéla</a></td>
-	    <td><a href="person-detail.xhtml">Krákoravá</a></td>
-	    <td><a href="person-detail.xhtml">11.1.1998</a></td>
-	    <td><a href="person-detail.xhtml">Polsko</a></td>
-	    <td><a href="person-detail.xhtml">Žena</a></td>
-	  </tr>
-	</table>
+  <div class="grid_12">
+  <table>
+    <tr>
+      <th>Jméno</th>
+      <th>Příjmení</th>
+      <th>Datum narození</th>
+      <th>Aktuální stát</th>
+      <th>Pohlaví</th>
+      <th>Akce</th>
+    </tr>
 
 
-	</div>
+        <c:forEach items="#{personsview.listPersonsByActualIdentities()}" var="prsnIdentity">
+          <tr>
+            <td><h:outputText value="#{prsnIdentity.firstname}" /></td>
+            <td><h:outputText value="#{prsnIdentity.lastname}" /></td>
+            <td><h:outputText value="#{prsnIdentity.birthdate}" /></td>
+            <td><h:outputText value="#{personsview.findState(prsnIdentity.idstate).name}" /></td>
+            <td><h:outputText value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
+            <td>
+                <h:form>
+                  <h:commandLink value="Detail" action="person-detail.xhtml" actionListener="#{personview.handlePersonSelection}"  >
+                    <f:param name="personid" value="#{prsnIdentity.idperson}" />
+                  </h:commandLink>
+                </h:form>
+            </td>
+          </tr>
+        </c:forEach>
+
+  </table>
+
+
+  </div>
 
 
     <div class="clear"></div>
