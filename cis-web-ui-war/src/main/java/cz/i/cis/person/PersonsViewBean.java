@@ -29,7 +29,6 @@ public class PersonsViewBean implements Serializable{
     }
 
     /**
-     *
      * @param firstname
      * @param lastname
      * @param sex
