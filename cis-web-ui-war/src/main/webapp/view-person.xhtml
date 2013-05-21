@@ -119,15 +119,7 @@
 	  </tr>
 	</table>
 
-	<h:form>
-        <c:forEach items="#{personview.listPersonsByActualIdentities}" var="prsnIdentity">
-           ${prsnIdentity.firstname} ${prsnIdentity.lastname}
-            <h:commandLink value="Detail" action="person-detail.xhtml" actionListener="#{personview.handlePersonSelection}"  >
-                <f:param name="personid" value="${prsnIdentity.idperson}" />
-            </h:commandLink>
-            <br />
-        </c:forEach>
-      </h:form>
+
 	</div>
 
 
