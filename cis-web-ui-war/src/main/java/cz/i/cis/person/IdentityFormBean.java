@@ -2,7 +2,6 @@ package cz.i.cis.person;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -107,30 +106,6 @@ public class IdentityFormBean implements Serializable {
 
         return identity;
 
-    }
-
-    public List<Identity> getIdentitiesForPerson(Integer idPerson) {
-        if (identityservicebean == null) {
-            FacesMessage message = new FacesMessage("personservicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-
-            return null;
-        }
-
-        return identityservicebean.getIdentitiesForPerson(idPerson);
-    }
-
-    public List<Identity> getListPersonsByActualIdentities()
-    {
-        return identityservicebean.getActualIdentitiesOfPersons();
-    }
-
-    public String getMessage() {
-        if (identityservicebean == null) {
-            return "identityservicebean null!";
-        }
-
-        return "Vše připraveno";
     }
 
     public String getFirstname() {
