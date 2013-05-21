@@ -31,8 +31,8 @@
 
     <!-- START LOGO -->
     <div class="grid_4 header">
-      <a href="viewPerson.xhtml"><img src="images/logo.gif"
-        alt="YIW minimal" /></a>
+      <a href="view-person.xhtml"><img src="images/logo.gif"
+        alt="logo" /></a>
     </div>
     <!-- END LOGO -->
 
@@ -40,9 +40,9 @@
     <div class="grid_8 header">
       <div id="navigation">
         <ul id="nav">
-          <li id="viewPerson"><a href="viewPerson.xhtml"
+          <li id="viewPerson"><a href="view-person.xhtml"
             title="Procházení osob" class="currentPage">Procházení osob</a></li>
-          <li id="registerPerson"><a href="createPerson.xhtml"
+          <li id="registerPerson"><a href="create-person.xhtml"
             title="Registrace osoby">Registrace osoby</a></li>
         </ul>
       </div>
@@ -61,6 +61,25 @@
         <h2>Procházení osob</h2>
       </div>
     </div>
+    <!--  VYHLEDÁNÍ OSOB -->
+    <div class="grid_6">
+      <div class="searchform">
+
+				<form id="searchform" action="" method="post">
+					<div class="formContent">
+					  <table><tr>
+					    <td>
+					    <label for="search">Vyhledat osobu</label>
+						<input type="text" name="search" id="search" class="input required" value="" />
+					    </td>
+					    <td>
+						<input type="submit" class="searchSubmit" value="Vyhledat" />
+					    </td>
+					  </tr></table>
+					</div>
+				</form>
+	   </div>
+    </div>
     <div class="clear"></div>
   </div>
   <!-- END MEDIUM SECTION -->
@@ -68,16 +87,41 @@
 
   <!-- START BOTTOM SECTION -->
   <div class="container_12 bottom">
-      Vytvořené osoby <br />
-      <h:form>
-        <c:forEach items="#{personview.listPersonsByActualIdentities}" var="prsnIdentity">
-           ${prsnIdentity.firstname} ${prsnIdentity.lastname}
-            <h:commandLink value="Detail" action="person-detail.xhtml" actionListener="#{personview.handlePersonSelection}"  >
-                <f:param name="personid" value="${prsnIdentity.idperson}" />
-            </h:commandLink>
-            <br />
-        </c:forEach>
-      </h:form>
+	<div class="grid_12">
+	<table>
+	  <tr>
+	    <th>Jméno</th>
+	    <th>Příjmení</th>
+	    <th>Datum narození</th>
+	    <th>Aktuální stát</th>
+	    <th>Pohlaví</th>
+	  </tr>
+	  <tr>
+	    <td><a href="person-detail.xhtml">Antonín</a></td>
+	    <td><a href="person-detail.xhtml">Kumšt</a></td>
+	    <td><a href="person-detail.xhtml">9.8.1987</a></td>
+	    <td><a href="person-detail.xhtml">Česká republika</a></td>
+	    <td><a href="person-detail.xhtml">Muž</a></td>
+	  </tr>
+	  <tr>
+	    <td><a href="person-detail.xhtml">Martin</a></td>
+	    <td><a href="person-detail.xhtml">Matas</a></td>
+	    <td><a href="person-detail.xhtml">9.4.1988</a></td>
+	    <td><a href="person-detail.xhtml">Česká republika</a></td>
+	    <td><a href="person-detail.xhtml">Muž</a></td>
+	  </tr>
+	  <tr>
+	    <td><a href="person-detail.xhtml">Adéla</a></td>
+	    <td><a href="person-detail.xhtml">Krákoravá</a></td>
+	    <td><a href="person-detail.xhtml">11.1.1998</a></td>
+	    <td><a href="person-detail.xhtml">Polsko</a></td>
+	    <td><a href="person-detail.xhtml">Žena</a></td>
+	  </tr>
+	</table>
+
+
+	</div>
+
 
     <div class="clear"></div>
   </div>
