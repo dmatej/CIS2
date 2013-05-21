@@ -10,10 +10,11 @@ import cz.i.cis.db.entities.Identity;
 public interface IdentityService {
     public Identity create(Identity identity);
     public Identity update(Identity identity);
+    public Identity delete(Identity identity);
 
-    public List<Identity> getIdentitiesForPerson(Integer idPerson);
+    public List<Identity> findIdentitiesForPerson(Integer idPerson);
 
-    public List<Identity> getActualIdentitiesOfPersons();
+    public List<Identity> findActualIdentitiesOfPersons();
 
-    public Identity getConcreteIdentityForPerson(Integer idIdentity);
+    public Identity findConcreteIdentityForPerson(Integer idIdentity);
 }

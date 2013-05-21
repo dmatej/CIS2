@@ -32,7 +32,7 @@ public class PersonServiceBean implements Serializable, PersonService {
 
     @Override
     public List<Tduperson> getPersons() {
-        final String query = "SELECT i from Tduperson i";
+        final String query = "SELECT i from Tduperson i WHERE rstatus=0";
         TypedQuery<Tduperson> query1 = em.createQuery(query, Tduperson.class);
         final List<Tduperson> persons = query1.getResultList();
 
@@ -40,12 +40,13 @@ public class PersonServiceBean implements Serializable, PersonService {
     }
 
     @Override
-    public void update(Tduperson person) {
+    public Tduperson update(Tduperson person) {
         em.merge(person);
+        return person;
     }
 
     @Override
-    public Tduperson getPerson(Integer id) {
+    public Tduperson findPersonById(Integer id) {
         final String queryStr = "SELECT p FROM Tduperson p WHERE p.id = :idp";
         TypedQuery<Tduperson> query = em.createQuery(queryStr, Tduperson.class);
         query.setParameter("idp", id);
@@ -54,6 +55,12 @@ public class PersonServiceBean implements Serializable, PersonService {
         if(persons.size() != 1) return null;
 
         return persons.get(0);
+    }
+
+    @Override
+    public Tduperson delete(Tduperson person) {
+        person.setRstatus(-1);
+        return update(person);
     }
 
 }

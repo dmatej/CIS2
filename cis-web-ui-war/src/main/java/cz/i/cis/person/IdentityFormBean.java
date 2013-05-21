@@ -95,8 +95,8 @@ public class IdentityFormBean implements Serializable {
         identity.setIdevidence(0); //TODO upravit
         identity.setIdorgunit(0);
         identity.setIdperson(idperson);
-        identity.setIdstate(0);
-        identity.setIdstateofbirth(0);
+        identity.setIdstate(idstate);
+        identity.setIdstateofbirth(idstateofbirth);
         identity.setLastname(lastname);
         identity.setOthernames(othernames);
         identity.setRstatus(0);

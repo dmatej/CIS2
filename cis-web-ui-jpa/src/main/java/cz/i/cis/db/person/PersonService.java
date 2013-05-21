@@ -9,9 +9,10 @@ import cz.i.cis.db.entities.Tduperson;
 @Local(PersonService.class)
 public interface PersonService {
     public Tduperson create(Tduperson person);
-    public void update(Tduperson person);
+    public Tduperson update(Tduperson person);
+    public Tduperson delete(Tduperson person);
 
     public List<Tduperson> getPersons();
 
-    public Tduperson getPerson(Integer id);
+    public Tduperson findPersonById(Integer id);
 }

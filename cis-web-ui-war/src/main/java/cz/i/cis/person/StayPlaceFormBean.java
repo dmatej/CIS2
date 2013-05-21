@@ -73,14 +73,14 @@ public class StayPlaceFormBean implements Serializable {
         if (!testBeans())
             return null;
 
-        return stayPlaceServiceBean.getStayPlacesForPerson(idPerson);
+        return stayPlaceServiceBean.findStayPlacesForPerson(idPerson);
     }
 
     public List<Tdustayplace> getStayPlacesForStay(Integer idStay) {
         if (!testBeans())
             return null;
 
-        return stayPlaceServiceBean.getStayPlacesForStay(idStay);
+        return stayPlaceServiceBean.findStayPlacesForStay(idStay);
     }
 
     private boolean testBeans() {

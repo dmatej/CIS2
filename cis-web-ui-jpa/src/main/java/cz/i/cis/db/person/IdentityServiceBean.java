@@ -30,8 +30,8 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     }
 
     @Override
-    public List<Identity> getIdentitiesForPerson(Integer idPerson) {
-        final String query = "SELECT i from Identity i where idperson=:personID";
+    public List<Identity> findIdentitiesForPerson(Integer idPerson) {
+        final String query = "SELECT i from Identity i WHERE idperson=:personID and rstatus=0";
         TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
         query1.setParameter("personID", idPerson);
         final List<Identity> ident = query1.getResultList();
@@ -40,13 +40,14 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     }
 
     @Override
-    public Identity getConcreteIdentityForPerson(Integer idIdentity) {
-        final String query = "SELECT i from Identity i where i.id=:idIden";
+    public Identity findConcreteIdentityForPerson(Integer idIdentity) {
+        final String query = "SELECT i from Identity i WHERE i.id=:idIden and rstatus=0";
         TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
         query1.setParameter("idIden", idIdentity);
         final List<Identity> ident = query1.getResultList();
 
-        if(ident.size() != 1) return null;
+        if (ident.size() != 1)
+            return null;
 
         return ident.get(0);
     }
@@ -57,12 +58,18 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     }
 
     @Override
-    public List<Identity> getActualIdentitiesOfPersons() {
-        final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id";
+    public List<Identity> findActualIdentitiesOfPersons() {
+        final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id and rstatus=0";
         TypedQuery<Identity> query = em.createQuery(queryStr, Identity.class);
         final List<Identity> idents = query.getResultList();
 
         return idents;
+    }
+
+    @Override
+    public Identity delete(Identity identity) {
+        identity.setRstatus(-1);
+        return update(identity);
     }
 
 }
