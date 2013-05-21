@@ -21,7 +21,7 @@
   </context-param>
 
   <welcome-file-list>
-    <welcome-file>viewPerson.xhtml</welcome-file>
+    <welcome-file>view-person.xhtml</welcome-file>
   </welcome-file-list>
 
   <servlet>

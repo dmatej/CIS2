@@ -27,7 +27,7 @@
 
     <!-- START LOGO -->
     <div class="grid_4 header">
-      <a href="viewPerson.xhtml"><img src="images/logo.gif" alt="YIW minimal" /></a>
+      <a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
     </div>
     <!-- END LOGO -->
 
@@ -35,8 +35,8 @@
          <div class="grid_8 header">
            <div id="navigation">
         <ul id="nav">
-          <li id="viewPerson"><a href="viewPerson.xhtml" title="Procházení osob">Procházení osob</a></li>
-          <li id="registerPerson"><a href="createPerson.xhtml" title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
+          <li id="viewPerson"><a href="view-person.xhtml" title="Procházení osob">Procházení osob</a></li>
+          <li id="registerPerson"><a href="create-person.xhtml" title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
         </ul>
       </div>
     </div>
@@ -54,14 +54,28 @@
            <h2>Registrace osoby</h2>
          </div>
        </div>
+    <!--  VYHLEDÁNÍ OSOB -->
+    <div class="grid_6">
+      <div class="searchform">
+
+				<form id="searchform" action="" method="post">
+					<div class="formContent">
+					  <table><tr>
+					    <td>
+					    <label for="search">Vyhledat osobu</label>
+						<input type="text" name="search" id="search" class="input required" value="" />
+					    </td>
+					    <td>
+						<input type="submit" class="searchSubmit" value="Vyhledat" />
+					    </td>
+					  </tr></table>
+					</div>
+				</form>
+	   </div>
+    </div>
     <div class="clear"></div>
   </div>
   <!-- END MEDIUM SECTION -->
-
-
-
-
-
 
 
   <!-- START BOTTOM SECTION 2 -->
