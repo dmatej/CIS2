@@ -31,7 +31,7 @@ public class StayPlaceFormBean implements Serializable {
 
     private Timestamp ddate;
 
-    private Integer idaddress;
+    private String address;
 
     private Integer idperson;
 
@@ -47,7 +47,7 @@ public class StayPlaceFormBean implements Serializable {
         stayPlace.setDatefrom(datefrom);
         stayPlace.setDateto(dateto);
         stayPlace.setDdate(ddate);
-        stayPlace.setIdaddress(idaddress);
+        stayPlace.setAddress(address);
         stayPlace.setIdperson(idperson);
         stayPlace.setIdtdustay(idtdustay);
         stayPlace.setNote(note);
