@@ -3,13 +3,11 @@ package cz.i.cis.person;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.el.ELContext;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -79,9 +77,6 @@ public class PersonFormBean implements Serializable {
     private Integer uidcisuser;
 
 
-    private Tduperson selectedPerson;
-    private Identity selectedPersonIdentity;
-
     public Tduperson createPersonWithIdentity(Identity identity) {
         if (!testBeans())
             return null;
@@ -95,6 +90,7 @@ public class PersonFormBean implements Serializable {
             identity.setIdperson(person.getId());
             identity = identityservicebean.create(identity);
             person.setIdidentityActual(identity.getId());
+            personservicebean.update(person);
 
             FacesMessage message = new FacesMessage("Persona s hlavní identitou vytvořena!");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -177,41 +173,6 @@ public class PersonFormBean implements Serializable {
         person.setUdate(udate);
         person.setUidcisuser(uidcisuser);
         return person;
-    }
-
-    public List<Tduperson> getPersons() {
-        if (personservicebean == null) {
-            FacesMessage message = new FacesMessage("personservicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-
-            return null;
-        }
-
-        return personservicebean.getPersons();
-    }
-
-    public String getMessage() {
-        if (personservicebean == null) {
-            return "personservicebean null!";
-        }
-
-        return "Vše připraveno";
-    }
-
-    public Boolean handlePersonSelection()
-    {
-        selectedPerson = null;
-        selectedPersonIdentity = null;
-
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Integer id = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
-
-        selectedPerson = personservicebean.getPerson(id);
-        if(selectedPerson == null) return false;
-
-        selectedPersonIdentity = identityservicebean.getConcreteIdentityForPerson(selectedPerson.getIdidentityActual());
-
-        return true;
     }
 
     public Integer getIdidentityActual() {
@@ -380,21 +341,5 @@ public class PersonFormBean implements Serializable {
 
     public void setUidcisuser(Integer uidcisuser) {
         this.uidcisuser = uidcisuser;
-    }
-
-    public Tduperson getSelectedPerson() {
-        return selectedPerson;
-    }
-
-    public void setSelectedPerson(Tduperson selectedPerson) {
-        this.selectedPerson = selectedPerson;
-    }
-
-    public Identity getSelectedPersonIdentity() {
-        return selectedPersonIdentity;
-    }
-
-    public void setSelectedPersonIdentity(Identity selectedPersonIdentity) {
-        this.selectedPersonIdentity = selectedPersonIdentity;
     }
 }
