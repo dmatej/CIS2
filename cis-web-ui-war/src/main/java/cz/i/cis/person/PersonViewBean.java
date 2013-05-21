@@ -53,11 +53,6 @@ public class PersonViewBean implements Serializable{
         return identityservicebean.findIdentitiesForPerson(selectedPerson.getId());
     }
 
-    public List<Identity> getListPersonsByActualIdentities()
-    {
-        return identityservicebean.findActualIdentitiesOfPersons();
-    }
-
     public Tduperson getSelectedPerson() {
         return selectedPerson;
     }
