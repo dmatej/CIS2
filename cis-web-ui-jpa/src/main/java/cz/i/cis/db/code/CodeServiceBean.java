@@ -27,7 +27,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     }
 
     @Override
-    public CodeDocumenttype getDocumentTypeById(Integer id) {
+    public CodeDocumenttype findDocumentTypeById(Integer id) {
         final String query = "SELECT i from code_documenttype i where i.id=:codeID";
         TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
                 CodeDocumenttype.class);
@@ -40,7 +40,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     }
 
     @Override
-    public CodePermissiontype getPermissionTypeById(Integer id) {
+    public CodePermissiontype findPermissionTypeById(Integer id) {
         final String query = "SELECT i from code_permissiontype i where i.id=:codeID";
         TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
                 CodePermissiontype.class);
@@ -53,7 +53,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     }
 
     @Override
-    public CodePurposeofstay getPurposeOfStayById(Integer id) {
+    public CodePurposeofstay findPurposeOfStayById(Integer id) {
         final String query = "SELECT i from code_purmoseofstay i where i.id=:codeID";
         TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
                 CodePurposeofstay.class);
@@ -66,7 +66,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     }
 
     @Override
-    public CodeState getStateById(Integer id) {
+    public CodeState findStateById(Integer id) {
         final String query = "SELECT i from code_state i where i.id=:codeID";
         TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
         query1.setParameter("codeID", id);
@@ -75,6 +75,41 @@ public class CodeServiceBean implements Serializable, CodeService {
             return null;
 
         return res.get(0);
+    }
+
+    @Override
+    public List<CodeDocumenttype> findDocumentTypes() {
+        final String query = "SELECT i from code_documenttype i";
+        TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
+                CodeDocumenttype.class);
+        final List<CodeDocumenttype> res = query1.getResultList();
+        return res;
+    }
+
+    @Override
+    public List<CodePermissiontype> findPermissionTypes() {
+        final String query = "SELECT i from code_permissiontype i";
+        TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
+                CodePermissiontype.class);
+        final List<CodePermissiontype> res = query1.getResultList();
+        return res;
+    }
+
+    @Override
+    public List<CodePurposeofstay> findPurposeOfStays() {
+        final String query = "SELECT i from code_purmoseofstay i";
+        TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
+                CodePurposeofstay.class);
+        final List<CodePurposeofstay> res = query1.getResultList();
+        return res;
+    }
+
+    @Override
+    public List<CodeState> findStates() {
+        final String query = "SELECT i from code_state i";
+        TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
+        final List<CodeState> res = query1.getResultList();
+        return res;
     }
 
 }
