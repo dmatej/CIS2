@@ -17,144 +17,153 @@ import cz.i.cis.db.validate.StayValidateService;
 @Named("stay")
 public class StayFormBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @EJB
-    private StayService stayServiceBean;
+  @EJB
+  private StayService stayServiceBean;
 
-    @EJB
-    private StayValidateService stayValidateServicebean;
+  @EJB
+  private StayValidateService stayValidateServicebean;
 
-    private Integer id;
+  private Integer id;
 
-    private Date grantedfrom;
+  private Date grantedfrom;
 
-    private Date grantedto;
+  private Date grantedto;
 
-    private Integer idperson;
+  private Integer idperson;
 
-    private String note;
+  private String note;
 
-    private String refnumber;
+  private String refnumber;
 
-    private Integer rstatus;
+  private Integer idpobytucel;
 
+  public Tdustay createStay() {
+    if (!testBeans())
+      return null;
 
-    private Integer idPerson;
+    Tdustay stay = generateEntity();
 
-    public Tdustay createStay() {
-        if (!testBeans())
-            return null;
+    String[] validate = stayValidateServicebean.validate(stay);
+    if (validate == null) {
+      stay = stayServiceBean.create(stay);
 
-        Tdustay stay = new Tdustay();
+      FacesMessage message = new FacesMessage("Pobyt vytvořen!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+    } else {
+      for (int i = 0; i < validate.length; i++) {
+        FacesMessage message = new FacesMessage("Chyba při validaci pobytu! ("
+            + validate[i] + ")");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      return null;
+    }
+    return stay;
+  }
 
-        String[] validate = stayValidateServicebean.validate(stay);
-        if (validate == null) {
-            stay = stayServiceBean.create(stay);
+  private Tdustay generateEntity() {
+    Tdustay stay = new Tdustay();
+    stay.setGrantedfrom(grantedfrom);
+    stay.setGrantedto(grantedto);
+    stay.setIdperson(idperson);
+    stay.setNote(note);
+    stay.setRefnumber(refnumber);
+    stay.setIdpobytucel(idpobytucel);
+    return stay;
 
-            FacesMessage message = new FacesMessage("Pobyt vytvořen!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            for (int i = 0; i < validate.length; i++) {
-                FacesMessage message = new FacesMessage(
-                        "Chyba při validaci pobytu! (" + validate[i] + ")");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-            return null;
-        }
-        return stay;
+  }
+
+  public List<Tdustay> getStaysForPerson(Integer idPerson) {
+    if (!testBeans())
+      return null;
+
+    return stayServiceBean.getStaysForPerson(idPerson);
+  }
+
+  private boolean testBeans() {
+    if (stayServiceBean == null) {
+      FacesMessage message = new FacesMessage("stayServiceBean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    public List<Tdustay> getStaysForPerson(Integer idPerson) {
-        if (!testBeans())
-            return null;
-
-        return stayServiceBean.getStaysForPerson(idPerson);
+    if (stayValidateServicebean == null) {
+      FacesMessage message = new FacesMessage("stayValidateServiceBean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    private boolean testBeans() {
-        if (stayServiceBean == null) {
-            FacesMessage message = new FacesMessage("stayServiceBean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
+    return true;
+  }
 
-        if (stayValidateServicebean == null) {
-            FacesMessage message = new FacesMessage(
-                    "stayValidateServiceBean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
+  public void handleRequest() {
+    idperson = null;
 
-        return true;
-    }
+    ExternalContext externalContext = FacesContext.getCurrentInstance()
+        .getExternalContext();
+    idperson = Integer.parseInt(externalContext.getRequestParameterMap().get(
+        "personid"));
 
-    public void handleRequest()
-    {
-        idPerson = null;
+    // TODO [Honza] osetrit, jestli ID je platne
+  }
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        idPerson = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
+  public Integer getId() {
+    return id;
+  }
 
-        //todo [Honza] osetrit, jestli ID je platne
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public Date getGrantedfrom() {
+    return grantedfrom;
+  }
+
+  public void setGrantedfrom(Date grantedfrom) {
+    this.grantedfrom = grantedfrom;
+  }
+
+  public Date getGrantedto() {
+    return grantedto;
+  }
+
+  public void setGrantedto(Date grantedto) {
+    this.grantedto = grantedto;
+  }
+
+  public Integer getIdperson() {
+    return idperson;
+  }
+
+  public void setIdperson(Integer idperson) {
+    this.idperson = idperson;
+  }
+
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+  public String getRefnumber() {
+    return refnumber;
+  }
+
+  public void setRefnumber(String refnumber) {
+    this.refnumber = refnumber;
+  }
+
+  public Integer getIdpobytucel() {
+    return idpobytucel;
+  }
+
+  public void setIdpobytucel(Integer idpobytucel) {
+    this.idpobytucel = idpobytucel;
+  }
 
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getGrantedfrom() {
-        return grantedfrom;
-    }
-
-    public void setGrantedfrom(Date grantedfrom) {
-        this.grantedfrom = grantedfrom;
-    }
-
-    public Date getGrantedto() {
-        return grantedto;
-    }
-
-    public void setGrantedto(Date grantedto) {
-        this.grantedto = grantedto;
-    }
-
-    public Integer getIdperson() {
-        return idperson;
-    }
-
-    public void setIdperson(Integer idperson) {
-        this.idperson = idperson;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public String getRefnumber() {
-        return refnumber;
-    }
-
-    public void setRefnumber(String refnumber) {
-        this.refnumber = refnumber;
-    }
-
-    public Integer getRstatus() {
-        return rstatus;
-    }
-
-    public void setRstatus(Integer rstatus) {
-        this.rstatus = rstatus;
-    }
 
 }
