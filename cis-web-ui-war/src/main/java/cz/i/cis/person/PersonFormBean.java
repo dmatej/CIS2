@@ -62,32 +62,17 @@ public class PersonFormBean implements Serializable {
 
   private String note;
 
-  public Tduperson createPersonWithIdentity(Identity identity) {
+  public void createPersonWithIdentity(Identity identity) {
     if (!testBeans())
-      return null;
+      return;
 
     Tduperson person = generateEntity();
-    String[] validatePerson = personValidateServicebean.validate(person);
-    String[] validateIdentity = identityValidateServicebean.validate(identity);
-    if (validatePerson == null && validateIdentity == null) {
-
+    if (validateIdentity(identity) && validatePerson(person)) {
       person = personservicebean.create(person);
       identity.setIdperson(person.getId());
       identity = identityservicebean.create(identity);
       person.setIdidentityActual(identity.getId());
-      personservicebean.update(person);
-
-      FacesMessage message = new FacesMessage(
-          "Persona s hlavní identitou vytvořena!");
-      FacesContext.getCurrentInstance().addMessage(null, message);
-      return person;
-    } else {
-      for (int i = 0; i < validatePerson.length; i++) {
-        FacesMessage message = new FacesMessage(
-            "Chyba při validaci identity! (" + validatePerson[i] + ")");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-      }
-      return null;
+      selectedPerson = personservicebean.update(person);
     }
   }
 
@@ -113,8 +98,41 @@ public class PersonFormBean implements Serializable {
 
     Tduperson newPerson = generateEntity();
     newPerson.setId(selectedPerson.getId());
-    selectedPerson = newPerson;
-    personservicebean.update(selectedPerson);
+    if (validatePerson(newPerson)) {
+      selectedPerson = personservicebean.update(selectedPerson);
+    }
+  }
+
+  private Boolean validatePerson(Tduperson person) {
+    String[] validate = personValidateServicebean.validate(person);
+    if (validate == null) {
+      FacesMessage message = new FacesMessage("Validace persony OK!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return true;
+    } else {
+      for (int i = 0; i < validate.length; i++) {
+        FacesMessage message = new FacesMessage("Chyba při validaci persony! ("
+            + validate[i] + ")");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      return false;
+    }
+  }
+
+  private Boolean validateIdentity(Identity identity) {
+    String[] validate = identityValidateServicebean.validate(identity);
+    if (validate == null) {
+      FacesMessage message = new FacesMessage("Validace identity OK!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return true;
+    } else {
+      for (int i = 0; i < validate.length; i++) {
+        FacesMessage message = new FacesMessage(
+            "Chyba při validaci identity! (" + validate[i] + ")");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      return false;
+    }
   }
 
   public void loadPerson() {

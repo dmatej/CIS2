@@ -63,15 +63,15 @@ public class IdentityFormBean implements Serializable {
 
     Identity identity = generateEntity();
 
-    if (validate(identity)) {
+    if (validateIdentity(identity)) {
       selectedIdentity = identityservicebean.create(identity);
     }
   }
 
-  private Boolean validate(Identity identity) {
+  private Boolean validateIdentity(Identity identity) {
     String[] validate = identityValidateServicebean.validate(identity);
     if (validate == null) {
-      FacesMessage message = new FacesMessage("Validace OK!");
+      FacesMessage message = new FacesMessage("Validace identity OK!");
       FacesContext.getCurrentInstance().addMessage(null, message);
       return true;
     } else {
@@ -90,7 +90,7 @@ public class IdentityFormBean implements Serializable {
 
     Identity newIdentity = generateEntity();
     newIdentity.setId(selectedIdentity.getId());
-    if (validate(newIdentity)) {
+    if (validateIdentity(newIdentity)) {
       selectedIdentity = identityservicebean.update(newIdentity);
     }
   }
