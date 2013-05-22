@@ -71,7 +71,6 @@ public class StayFormBean implements Serializable {
     stay.setRefnumber(refnumber);
     stay.setIdpobytucel(idpobytucel);
     return stay;
-
   }
 
   public List<Tdustay> getStaysForPerson(Integer idPerson) {
@@ -95,17 +94,6 @@ public class StayFormBean implements Serializable {
     }
 
     return true;
-  }
-
-  public void handleRequest() {
-    idperson = null;
-
-    ExternalContext externalContext = FacesContext.getCurrentInstance()
-        .getExternalContext();
-    idperson = Integer.parseInt(externalContext.getRequestParameterMap().get(
-        "personid"));
-
-    // TODO [Honza] osetrit, jestli ID je platne
   }
 
   public Integer getId() {

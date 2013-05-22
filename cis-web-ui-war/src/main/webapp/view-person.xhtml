@@ -106,12 +106,12 @@
                 value="#{codes.findState(prsnIdentity.idstate).name}" /></td>
             <td><h:outputText
                 value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
-            <td><h:form>
-                <h:commandLink value="Detail" action="person-detail.xhtml"
-                  actionListener="#{personview.handlePersonSelection}">
-                  <f:param name="personid" value="#{prsnIdentity.idperson}" />
-                </h:commandLink>
-              </h:form></td>
+            <td>
+            <h:outputLink value="person-detail.xhtml">
+                <h:outputText value="Detail" />
+                <f:param name="personid" value="#{prsnIdentity.idperson}" />
+            </h:outputLink>
+            </td>
           </tr>
         </c:forEach>
 

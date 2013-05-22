@@ -28,22 +28,27 @@ public class PersonViewBean implements Serializable{
 
     private Tduperson selectedPerson;
     private Identity actualPersonIdentity;
+    private Integer idperson;
 
 
-    public Boolean handlePersonSelection()
+    public void loadPerson()
     {
+        if (FacesContext.getCurrentInstance().isPostback() || idperson == null) {
+            return;
+        }
+
         selectedPerson = null;
         actualPersonIdentity = null;
 
-        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        Integer id = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
+        selectedPerson = personservicebean.findPersonById(idperson);
+        if(selectedPerson == null)
+        {
+            //TODO hlaska
+            return;
+        }
 
-        selectedPerson = personservicebean.findPersonById(id);
-
-        id = selectedPerson.getIdidentityActual();
-        actualPersonIdentity = identityservicebean.findConcreteIdentityForPerson(id);
-
-        return true;
+        Integer idIdentity = selectedPerson.getIdidentityActual();
+        actualPersonIdentity = identityservicebean.findConcreteIdentityForPerson(idIdentity);
     }
 
     public List<Identity> getIdentitiesForPerson() {
@@ -65,5 +70,11 @@ public class PersonViewBean implements Serializable{
     }
     public void setActualPersonIdentity(Identity actualPersonIdentity) {
         this.actualPersonIdentity = actualPersonIdentity;
+    }
+    public Integer getIdperson() {
+        return idperson;
+    }
+    public void setIdperson(Integer idperson) {
+        this.idperson = idperson;
     }
 }
