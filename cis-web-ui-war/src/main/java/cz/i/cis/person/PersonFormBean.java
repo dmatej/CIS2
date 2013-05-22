@@ -22,226 +22,264 @@ import cz.i.cis.db.validate.PersonValidateService;
 @RequestScoped
 public class PersonFormBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @EJB
-    private PersonService personservicebean;
+  @EJB
+  private PersonService personservicebean;
 
-    @EJB
-    private IdentityService identityservicebean;
+  @EJB
+  private IdentityService identityservicebean;
 
-    @EJB
-    private PersonValidateService personValidateServicebean;
+  @EJB
+  private PersonValidateService personValidateServicebean;
 
-    @EJB
-    private IdentityValidateService identityValidateServicebean;
+  @EJB
+  private IdentityValidateService identityValidateServicebean;
 
-    private Integer ididentityActual;
+  private Tduperson selectedPerson;
 
-    private Date deathdate;
+  private Integer idperson;
 
-    private String deathplace;
+  private Integer ididentityActual;
 
-    private String degreeprefix;
+  private Date deathdate;
 
-    private String degreesuffix;
+  private String deathplace;
 
-    private Integer iddeathplace;
+  private String degreeprefix;
 
-    private Integer iddeathstate;
+  private String degreesuffix;
 
-    private Integer idimage;
+  private Integer iddeathplace;
 
-    private Integer idstayActual;
+  private Integer iddeathstate;
 
-    private Integer idstayplaceActual;
+  private Integer idimage;
 
-    private String note;
+  private Integer idstayActual;
 
-    public Tduperson createPersonWithIdentity(Identity identity) {
-        if (!testBeans())
-            return null;
+  private Integer idstayplaceActual;
 
-        Tduperson person = generateEntity();
-        String[] validatePerson = personValidateServicebean.validate(person);
-        String[] validateIdentity = identityValidateServicebean.validate(identity);
-        if (validatePerson == null && validateIdentity == null) {
+  private String note;
 
-            person = personservicebean.create(person);
-            identity.setIdperson(person.getId());
-            identity = identityservicebean.create(identity);
-            person.setIdidentityActual(identity.getId());
-            personservicebean.update(person);
+  public Tduperson createPersonWithIdentity(Identity identity) {
+    if (!testBeans())
+      return null;
 
-            FacesMessage message = new FacesMessage("Persona s hlavní identitou vytvořena!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return person;
-        } else {
-            for (int i = 0; i < validatePerson.length; i++) {
-                FacesMessage message = new FacesMessage(
-                        "Chyba při validaci identity! (" + validatePerson[i]
-                                + ")");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-            return null;
-        }
+    Tduperson person = generateEntity();
+    String[] validatePerson = personValidateServicebean.validate(person);
+    String[] validateIdentity = identityValidateServicebean.validate(identity);
+    if (validatePerson == null && validateIdentity == null) {
+
+      person = personservicebean.create(person);
+      identity.setIdperson(person.getId());
+      identity = identityservicebean.create(identity);
+      person.setIdidentityActual(identity.getId());
+      personservicebean.update(person);
+
+      FacesMessage message = new FacesMessage(
+          "Persona s hlavní identitou vytvořena!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return person;
+    } else {
+      for (int i = 0; i < validatePerson.length; i++) {
+        FacesMessage message = new FacesMessage(
+            "Chyba při validaci identity! (" + validatePerson[i] + ")");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      return null;
+    }
+  }
+
+  public void createPerson() {
+    if (!testBeans())
+      return;
+
+    ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+    Object ret = elContext.getELResolver()
+        .getValue(elContext, null, "identity");
+
+    IdentityFormBean identityFormBean = (IdentityFormBean) ret;
+    Identity actualId = identityFormBean.generateEntity();
+
+    createPersonWithIdentity(actualId);
+
+    return;
+  }
+
+  public void updatePerson() {
+    if (!testBeans())
+      return;
+
+    Tduperson newPerson = generateEntity();
+    newPerson.setId(selectedPerson.getId());
+    selectedPerson = newPerson;
+    personservicebean.update(selectedPerson);
+  }
+
+  public void loadPerson() {
+    if (FacesContext.getCurrentInstance().isPostback() || idperson == null) {
+      return;
     }
 
-    public void createPerson() {
-        if (!testBeans())
-            return;
+    selectedPerson = null;
 
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-        Object ret = elContext.getELResolver().getValue(elContext, null, "identity");
+    selectedPerson = personservicebean.findPersonById(idperson);
+    if (selectedPerson == null) {
+      // TODO hlaska
+      return;
+    }
+  }
 
-        IdentityFormBean identityFormBean = (IdentityFormBean)ret;
-        Identity actualId = identityFormBean.generateEntity();
-
-        createPersonWithIdentity(actualId);
-
-        return ;
+  private boolean testBeans() {
+    if (personservicebean == null) {
+      FacesMessage message = new FacesMessage("personservicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    private boolean testBeans() {
-        if (personservicebean == null) {
-            FacesMessage message = new FacesMessage("personservicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
-
-        if (identityservicebean == null) {
-            FacesMessage message = new FacesMessage("identityservicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
-
-        if (personValidateServicebean == null) {
-            FacesMessage message = new FacesMessage("personValidateServicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
-
-        if (identityValidateServicebean == null) {
-            FacesMessage message = new FacesMessage("identityValidateServicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return false;
-        }
-
-        return true;
+    if (identityservicebean == null) {
+      FacesMessage message = new FacesMessage("identityservicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    private Tduperson generateEntity() {
-        Tduperson person = new Tduperson();
-
-        person.setIdidentityActual(ididentityActual);
-        person.setCdate(new Timestamp(new Date().getTime()));
-        person.setDeathdate(deathdate);
-        person.setDeathplace(deathplace);
-        person.setDegreeprefix(degreeprefix);
-        person.setDegreesuffix(degreesuffix);
-        person.setIddeathplace(iddeathplace);
-        person.setIddeathstate(iddeathstate);
-        person.setIdimage(idimage);
-        person.setIdstayActual(idstayActual);
-        person.setIdstayplaceActual(idstayplaceActual);
-        person.setNote(note);
-        return person;
+    if (personValidateServicebean == null) {
+      FacesMessage message = new FacesMessage("personValidateServicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    public Integer getIdidentityActual() {
-        return ididentityActual;
+    if (identityValidateServicebean == null) {
+      FacesMessage message = new FacesMessage(
+          "identityValidateServicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    public void setIdidentityActual(Integer ididentityActual) {
-        this.ididentityActual = ididentityActual;
-    }
+    return true;
+  }
 
-    public PersonService getPersonservicebean() {
-        return personservicebean;
-    }
+  private Tduperson generateEntity() {
+    Tduperson person = new Tduperson();
 
-    public void setPersonservicebean(PersonService personservicebean) {
-        this.personservicebean = personservicebean;
-    }
+    person.setIdidentityActual(ididentityActual);
+    person.setCdate(new Timestamp(new Date().getTime()));
+    person.setDeathdate(deathdate);
+    person.setDeathplace(deathplace);
+    person.setDegreeprefix(degreeprefix);
+    person.setDegreesuffix(degreesuffix);
+    person.setIddeathplace(iddeathplace);
+    person.setIddeathstate(iddeathstate);
+    person.setIdimage(idimage);
+    person.setIdstayActual(idstayActual);
+    person.setIdstayplaceActual(idstayplaceActual);
+    person.setNote(note);
+    return person;
+  }
 
-    public Date getDeathdate() {
-        return deathdate;
-    }
+  public Integer getIdidentityActual() {
+    return ididentityActual;
+  }
 
-    public void setDeathdate(Date deathdate) {
-        this.deathdate = deathdate;
-    }
+  public void setIdidentityActual(Integer ididentityActual) {
+    this.ididentityActual = ididentityActual;
+  }
 
-    public String getDeathplace() {
-        return deathplace;
-    }
+  public PersonService getPersonservicebean() {
+    return personservicebean;
+  }
 
-    public void setDeathplace(String deathplace) {
-        this.deathplace = deathplace;
-    }
+  public void setPersonservicebean(PersonService personservicebean) {
+    this.personservicebean = personservicebean;
+  }
 
-    public String getDegreeprefix() {
-        return degreeprefix;
-    }
+  public Date getDeathdate() {
+    return deathdate;
+  }
 
-    public void setDegreeprefix(String degreeprefix) {
-        this.degreeprefix = degreeprefix;
-    }
+  public void setDeathdate(Date deathdate) {
+    this.deathdate = deathdate;
+  }
 
-    public String getDegreesuffix() {
-        return degreesuffix;
-    }
+  public String getDeathplace() {
+    return deathplace;
+  }
 
-    public void setDegreesuffix(String degreesuffix) {
-        this.degreesuffix = degreesuffix;
-    }
+  public void setDeathplace(String deathplace) {
+    this.deathplace = deathplace;
+  }
 
-    public Integer getIddeathplace() {
-        return iddeathplace;
-    }
+  public String getDegreeprefix() {
+    return degreeprefix;
+  }
 
-    public void setIddeathplace(Integer iddeathplace) {
-        this.iddeathplace = iddeathplace;
-    }
+  public void setDegreeprefix(String degreeprefix) {
+    this.degreeprefix = degreeprefix;
+  }
 
-    public Integer getIddeathstate() {
-        return iddeathstate;
-    }
+  public String getDegreesuffix() {
+    return degreesuffix;
+  }
 
-    public void setIddeathstate(Integer iddeathstate) {
-        this.iddeathstate = iddeathstate;
-    }
+  public void setDegreesuffix(String degreesuffix) {
+    this.degreesuffix = degreesuffix;
+  }
 
-    public Integer getIdimage() {
-        return idimage;
-    }
+  public Integer getIddeathplace() {
+    return iddeathplace;
+  }
 
-    public void setIdimage(Integer idimage) {
-        this.idimage = idimage;
-    }
+  public void setIddeathplace(Integer iddeathplace) {
+    this.iddeathplace = iddeathplace;
+  }
 
-    public Integer getIdstayActual() {
-        return idstayActual;
-    }
+  public Integer getIddeathstate() {
+    return iddeathstate;
+  }
 
-    public void setIdstayActual(Integer idstayActual) {
-        this.idstayActual = idstayActual;
-    }
+  public void setIddeathstate(Integer iddeathstate) {
+    this.iddeathstate = iddeathstate;
+  }
 
-    public Integer getIdstayplaceActual() {
-        return idstayplaceActual;
-    }
+  public Integer getIdimage() {
+    return idimage;
+  }
 
-    public void setIdstayplaceActual(Integer idstayplaceActual) {
-        this.idstayplaceActual = idstayplaceActual;
-    }
+  public void setIdimage(Integer idimage) {
+    this.idimage = idimage;
+  }
 
-    public String getNote() {
-        return note;
-    }
+  public Integer getIdstayActual() {
+    return idstayActual;
+  }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
+  public void setIdstayActual(Integer idstayActual) {
+    this.idstayActual = idstayActual;
+  }
+
+  public Integer getIdstayplaceActual() {
+    return idstayplaceActual;
+  }
+
+  public void setIdstayplaceActual(Integer idstayplaceActual) {
+    this.idstayplaceActual = idstayplaceActual;
+  }
+
+  public String getNote() {
+    return note;
+  }
+
+  public void setNote(String note) {
+    this.note = note;
+  }
+
+  public Integer getIdperson() {
+    return idperson;
+  }
+
+  public void setIdperson(Integer idperson) {
+    this.idperson = idperson;
+  }
 
 }
