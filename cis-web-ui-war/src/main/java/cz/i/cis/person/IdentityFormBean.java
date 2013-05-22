@@ -31,8 +31,6 @@ public class IdentityFormBean implements Serializable {
 
     private Integer idevidence;
 
-    private Integer idorgunit;
-
     private Integer idperson;
 
     private Integer idstate;
@@ -42,8 +40,6 @@ public class IdentityFormBean implements Serializable {
     private String lastname;
 
     private String othernames;
-
-    private Integer rstatus;
 
     private String sex;
 
@@ -93,13 +89,11 @@ public class IdentityFormBean implements Serializable {
         identity.setBirthplace(birthplace);
         identity.setFirstname(firstname);
         identity.setIdevidence(0); //TODO upravit
-        identity.setIdorgunit(0);
         identity.setIdperson(idperson);
         identity.setIdstate(idstate);
         identity.setIdstateofbirth(idstateofbirth);
         identity.setLastname(lastname);
         identity.setOthernames(othernames);
-        identity.setRstatus(0);
         identity.setSex(sex);
         identity.setValidfrom(validfrom);
         identity.setValidto(validto);
@@ -144,14 +138,6 @@ public class IdentityFormBean implements Serializable {
         this.idevidence = idevidence;
     }
 
-    public Integer getIdorgunit() {
-        return idorgunit;
-    }
-
-    public void setIdorgunit(Integer idorgunit) {
-        this.idorgunit = idorgunit;
-    }
-
     public Integer getIdstate() {
         return idstate;
     }
@@ -176,20 +162,12 @@ public class IdentityFormBean implements Serializable {
         this.othernames = othernames;
     }
 
-    public Integer getRstatus() {
-        return rstatus;
-    }
-
     public String getBirthdate() {
         return birthdate;
     }
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public void setRstatus(Integer rstatus) {
-        this.rstatus = rstatus;
     }
 
     public void setBirthplace(String birthplace) {
