@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -37,6 +38,9 @@ public class StayFormBean implements Serializable {
     private String refnumber;
 
     private Integer rstatus;
+
+
+    private Integer idPerson;
 
     public Tdustay createStay() {
         if (!testBeans())
@@ -84,6 +88,18 @@ public class StayFormBean implements Serializable {
 
         return true;
     }
+
+    public void handleRequest()
+    {
+        idPerson = null;
+
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        idPerson = Integer.parseInt(externalContext.getRequestParameterMap().get("personid"));
+
+        //todo [Honza] osetrit, jestli ID je platne
+    }
+
+
 
     public Integer getId() {
         return id;
