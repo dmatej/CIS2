@@ -1,8 +1,10 @@
 package cz.i.cis.person;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -16,49 +18,53 @@ import cz.i.cis.db.person.PersonService;
 
 @Named("personsview")
 @RequestScoped
-public class PersonsViewBean implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class PersonsViewBean implements Serializable {
+  private static final long serialVersionUID = 1L;
 
-    @EJB
-    private PersonService personservicebean;
+  @EJB
+  private PersonService personservicebean;
 
-    @EJB
-    private IdentityService identityservicebean;
+  @EJB
+  private IdentityService identityservicebean;
 
-    @EJB
-    private CodeService codeservicebean;
+  @EJB
+  private CodeService codeservicebean;
 
+  public List<Identity> listPersonsByActualIdentities() {
+    return identityservicebean.findActualIdentitiesOfPersons();
+  }
 
-    public List<Identity> listPersonsByActualIdentities()
-    {
-        return identityservicebean.findActualIdentitiesOfPersons();
+  /**
+   * @return Mapa, kde klicem je ID tduperson a hodnotou seznam nalezenych
+   *         identit, které patri dane osobe.
+   */
+  private Map<Integer, List<Identity>> searchPersonsByName(String firstName,
+      String lastName, Boolean isMale, String birthNumber) {
+
+    List<Identity> identList = identityservicebean.findIdentitiesByParams(
+        firstName, lastName, isMale, birthNumber);
+
+    Map<Integer, List<Identity>> map = new HashMap<Integer, List<Identity>>();
+    for (Identity ident : identList) {
+      if (!map.containsKey(ident.getIdperson())) {
+        map.put(ident.getIdperson(), new ArrayList<Identity>());
+      }
+      map.get(ident.getIdperson()).add(ident);
+
     }
+    return map;
+  }
 
-    /**
-     * @param firstname
-     * @param lastname
-     * @param sex
-     * @param ageFrom
-     * @param ageTo
-     * @param isMale
-     * @return Mapa, kde klicem je ID tduperson a hodnotou seznam nalezenych identit, které patri dane osobe.
-     */
-    private HashMap<Integer, List<Identity>> searchPersonsByName(String firstname, String lastname, String sex, Integer ageFrom, Integer ageTo, Boolean isMale)
-    {
-        //TODO [Honza->Martin] implementovat
-        return null;
-    }
+  public String formatSex(String sex) {
+    if (sex.equalsIgnoreCase("M"))
+      return "Muž";
+    else if (sex.equalsIgnoreCase("Z"))
+      return "Žena";
 
-    public String formatSex(String sex)
-    {
-        if(sex.equalsIgnoreCase("M")) return "Muž";
-        else if (sex.equalsIgnoreCase("Z")) return "Žena";
+    return "-";
+  }
 
-        return "-";
-    }
-
-    public CodeState findState(Integer id)
-    {
-        return codeservicebean.findStateById(id);
-    }
+  public CodeState findState(Integer id) {
+    return codeservicebean.findStateById(id);
+  }
 }

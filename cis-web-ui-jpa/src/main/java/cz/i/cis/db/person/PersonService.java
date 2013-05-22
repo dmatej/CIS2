@@ -12,7 +12,7 @@ public interface PersonService {
     public Tduperson update(Tduperson person);
     public Tduperson delete(Tduperson person);
 
-    public List<Tduperson> getPersons();
+    public List<Tduperson> findPersons();
 
     public Tduperson findPersonById(Integer id);
 }
