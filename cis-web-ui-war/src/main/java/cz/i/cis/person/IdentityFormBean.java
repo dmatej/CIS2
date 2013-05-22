@@ -243,4 +243,20 @@ public class IdentityFormBean implements Serializable {
     this.idIdentity = idIdentity;
   }
 
+public Date getValidfrom() {
+    return validfrom;
+}
+
+public void setValidfrom(Date validfrom) {
+    this.validfrom = validfrom;
+}
+
+public Date getValidto() {
+    return validto;
+}
+
+public void setValidto(Date validto) {
+    this.validto = validto;
+}
+
 }
