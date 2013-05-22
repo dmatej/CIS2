@@ -65,20 +65,20 @@
     <div class="grid_6">
       <div class="searchform">
 
-				<form id="searchform" action="" method="post">
-					<div class="formContent">
-					  <table><tr>
-					    <td>
-					    <label for="search">Vyhledat osobu</label>
-						<input type="text" name="search" id="search" class="input required" value="" />
-					    </td>
-					    <td>
-						<input type="submit" class="searchSubmit" value="Vyhledat" />
-					    </td>
-					  </tr></table>
-					</div>
-				</form>
-	   </div>
+        <form id="searchform" action="" method="post">
+          <div class="formContent">
+            <table><tr>
+              <td>
+              <label for="search">Vyhledat osobu</label>
+            <input type="text" name="search" id="search" class="input required" value="" />
+              </td>
+              <td>
+            <input type="submit" class="searchSubmit" value="Vyhledat" />
+              </td>
+            </tr></table>
+          </div>
+        </form>
+     </div>
     </div>
     <div class="clear"></div>
   </div>
@@ -87,57 +87,57 @@
 
   <!-- START BOTTOM SECTION -->
   <div class="container_12 bottom">
-	<div class="grid_4 greyBg">
-	  <h:panelGrid columns="2">
-	    <h:outputText value="Jméno: " />
-	    <h:outputText value="#{personview.actualPersonIdentity.firstname}" />
-	    <h:outputText value="Příjmení: " />
-	    <h:outputText value="#{personview.actualPersonIdentity.lastname}" />
-	    <h:outputText value="Rodné příjmení: " />
-	    <h:outputText value="Kumšt" />
-	    <h:outputText value="Ostatní jména: " />
-	    <h:outputText value="žádná" />
-	  </h:panelGrid>
-	</div>
-	<div class="grid_4 greyBg">
-	  <h:panelGrid columns="2">
-	    <h:outputText value="Rodné číslo: " />
-	    <h:outputText value="090819872099" />
-	    <h:outputText value="Místo narození: " />
-	    <h:outputText value="České Budějovice" />
-	    <h:outputText value="Stát narození: " />
-	    <h:outputText value="Česká republika" />
-	    <h:outputText value="    " />
-	    <h:outputText value="    " />
-	  </h:panelGrid>
-	</div>
-	<div class="grid_4 greyBg">
-	  <h:panelGrid columns="2">
-	    <h:outputText value="Aktuální stát v místě bydliště: " />
-	    <h:outputText value="Česká republika " />
-	    <h:outputText value="Datum narození: " />
-	    <h:outputText value="#{personview.actualPersonIdentity.birthdate}" />
-	    <h:outputText value="Pohlaví: " />
-	    <h:outputText value="Muž" />
-	    <h:outputText value="    " />
-	    <h:outputText value="    " />
-	  </h:panelGrid>
-	</div>
+  <div class="grid_4 greyBg">
+    <h:panelGrid columns="2">
+      <h:outputText value="Jméno: " />
+      <h:outputText value="#{personview.actualPersonIdentity.firstname}" />
+      <h:outputText value="Příjmení: " />
+      <h:outputText value="#{personview.actualPersonIdentity.lastname}" />
+      <h:outputText value="Rodné jméno " />
+      <h:outputText value="#{personview.actualPersonIdentity.birthname}" />
+      <h:outputText value="Ostatní jména: " />
+      <h:outputText value="#{personview.actualPersonIdentity.othernames}" />
+    </h:panelGrid>
+  </div>
+  <div class="grid_4 greyBg">
+    <h:panelGrid columns="2">
+      <h:outputText value="Rodné číslo: " />
+      <h:outputText value="#{personview.actualPersonIdentity.birthnumber}" />
+      <h:outputText value="Místo narození: " />
+      <h:outputText value="#{personview.actualPersonIdentity.birthplace}" />
+      <h:outputText value="Stát narození: " />
+      <h:outputText value="#{codes.findState(personview.actualPersonIdentity.idstateofbirth).name}" />
+      <h:outputText value="    " />
+      <h:outputText value="    " />
+    </h:panelGrid>
+  </div>
+  <div class="grid_4 greyBg">
+    <h:panelGrid columns="2">
+      <h:outputText value="Aktuální stát v místě bydliště: " />
+      <h:outputText value="#{codes.findState(personview.actualPersonIdentity.idstate).name}" />
+      <h:outputText value="Datum narození: " />
+      <h:outputText value="#{personview.actualPersonIdentity.birthdate}" />
+      <h:outputText value="Pohlaví: " />
+      <h:outputText value="#{personsview.formatSex(personview.actualPersonIdentity.sex)}" />
+      <h:outputText value="    " />
+      <h:outputText value="    " />
+    </h:panelGrid>
+  </div>
 
-	<div class="clear"></div>
+  <div class="clear"></div>
   </div>
 
     <div class="separator"></div>
 
-	<div class="clear"></div>
+  <div class="clear"></div>
 
-	<div class="container_12 bottom">
-	  <div class="grid_12">
-	    <span class="project">Aktivní tab (identity)</span>&nbsp;
-	    <span class="site"><a href="person-detail.xhtml">Tab 2 (pobyty)</a></span>
-	    <span class="site"><a href="person-detail.xhtml">Tab 3 (doklady)</a></span>
-	  </div>
-	</div>
+  <div class="container_12 bottom">
+    <div class="grid_12">
+      <span class="project">Aktivní tab (identity)</span>&nbsp;
+      <span class="site"><a href="person-detail.xhtml">Tab 2 (pobyty)</a></span>
+      <span class="site"><a href="person-detail.xhtml">Tab 3 (doklady)</a></span>
+    </div>
+  </div>
 
 
 
