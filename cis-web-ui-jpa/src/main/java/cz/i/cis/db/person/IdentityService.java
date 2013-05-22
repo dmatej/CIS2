@@ -21,5 +21,6 @@ public interface IdentityService {
 
   public List<Identity> findActualIdentitiesOfPersons();
 
-  public Identity findConcreteIdentityForPerson(Integer idIdentity);
+  public Identity findIdentityById(Integer idIdentity);
+
 }

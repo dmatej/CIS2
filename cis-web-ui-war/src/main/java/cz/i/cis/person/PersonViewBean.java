@@ -48,7 +48,7 @@ public class PersonViewBean implements Serializable{
         }
 
         Integer idIdentity = selectedPerson.getIdidentityActual();
-        actualPersonIdentity = identityservicebean.findConcreteIdentityForPerson(idIdentity);
+        actualPersonIdentity = identityservicebean.findIdentityById(idIdentity);
     }
 
     public List<Identity> getIdentitiesForPerson() {

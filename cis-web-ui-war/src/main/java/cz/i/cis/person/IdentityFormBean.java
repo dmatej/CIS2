@@ -17,176 +17,230 @@ import cz.i.cis.db.validate.IdentityValidateService;
 @RequestScoped
 public class IdentityFormBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private String birthdate;
+  private Identity selectedIdentity;
 
-    private String birthname;
+  private Integer idIdentity;
 
-    private String birthnumber;
+  private String birthdate;
 
-    private String birthplace;
+  private String birthname;
 
-    private String firstname;
+  private String birthnumber;
 
-    private Integer idevidence;
+  private String birthplace;
 
-    private Integer idperson;
+  private String firstname;
 
-    private Integer idstate;
+  private Integer idevidence;
 
-    private Integer idstateofbirth;
+  private Integer idperson;
 
-    private String lastname;
+  private Integer idstate;
 
-    private String othernames;
+  private Integer idstateofbirth;
 
-    private String sex;
+  private String lastname;
 
-    private Date validfrom;
+  private String othernames;
 
-    private Date validto;
+  private String sex;
 
-    @EJB
-    private IdentityService identityservicebean;
+  private Date validfrom;
 
-    @EJB
-    private IdentityValidateService identityValidateServicebean;
+  private Date validto;
 
-    public Identity createIdentity() {
-        if (identityservicebean == null) {
-            FacesMessage message = new FacesMessage("identityservicebean null!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+  @EJB
+  private IdentityService identityservicebean;
 
-            return null;
-        }
+  @EJB
+  private IdentityValidateService identityValidateServicebean;
 
-        Identity identity = generateEntity();
+  public void createIdentity() {
+    if (!testBeans())
+      return;
 
-        String[] validate = identityValidateServicebean.validate(identity);
-        if (validate == null) {
-            identity = identityservicebean.create(identity);
+    Identity identity = generateEntity();
 
-            FacesMessage message = new FacesMessage("Identita vytvořena!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-        } else {
-            for (int i = 0; i < validate.length; i++) {
-                FacesMessage message = new FacesMessage(
-                        "Chyba při validaci identity! (" + validate[i] + ")");
-                FacesContext.getCurrentInstance().addMessage(null, message);
-            }
-            return null;
-        }
-        return identity;
+    if (validate(identity)) {
+      selectedIdentity = identityservicebean.create(identity);
+    }
+  }
+
+  private Boolean validate(Identity identity) {
+    String[] validate = identityValidateServicebean.validate(identity);
+    if (validate == null) {
+      FacesMessage message = new FacesMessage("Validace OK!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return true;
+    } else {
+      for (int i = 0; i < validate.length; i++) {
+        FacesMessage message = new FacesMessage(
+            "Chyba při validaci identity! (" + validate[i] + ")");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+      return false;
+    }
+  }
+
+  public void updateIdentity() {
+    if (!testBeans())
+      return;
+
+    Identity newIdentity = generateEntity();
+    newIdentity.setId(selectedIdentity.getId());
+    if (validate(newIdentity)) {
+      selectedIdentity = identityservicebean.update(newIdentity);
+    }
+  }
+
+  public Identity generateEntity() {
+    Identity identity = new Identity();
+    identity.setBirthdate(birthdate);
+    identity.setBirthname(birthname);
+    identity.setBirthnumber(birthnumber);
+    identity.setBirthplace(birthplace);
+    identity.setFirstname(firstname);
+    identity.setIdevidence(0); // TODO upravit identity.setIdevidence(0);
+    identity.setIdperson(idperson);
+    identity.setIdstate(idstate);
+    identity.setIdstateofbirth(idstateofbirth);
+    identity.setLastname(lastname);
+    identity.setOthernames(othernames);
+    identity.setSex(sex);
+    identity.setValidfrom(validfrom);
+    identity.setValidto(validto);
+
+    return identity;
+
+  }
+
+  public void loadIdentity() {
+    if (FacesContext.getCurrentInstance().isPostback() || idIdentity == null) {
+      return;
     }
 
-    public Identity generateEntity()
-    {
-        Identity identity = new Identity();
-        identity.setBirthdate(birthdate);
-        identity.setBirthname(birthname);
-        identity.setBirthnumber(birthnumber);
-        identity.setBirthplace(birthplace);
-        identity.setFirstname(firstname);
-        identity.setIdevidence(0); //TODO upravit
-        identity.setIdperson(idperson);
-        identity.setIdstate(idstate);
-        identity.setIdstateofbirth(idstateofbirth);
-        identity.setLastname(lastname);
-        identity.setOthernames(othernames);
-        identity.setSex(sex);
-        identity.setValidfrom(validfrom);
-        identity.setValidto(validto);
+    selectedIdentity = null;
 
-        return identity;
+    selectedIdentity = identityservicebean.findIdentityById(idIdentity);
+    if (selectedIdentity == null) {
+      // TODO hlaska
+      return;
+    }
+  }
 
+  private boolean testBeans() {
+    if (identityservicebean == null) {
+      FacesMessage message = new FacesMessage("identityservicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    public String getFirstname() {
-        return firstname;
+    if (identityValidateServicebean == null) {
+      FacesMessage message = new FacesMessage(
+          "identityValidateServicebean null!");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+      return false;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+    return true;
+  }
 
-    public String getLastname() {
-        return lastname;
-    }
+  public String getFirstname() {
+    return firstname;
+  }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
 
-    public String getBirthplace() {
-        return birthplace;
-    }
+  public String getLastname() {
+    return lastname;
+  }
 
-    public String getBirthname() {
-        return birthname;
-    }
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
 
-    public void setBirthname(String birthname) {
-        this.birthname = birthname;
-    }
+  public String getBirthplace() {
+    return birthplace;
+  }
 
-    public Integer getIdevidence() {
-        return idevidence;
-    }
+  public String getBirthname() {
+    return birthname;
+  }
 
-    public void setIdevidence(Integer idevidence) {
-        this.idevidence = idevidence;
-    }
+  public void setBirthname(String birthname) {
+    this.birthname = birthname;
+  }
 
-    public Integer getIdstate() {
-        return idstate;
-    }
+  public Integer getIdevidence() {
+    return idevidence;
+  }
 
-    public void setIdstate(Integer idstate) {
-        this.idstate = idstate;
-    }
+  public void setIdevidence(Integer idevidence) {
+    this.idevidence = idevidence;
+  }
 
-    public Integer getIdstateofbirth() {
-        return idstateofbirth;
-    }
+  public Integer getIdstate() {
+    return idstate;
+  }
 
-    public void setIdstateofbirth(Integer idstateofbirth) {
-        this.idstateofbirth = idstateofbirth;
-    }
+  public void setIdstate(Integer idstate) {
+    this.idstate = idstate;
+  }
 
-    public String getOthernames() {
-        return othernames;
-    }
+  public Integer getIdstateofbirth() {
+    return idstateofbirth;
+  }
 
-    public void setOthernames(String othernames) {
-        this.othernames = othernames;
-    }
+  public void setIdstateofbirth(Integer idstateofbirth) {
+    this.idstateofbirth = idstateofbirth;
+  }
 
-    public String getBirthdate() {
-        return birthdate;
-    }
+  public String getOthernames() {
+    return othernames;
+  }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
+  public void setOthernames(String othernames) {
+    this.othernames = othernames;
+  }
 
-    public void setBirthplace(String birthplace) {
-        this.birthplace = birthplace;
-    }
+  public String getBirthdate() {
+    return birthdate;
+  }
 
-    public String getBirthnumber() {
-        return birthnumber;
-    }
+  public void setBirthdate(String birthdate) {
+    this.birthdate = birthdate;
+  }
 
-    public void setBirthnumber(String birthnumber) {
-        this.birthnumber = birthnumber;
-    }
+  public void setBirthplace(String birthplace) {
+    this.birthplace = birthplace;
+  }
 
-    public String getSex() {
-        return sex;
-    }
+  public String getBirthnumber() {
+    return birthnumber;
+  }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+  public void setBirthnumber(String birthnumber) {
+    this.birthnumber = birthnumber;
+  }
+
+  public String getSex() {
+    return sex;
+  }
+
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  public Integer getIdIdentity() {
+    return idIdentity;
+  }
+
+  public void setIdIdentity(Integer idIdentity) {
+    this.idIdentity = idIdentity;
+  }
+
 }

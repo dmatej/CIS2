@@ -40,8 +40,8 @@ public class IdentityServiceBean implements Serializable, IdentityService {
   }
 
   @Override
-  public Identity findConcreteIdentityForPerson(Integer idIdentity) {
-    final String query = "SELECT i from Identity i WHERE i.id=:idIden and i.rstatus=0";
+  public Identity findIdentityById(Integer idIdentity) {
+    final String query = "SELECT i from Identity i WHERE i.id=:idIden";
     TypedQuery<Identity> query1 = em.createQuery(query, Identity.class);
     query1.setParameter("idIden", idIdentity);
     final List<Identity> ident = query1.getResultList();
