@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -15,6 +15,7 @@ import cz.i.cis.db.person.StayService;
 import cz.i.cis.db.validate.StayValidateService;
 
 @Named("stay")
+@RequestScoped
 public class StayFormBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -39,6 +40,8 @@ public class StayFormBean implements Serializable {
 
   private Integer idpobytucel;
 
+  private Boolean isNewStayRequest = false;
+
   public Tdustay createStay() {
     if (!testBeans())
       return null;
@@ -59,6 +62,8 @@ public class StayFormBean implements Serializable {
       }
       return null;
     }
+
+    isNewStayRequest = false;
     return stay;
   }
 
@@ -94,6 +99,11 @@ public class StayFormBean implements Serializable {
     }
 
     return true;
+  }
+
+  public void newStayRequest()
+  {
+      isNewStayRequest = true;
   }
 
   public Integer getId() {
@@ -150,6 +160,14 @@ public class StayFormBean implements Serializable {
 
   public void setIdpobytucel(Integer idpobytucel) {
     this.idpobytucel = idpobytucel;
+  }
+
+  public Boolean getIsNewStayRequest() {
+    return isNewStayRequest;
+  }
+
+  public void setIsNewStayRequest(Boolean isNewStayRequest) {
+    this.isNewStayRequest = isNewStayRequest;
   }
 
 
