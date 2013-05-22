@@ -75,12 +75,9 @@ public class IdentityServiceBean implements Serializable, IdentityService {
   @Override
   public List<Identity> findIdentitiesByParams(String firstName,
       String lastName, Boolean isMale, String birthNumber) {
-    String queryStr = "SELECT i FROM identity i WHERE i.rstatus=0";
+    String queryStr = "SELECT i FROM Identity i WHERE i.rstatus=0";
     if (firstName != null)
       queryStr += " and i.firstname LIKE :firstname";
-
-    if (lastName != null)
-      queryStr += " and i.lastname LIKE :lastname";
 
     if (lastName != null)
       queryStr += " and i.lastname LIKE :lastname";

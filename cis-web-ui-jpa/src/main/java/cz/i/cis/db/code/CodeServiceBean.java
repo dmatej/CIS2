@@ -18,98 +18,98 @@ import cz.i.cis.db.entities.CodeState;
 @Named
 public class CodeServiceBean implements Serializable, CodeService {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @PersistenceContext(unitName = "cis")
-    private EntityManager em;
+  @PersistenceContext(unitName = "cis")
+  private EntityManager em;
 
-    public CodeServiceBean() {
-    }
+  public CodeServiceBean() {
+  }
 
-    @Override
-    public CodeDocumenttype findDocumentTypeById(Integer id) {
-        final String query = "SELECT i from code_documenttype i where i.id=:codeID";
-        TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
-                CodeDocumenttype.class);
-        query1.setParameter("codeID", id);
-        final List<CodeDocumenttype> res = query1.getResultList();
-        if (res.size() != 1)
-            return null;
+  @Override
+  public CodeDocumenttype findDocumentTypeById(Integer id) {
+    final String query = "SELECT cd from CodeDocumenttype cd where cd.id=:codeID";
+    TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
+        CodeDocumenttype.class);
+    query1.setParameter("codeID", id);
+    final List<CodeDocumenttype> res = query1.getResultList();
+    if (res.size() != 1)
+      return null;
 
-        return res.get(0);
-    }
+    return res.get(0);
+  }
 
-    @Override
-    public CodePermissiontype findPermissionTypeById(Integer id) {
-        final String query = "SELECT i from code_permissiontype i where i.id=:codeID";
-        TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
-                CodePermissiontype.class);
-        query1.setParameter("codeID", id);
-        final List<CodePermissiontype> res = query1.getResultList();
-        if (res.size() != 1)
-            return null;
+  @Override
+  public CodePermissiontype findPermissionTypeById(Integer id) {
+    final String query = "SELECT cp from CodePermissiontype cp where cp.id=:codeID";
+    TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
+        CodePermissiontype.class);
+    query1.setParameter("codeID", id);
+    final List<CodePermissiontype> res = query1.getResultList();
+    if (res.size() != 1)
+      return null;
 
-        return res.get(0);
-    }
+    return res.get(0);
+  }
 
-    @Override
-    public CodePurposeofstay findPurposeOfStayById(Integer id) {
-        final String query = "SELECT i from code_purmoseofstay i where i.id=:codeID";
-        TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
-                CodePurposeofstay.class);
-        query1.setParameter("codeID", id);
-        final List<CodePurposeofstay> res = query1.getResultList();
-        if (res.size() != 1)
-            return null;
+  @Override
+  public CodePurposeofstay findPurposeOfStayById(Integer id) {
+    final String query = "SELECT cp from CodePurposeofstay cp where cp.id=:codeID";
+    TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
+        CodePurposeofstay.class);
+    query1.setParameter("codeID", id);
+    final List<CodePurposeofstay> res = query1.getResultList();
+    if (res.size() != 1)
+      return null;
 
-        return res.get(0);
-    }
+    return res.get(0);
+  }
 
-    @Override
-    public CodeState findStateById(Integer id) {
-        final String query = "SELECT i from CodeState i where i.id=:codeID";
-        TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
-        query1.setParameter("codeID", id);
-        final List<CodeState> res = query1.getResultList();
-        if (res.size() != 1)
-            return null;
+  @Override
+  public CodeState findStateById(Integer id) {
+    final String query = "SELECT cs from CodeState cs where cs.id=:codeID";
+    TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
+    query1.setParameter("codeID", id);
+    final List<CodeState> res = query1.getResultList();
+    if (res.size() != 1)
+      return null;
 
-        return res.get(0);
-    }
+    return res.get(0);
+  }
 
-    @Override
-    public List<CodeDocumenttype> findDocumentTypes() {
-        final String query = "SELECT i from code_documenttype i";
-        TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
-                CodeDocumenttype.class);
-        final List<CodeDocumenttype> res = query1.getResultList();
-        return res;
-    }
+  @Override
+  public List<CodeDocumenttype> findDocumentTypes() {
+    final String query = "SELECT cd from CodeDocumenttype cd";
+    TypedQuery<CodeDocumenttype> query1 = em.createQuery(query,
+        CodeDocumenttype.class);
+    final List<CodeDocumenttype> res = query1.getResultList();
+    return res;
+  }
 
-    @Override
-    public List<CodePermissiontype> findPermissionTypes() {
-        final String query = "SELECT i from code_permissiontype i";
-        TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
-                CodePermissiontype.class);
-        final List<CodePermissiontype> res = query1.getResultList();
-        return res;
-    }
+  @Override
+  public List<CodePermissiontype> findPermissionTypes() {
+    final String query = "SELECT cp from CodePermissiontype cp";
+    TypedQuery<CodePermissiontype> query1 = em.createQuery(query,
+        CodePermissiontype.class);
+    final List<CodePermissiontype> res = query1.getResultList();
+    return res;
+  }
 
-    @Override
-    public List<CodePurposeofstay> findPurposeOfStays() {
-        final String query = "SELECT i from code_purmoseofstay i";
-        TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
-                CodePurposeofstay.class);
-        final List<CodePurposeofstay> res = query1.getResultList();
-        return res;
-    }
+  @Override
+  public List<CodePurposeofstay> findPurposeOfStays() {
+    final String query = "SELECT cp from CodePurposeofstay cp";
+    TypedQuery<CodePurposeofstay> query1 = em.createQuery(query,
+        CodePurposeofstay.class);
+    final List<CodePurposeofstay> res = query1.getResultList();
+    return res;
+  }
 
-    @Override
-    public List<CodeState> findStates() {
-        final String query = "SELECT i from code_state i";
-        TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
-        final List<CodeState> res = query1.getResultList();
-        return res;
-    }
+  @Override
+  public List<CodeState> findStates() {
+    final String query = "SELECT cs from CodeState cs";
+    TypedQuery<CodeState> query1 = em.createQuery(query, CodeState.class);
+    final List<CodeState> res = query1.getResultList();
+    return res;
+  }
 
 }
