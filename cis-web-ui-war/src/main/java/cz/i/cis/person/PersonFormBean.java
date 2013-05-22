@@ -38,12 +38,6 @@ public class PersonFormBean implements Serializable {
 
     private Integer ididentityActual;
 
-    private Timestamp cdate;
-
-    private Integer cidcisuser;
-
-    private Timestamp ddate;
-
     private Date deathdate;
 
     private String deathplace;
@@ -52,28 +46,17 @@ public class PersonFormBean implements Serializable {
 
     private String degreesuffix;
 
-    private Integer didcisuser;
-
-    private Integer idcisuser;
-
     private Integer iddeathplace;
 
     private Integer iddeathstate;
 
     private Integer idimage;
 
-    private Integer idpersonOriginal;
-
     private Integer idstayActual;
 
     private Integer idstayplaceActual;
 
     private String note;
-
-    private Timestamp udate;
-
-    private Integer uidcisuser;
-
 
     public Tduperson createPersonWithIdentity(Identity identity) {
         if (!testBeans())
@@ -152,24 +135,16 @@ public class PersonFormBean implements Serializable {
 
         person.setIdidentityActual(ididentityActual);
         person.setCdate(new Timestamp(new Date().getTime()));
-        person.setCidcisuser(0);
-        person.setDdate(ddate);
         person.setDeathdate(deathdate);
         person.setDeathplace(deathplace);
         person.setDegreeprefix(degreeprefix);
         person.setDegreesuffix(degreesuffix);
-        person.setDidcisuser(didcisuser);
-        person.setIdcisuser(cidcisuser);
         person.setIddeathplace(iddeathplace);
         person.setIddeathstate(iddeathstate);
         person.setIdimage(idimage);
-        person.setIdpersonOriginal(idpersonOriginal);
         person.setIdstayActual(idstayActual);
         person.setIdstayplaceActual(idstayplaceActual);
         person.setNote(note);
-        person.setRstatus(0);
-        person.setUdate(udate);
-        person.setUidcisuser(uidcisuser);
         return person;
     }
 
@@ -187,30 +162,6 @@ public class PersonFormBean implements Serializable {
 
     public void setPersonservicebean(PersonService personservicebean) {
         this.personservicebean = personservicebean;
-    }
-
-    public Timestamp getCdate() {
-        return cdate;
-    }
-
-    public void setCdate(Timestamp cdate) {
-        this.cdate = cdate;
-    }
-
-    public Integer getCidcisuser() {
-        return cidcisuser;
-    }
-
-    public void setCidcisuser(Integer cidcisuser) {
-        this.cidcisuser = cidcisuser;
-    }
-
-    public Timestamp getDdate() {
-        return ddate;
-    }
-
-    public void setDdate(Timestamp ddate) {
-        this.ddate = ddate;
     }
 
     public Date getDeathdate() {
@@ -245,22 +196,6 @@ public class PersonFormBean implements Serializable {
         this.degreesuffix = degreesuffix;
     }
 
-    public Integer getDidcisuser() {
-        return didcisuser;
-    }
-
-    public void setDidcisuser(Integer didcisuser) {
-        this.didcisuser = didcisuser;
-    }
-
-    public Integer getIdcisuser() {
-        return idcisuser;
-    }
-
-    public void setIdcisuser(Integer idcisuser) {
-        this.idcisuser = idcisuser;
-    }
-
     public Integer getIddeathplace() {
         return iddeathplace;
     }
@@ -283,14 +218,6 @@ public class PersonFormBean implements Serializable {
 
     public void setIdimage(Integer idimage) {
         this.idimage = idimage;
-    }
-
-    public Integer getIdpersonOriginal() {
-        return idpersonOriginal;
-    }
-
-    public void setIdpersonOriginal(Integer idpersonOriginal) {
-        this.idpersonOriginal = idpersonOriginal;
     }
 
     public Integer getIdstayActual() {
@@ -317,19 +244,4 @@ public class PersonFormBean implements Serializable {
         this.note = note;
     }
 
-    public Timestamp getUdate() {
-        return udate;
-    }
-
-    public void setUdate(Timestamp udate) {
-        this.udate = udate;
-    }
-
-    public Integer getUidcisuser() {
-        return uidcisuser;
-    }
-
-    public void setUidcisuser(Integer uidcisuser) {
-        this.uidcisuser = uidcisuser;
-    }
 }

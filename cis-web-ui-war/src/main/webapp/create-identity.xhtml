@@ -151,15 +151,13 @@
 
 						<h:outputText value="Platnost od(d.m.yyyy) :" />
 						<h:inputText id="validfrom" value="#{identity.validfrom}"
-							required="true"
-							requiredMessage="Není vyplněno pole platnost od!">
+							required="true" requiredMessage="Není vyplněno pole platnost od!">
 							<f:convertDateTime pattern="d.M.yyyy" />
 						</h:inputText>
 
 						<h:outputText value="Platnost do(d.m.yyyy) :" />
 						<h:inputText id="validto" value="#{identity.validto}"
-							required="true"
-							requiredMessage="Není vyplněno pole platnost do!">
+							required="true" requiredMessage="Není vyplněno pole platnost do!">
 							<f:convertDateTime pattern="d.M.yyyy" />
 						</h:inputText>
 
