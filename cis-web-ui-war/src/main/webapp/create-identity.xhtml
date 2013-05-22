@@ -2,173 +2,186 @@
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <h:html xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:ui="http://java.sun.com/jsf/facelets"
-  xmlns:h="http://java.sun.com/jsf/html"
-  xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head xmlns:h="http://java.sun.com/jsf/html">
-  <title>Nová identita | CIS</title>
-  <!-- [template css] begin -->
-  <link rel="stylesheet" href="css/screen.css" type="text/css" media="screen, projection" />
-  <link rel="stylesheet" href="css/960.css" type="text/css" media="screen, projection" />
-    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
-    <!--[if IE]>
+	<title>Nová identita | CIS</title>
+	<!-- [template css] begin -->
+	<link rel="stylesheet" href="css/screen.css" type="text/css"
+		media="screen, projection" />
+	<link rel="stylesheet" href="css/960.css" type="text/css"
+		media="screen, projection" />
+	<link rel="stylesheet" href="css/print.css" type="text/css"
+		media="print" />
+	<!--[if IE]>
         <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
     <![endif]-->
-    <!-- [template css] end -->
+	<!-- [template css] end -->
 
-    <!-- [template css javascript] begin -->
-    <link rel="stylesheet" href="css/project.css" type="text/css" media="screen, projection" />
-    <!-- [template css javascript] end -->
+	<!-- [template css javascript] begin -->
+	<link rel="stylesheet" href="css/project.css" type="text/css"
+		media="screen, projection" />
+	<!-- [template css javascript] end -->
 </h:head>
 <h:body>
-    <!-- START TOP SECTION -->
-  <div class="container_12">
+	<!-- START TOP SECTION -->
+	<div class="container_12">
 
-    <!-- START LOGO -->
-    <div class="grid_4 header">
-      <a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
-    </div>
-    <!-- END LOGO -->
+		<!-- START LOGO -->
+		<div class="grid_4 header">
+			<a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
+		</div>
+		<!-- END LOGO -->
 
-    <!-- START NAVIGATION -->
-         <div class="grid_8 header">
-           <div id="navigation">
-        <ul id="nav">
-          <li id="viewPerson"><a href="view-person.xhtml" title="Procházení osob">Procházení osob</a></li>
-          <li id="registerPerson"><a href="create-person.xhtml" title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- END NAVIGATION -->
+		<!-- START NAVIGATION -->
+		<div class="grid_8 header">
+			<div id="navigation">
+				<ul id="nav">
+					<li id="viewPerson"><a href="view-person.xhtml"
+						title="Procházení osob">Procházení osob</a></li>
+					<li id="registerPerson"><a href="create-person.xhtml"
+						title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- END NAVIGATION -->
 
-    <div class="clear"></div>
-  </div>
-  <!-- END TOP SECTION -->
-
-
-  <!-- START MEDIUM SECTION -->
-  <div class="container_12 medium">
-       <div class="grid_6">
-         <div class="getTouch">
-           <h2>Nová identita</h2>
-         </div>
-       </div>
-    <!--  VYHLEDÁNÍ OSOB -->
-    <div class="grid_6">
-      <div class="searchform">
-
-        <form id="searchform" action="" method="post">
-          <div class="formContent">
-            <table><tr>
-              <td>
-              <label for="search">Vyhledat osobu</label>
-            <input type="text" name="search" id="search" class="input required" value="" />
-              </td>
-              <td>
-            <input type="submit" class="searchSubmit" value="Vyhledat" />
-              </td>
-            </tr></table>
-          </div>
-        </form>
-     </div>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <!-- END MEDIUM SECTION -->
+		<div class="clear"></div>
+	</div>
+	<!-- END TOP SECTION -->
 
 
-  <!-- START BOTTOM SECTION 2 -->
-  <div class="container_12 slider">
-       <div class="grid_6">
-         <div class="work">
-           <h:form>
-    <h:messages errorClass="errorMessage" infoClass="infoMessage"
-      warnClass="warnMessage"></h:messages>
+	<!-- START MEDIUM SECTION -->
+	<div class="container_12 medium">
+		<div class="grid_6">
+			<div class="getTouch">
+				<h2>Nová identita</h2>
+			</div>
+		</div>
+		<!--  VYHLEDÁNÍ OSOB -->
+		<div class="grid_6">
+			<div class="searchform">
 
-    <h:panelGrid columns="2">
-      <h:outputText value="Jméno :" />
-      <h:inputText id="firstname"
-        value="#{identity.firstname}" required="true"
-        requiredMessage="Není vyplněno křestní jméno!">
-      </h:inputText>
+				<form id="searchform" action="" method="post">
+					<div class="formContent">
+						<table>
+							<tr>
+								<td><label for="search">Vyhledat osobu</label> <input
+									type="text" name="search" id="search" class="input required"
+									value="" /></td>
+								<td><input type="submit" class="searchSubmit"
+									value="Vyhledat" /></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- END MEDIUM SECTION -->
 
-      <h:outputText value="Příjmení :" />
-      <h:inputText id="lastname"
-        value="#{identity.lastname}" required="true"
-        requiredMessage="Není vyplněno příjmení!">
-      </h:inputText>
 
-      <h:outputText value="Rodné příjmení :" />
-      <h:inputText id="birthname"
-        value="#{identity.birthname}" required="true"
-        requiredMessage="Není vyplněno rodné příjmení!">
-      </h:inputText>
+	<!-- START BOTTOM SECTION 2 -->
+	<div class="container_12 slider">
+		<div class="grid_6">
+			<div class="work">
+				<h:form>
+					<h:messages errorClass="errorMessage" infoClass="infoMessage"
+						warnClass="warnMessage"></h:messages>
 
-      <h:outputText value="Ostatní jména :" />
-      <h:inputText id="othernames"
-        value="#{identity.othernames}" required="true"
-        requiredMessage="Není vyplněno pole Ostatní jména!">
-      </h:inputText>
+					<h:panelGrid columns="2">
+						<h:outputText value="Jméno :" />
+						<h:inputText id="firstname" value="#{identity.firstname}"
+							required="true" requiredMessage="Není vyplněno křestní jméno!">
+						</h:inputText>
 
-      <h:outputText value="Rodné číslo (bez lomítka):" />
-      <h:inputText id="birthnumber"
-        value="#{identity.birthnumber}" required="true"
-        requiredMessage="Není vyplněno rodné číslo!">
-      </h:inputText>
+						<h:outputText value="Příjmení :" />
+						<h:inputText id="lastname" value="#{identity.lastname}"
+							required="true" requiredMessage="Není vyplněno příjmení!">
+						</h:inputText>
 
-      <h:outputText value="Místo narození :" />
-      <h:inputText id="birthplace"
-        value="#{identity.birthplace}" required="true"
-        requiredMessage="Není vyplněno místo narození!">
-      </h:inputText>
+						<h:outputText value="Rodné příjmení :" />
+						<h:inputText id="birthname" value="#{identity.birthname}"
+							required="true" requiredMessage="Není vyplněno rodné příjmení!">
+						</h:inputText>
 
-      <h:outputText value="Stát narození :" />
-      <h:selectOneMenu value="identity.idstateofbirth" id="birthstate">
-        <c:forEach items="#{codes.listStates}" var="st">
-          <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
-        </c:forEach>
-      </h:selectOneMenu>
+						<h:outputText value="Ostatní jména :" />
+						<h:inputText id="othernames" value="#{identity.othernames}"
+							required="true"
+							requiredMessage="Není vyplněno pole Ostatní jména!">
+						</h:inputText>
 
-      <h:outputText value="Aktuální stát v místě bydliště :" />
-      <h:selectOneMenu value="identity.idstate" id="actualstate">
-        <c:forEach items="#{codes.listStates}" var="st">
-          <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
-        </c:forEach>
-      </h:selectOneMenu>
+						<h:outputText value="Rodné číslo (bez lomítka):" />
+						<h:inputText id="birthnumber" value="#{identity.birthnumber}"
+							required="true" requiredMessage="Není vyplněno rodné číslo!">
+						</h:inputText>
 
-      <h:outputText value="Datum narození (DDMMRRRR):" />
-      <h:inputText id="birthdate"
-        value="#{identity.birthdate}" required="true"
-        requiredMessage="Není vyplněno datum narození!">
-      </h:inputText>
+						<h:outputText value="Místo narození :" />
+						<h:inputText id="birthplace" value="#{identity.birthplace}"
+							required="true" requiredMessage="Není vyplněno místo narození!">
+						</h:inputText>
 
-      <h:outputText value="Pohlaví :" />
-      <h:selectOneMenu value="identity.sex" id="sex">
-        <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
-        <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
-      </h:selectOneMenu>
+						<h:outputText value="Stát narození :" />
+						<h:selectOneMenu value="identity.idstateofbirth" id="birthstate">
+							<c:forEach items="#{codes.listStates}" var="st">
+								<f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
 
-    <h:commandButton type="submit" value="Registrovat"
-        action="#{identity.createIdentity}">
-      </h:commandButton>
-      <h:commandButton type="reset" value="Reset" />
-    </h:panelGrid>
-  </h:form>
-         </div>
-       </div>
-       <div class="clear"></div>
+						<h:outputText value="Aktuální stát v místě bydliště :" />
+						<h:selectOneMenu value="identity.idstate" id="actualstate">
+							<c:forEach items="#{codes.listStates}" var="st">
+								<f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
 
-  </div>
+						<h:outputText value="Datum narození (DDMMRRRR):" />
+						<h:inputText id="birthdate" value="#{identity.birthdate}"
+							required="true" requiredMessage="Není vyplněno datum narození!">
+						</h:inputText>
 
-     <!-- START FOOTER -->
-     <div class="container_12">
-       <p class="footer">
-         Created by <strong>ICZ</strong> a.s. <br/>
-         <a href="http://i.cz">http://i.cz</a>
-    </p>
-  </div>
-  <!-- END FOOTER -->
+						<h:outputText value="Pohlaví :" />
+						<h:selectOneMenu value="identity.sex" id="sex">
+							<f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
+							<f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
+						</h:selectOneMenu>
+
+						<h:outputText value="Platnost od(d.m.yyyy) :" />
+						<h:inputText id="validfrom" value="#{identity.validfrom}"
+							required="true"
+							requiredMessage="Není vyplněno pole platnost od!">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:outputText value="Platnost do(d.m.yyyy) :" />
+						<h:inputText id="validto" value="#{identity.validto}"
+							required="true"
+							requiredMessage="Není vyplněno pole platnost do!">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:commandButton type="submit" value="Registrovat"
+							action="#{identity.createIdentity}">
+						</h:commandButton>
+						<h:commandButton type="reset" value="Reset" />
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</div>
+		<div class="clear"></div>
+
+	</div>
+
+	<!-- START FOOTER -->
+	<div class="container_12">
+		<p class="footer">
+			Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
+		</p>
+	</div>
+	<!-- END FOOTER -->
 
 
 
