@@ -70,8 +70,6 @@ public class PersonFormBean implements Serializable {
 
     private String note;
 
-    private Integer rstatus;
-
     private Timestamp udate;
 
     private Integer uidcisuser;
@@ -317,14 +315,6 @@ public class PersonFormBean implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public Integer getRstatus() {
-        return rstatus;
-    }
-
-    public void setRstatus(Integer rstatus) {
-        this.rstatus = rstatus;
     }
 
     public Timestamp getUdate() {
