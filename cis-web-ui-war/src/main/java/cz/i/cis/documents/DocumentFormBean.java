@@ -3,6 +3,8 @@ package cz.i.cis.documents;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -107,6 +109,11 @@ public class DocumentFormBean implements Serializable {
         document.setValidto(validto);
         return document;
 
+    }
+
+    public String getValidDates() {
+      DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+      return (df.format(this.validfrom) + " - " + df.format(this.validto));
     }
 
     public Date getDateofreceipt() {

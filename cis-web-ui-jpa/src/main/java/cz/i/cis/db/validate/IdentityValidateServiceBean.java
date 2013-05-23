@@ -28,14 +28,14 @@ public class IdentityValidateServiceBean implements Serializable,
   public String[] validate(Identity identity) {
     List<String> err = new ArrayList<String>();
     if (identity.getSex() != null && identity.getSex().length() != 1)
-      err.add("SEX in IDENTITY must has one char!");
+      err.add("SEX in IDENTITY must have one char!");
 
     // TODO [stulc] validace birthdate
 
     if (identity.getBirthnumber() != null) {
 
       if (identity.getBirthnumber().length() != 10)
-        err.add("BIRTHNUMBER in IDENTITY must has 10 chars!");
+        err.add("BIRTHNUMBER in IDENTITY must have 10 chars!");
       else
         try {
           long birthnumber = Long.parseLong(identity.getBirthnumber());

@@ -143,11 +143,100 @@
       <span class="project">Aktivní tab (identity)</span>&nbsp;
       <span class="site"><a href="person-detail.xhtml">Tab 2 (pobyty)</a></span>
       <span class="site"><a href="person-detail.xhtml">Tab 3 (doklady)</a></span>
+
+    <!-- SEZNAM IDENTIT (ten {} kód je špatně, je to jen zkopírováno z view-person) -->
+    <h:panelGrid rendered="#{true}">
+      <table>
+        <tr>
+          <th>Jméno</th>
+          <th>Příjmení</th>
+          <th>Datum narození</th>
+          <th>Aktuální stát</th>
+          <th>Pohlaví</th>
+          <th>Akce</th>
+        </tr>
+        <c:forEach items="#{personsview.listPersonsByActualIdentities()}"
+          var="prsnIdentity">
+          <tr>
+            <td><h:outputText value="#{prsnIdentity.firstname}" /></td>
+            <td><h:outputText value="#{prsnIdentity.lastname}" /></td>
+            <td><h:outputText value="#{prsnIdentity.birthdate}" /></td>
+            <td><h:outputText
+                value="#{codes.findState(prsnIdentity.idstate).name}" /></td>
+            <td><h:outputText
+                value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
+            <td>
+            <h:outputLink value="person-detail.xhtml">
+                <h:outputText value="Detail" />
+                <f:param name="personid" value="#{prsnIdentity.idperson}" />
+            </h:outputLink>
+            </td>
+          </tr>
+        </c:forEach>
+
+      </table>
+    </h:panelGrid>
+
+    <!-- POBYTY ({} kód potřebuje někde doplnit) -->
+    <h:panelGrid rendered="#{true}">
+      <table>
+        <tr>
+          <th>Od</th>
+          <th>Do</th>
+          <th>Účel pobytu</th>
+          <th>Akce</th>
+        </tr>
+        <c:forEach items="#{null}"
+          var="">
+          <tr>
+            <td><h:outputText value="#{stay.grantedFrom}" /></td>
+            <td><h:outputText value="#{stay.grantedTo}" /></td>
+            <td><h:outputText value="#{stay.idpobytucel}" /></td>
+            <td>
+            <h:outputLink value="stay-detail.xhtml">
+                <h:outputText value="Detail" />
+                <f:param name="" value="" />
+            </h:outputLink>
+            </td>
+          </tr>
+        </c:forEach>
+
+      </table>
+    </h:panelGrid>
+
+    <!-- DOKLADY ({} kód potřebuje někde doplnit) -->
+    <h:panelGrid rendered="#{true}">
+      <table>
+        <tr>
+          <th>Typ dokladu</th>
+          <th>Číslo</th>
+          <th>Vydávající stát</th>
+          <th>Schválen od - do</th>
+          <th>Akce</th>
+        </tr>
+        <c:forEach items="#{null}"
+          var="">
+          <tr>
+            <td><h:outputText value="#{document.idcodedocumenttype}" /></td>
+            <td><h:outputText value="#{document.number}" /></td>
+            <td><h:outputText value="#{document.idstateissued}" /></td>
+            <td><h:outputText value="#{document.getValidDates()}" /></td>
+            <td>
+            <h:outputLink value="document-detail.xhtml">
+                <h:outputText value="Detail" />
+                <f:param name="" value="" />
+            </h:outputLink>
+            </td>
+          </tr>
+        </c:forEach>
+
+      </table>
+    </h:panelGrid>
+
+
     </div>
+    <div class="clear"></div>
   </div>
-
-
-
 
 
     <div class="clear"></div>
