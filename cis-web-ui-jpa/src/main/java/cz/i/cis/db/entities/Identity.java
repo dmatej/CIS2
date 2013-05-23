@@ -1,10 +1,17 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-
+import java.text.ParseException;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import cz.i.cis.db.date.CisDate;
 
 /**
  * The persistent class for the identity database table.
@@ -12,175 +19,179 @@ import java.util.Date;
  */
 @Entity
 public class Identity implements Serializable {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private String birthdate;
+  private String birthdate;
 
-    private String birthname;
+  private String birthname;
 
-    private String birthnumber;
+  private String birthnumber;
 
-    private String birthplace;
+  private String birthplace;
 
-    private String firstname;
+  private String firstname;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private int idevidence = 0;
+  private int idevidence = 0;
 
-    private Integer idorgunit;
+  private Integer idorgunit;
 
-    private Integer idperson;
+  private Integer idperson;
 
-    private Integer idstate;
+  private Integer idstate;
 
-    private Integer idstateofbirth;
+  private Integer idstateofbirth;
 
-    private String lastname;
+  private String lastname;
 
-    private String othernames;
+  private String othernames;
 
-    private Integer rstatus;
+  private Integer rstatus;
 
-    private String sex;
+  private String sex;
 
-    @Temporal(TemporalType.DATE)
-    private Date validfrom;
+  @Temporal(TemporalType.DATE)
+  private Date validfrom;
 
-    @Temporal(TemporalType.DATE)
-    private Date validto;
+  @Temporal(TemporalType.DATE)
+  private Date validto;
 
-    public Identity() {
+  public Identity() {
+  }
+
+  public CisDate getBirthdate() {
+    try {
+      return CisDate.parseDate(this.birthdate);
+    } catch (ParseException e) {
+      return CisDate.EMPTY;
     }
+  }
 
-    public String getBirthdate() {
-        return this.birthdate;
-    }
+  public void setBirthdate(CisDate birthdate) {
+    this.birthdate = birthdate.getCodeDate();
+  }
 
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
+  public String getBirthname() {
+    return this.birthname;
+  }
 
-    public String getBirthname() {
-        return this.birthname;
-    }
+  public void setBirthname(String birthname) {
+    this.birthname = birthname;
+  }
 
-    public void setBirthname(String birthname) {
-        this.birthname = birthname;
-    }
+  public String getBirthnumber() {
+    return this.birthnumber;
+  }
 
-    public String getBirthnumber() {
-        return this.birthnumber;
-    }
+  public void setBirthnumber(String birthnumber) {
+    this.birthnumber = birthnumber;
+  }
 
-    public void setBirthnumber(String birthnumber) {
-        this.birthnumber = birthnumber;
-    }
+  public String getBirthplace() {
+    return this.birthplace;
+  }
 
-    public String getBirthplace() {
-        return this.birthplace;
-    }
+  public void setBirthplace(String birthplace) {
+    this.birthplace = birthplace;
+  }
 
-    public void setBirthplace(String birthplace) {
-        this.birthplace = birthplace;
-    }
+  public String getFirstname() {
+    return this.firstname;
+  }
 
-    public String getFirstname() {
-        return this.firstname;
-    }
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+  public Integer getId() {
+    return this.id;
+  }
 
-    public Integer getId() {
-        return this.id;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Integer getIdorgunit() {
+    return this.idorgunit;
+  }
 
-    public Integer getIdorgunit() {
-        return this.idorgunit;
-    }
+  public void setIdorgunit(Integer idorgunit) {
+    this.idorgunit = idorgunit;
+  }
 
-    public void setIdorgunit(Integer idorgunit) {
-        this.idorgunit = idorgunit;
-    }
+  public Integer getIdperson() {
+    return this.idperson;
+  }
 
-    public Integer getIdperson() {
-        return this.idperson;
-    }
+  public void setIdperson(Integer idperson) {
+    this.idperson = idperson;
+  }
 
-    public void setIdperson(Integer idperson) {
-        this.idperson = idperson;
-    }
+  public Integer getIdstate() {
+    return this.idstate;
+  }
 
-    public Integer getIdstate() {
-        return this.idstate;
-    }
+  public void setIdstate(Integer idstate) {
+    this.idstate = idstate;
+  }
 
-    public void setIdstate(Integer idstate) {
-        this.idstate = idstate;
-    }
+  public Integer getIdstateofbirth() {
+    return this.idstateofbirth;
+  }
 
-    public Integer getIdstateofbirth() {
-        return this.idstateofbirth;
-    }
+  public void setIdstateofbirth(Integer idstateofbirth) {
+    this.idstateofbirth = idstateofbirth;
+  }
 
-    public void setIdstateofbirth(Integer idstateofbirth) {
-        this.idstateofbirth = idstateofbirth;
-    }
+  public String getLastname() {
+    return this.lastname;
+  }
 
-    public String getLastname() {
-        return this.lastname;
-    }
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+  public String getOthernames() {
+    return this.othernames;
+  }
 
-    public String getOthernames() {
-        return this.othernames;
-    }
+  public void setOthernames(String othernames) {
+    this.othernames = othernames;
+  }
 
-    public void setOthernames(String othernames) {
-        this.othernames = othernames;
-    }
+  public Integer getRstatus() {
+    return this.rstatus;
+  }
 
-    public Integer getRstatus() {
-        return this.rstatus;
-    }
+  public void setRstatus(Integer rstatus) {
+    this.rstatus = rstatus;
+  }
 
-    public void setRstatus(Integer rstatus) {
-        this.rstatus = rstatus;
-    }
+  public String getSex() {
+    return this.sex;
+  }
 
-    public String getSex() {
-        return this.sex;
-    }
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+  public Date getValidfrom() {
+    return this.validfrom;
+  }
 
-    public Date getValidfrom() {
-        return this.validfrom;
-    }
+  public void setValidfrom(Date validfrom) {
+    this.validfrom = validfrom;
+  }
 
-    public void setValidfrom(Date validfrom) {
-        this.validfrom = validfrom;
-    }
+  public Date getValidto() {
+    return this.validto;
+  }
 
-    public Date getValidto() {
-        return this.validto;
-    }
-
-    public void setValidto(Date validto) {
-        this.validto = validto;
-    }
+  public void setValidto(Date validto) {
+    this.validto = validto;
+  }
 
 }
