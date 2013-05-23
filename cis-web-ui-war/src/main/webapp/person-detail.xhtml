@@ -114,8 +114,6 @@
       <h:outputText value="#{personview.actualPersonIdentity.birthplace}" />
       <h:outputText value="Stát narození: " />
       <h:outputText value="#{codes.findState(personview.actualPersonIdentity.idstateofbirth).name}" />
-      <h:outputText value="    " />
-      <h:outputText value="    " />
     </h:panelGrid>
   </div>
   <div class="grid_4 greyBg">
@@ -126,8 +124,6 @@
       <h:outputText value="#{personview.actualPersonIdentity.birthdate}" />
       <h:outputText value="Pohlaví: " />
       <h:outputText value="#{personsview.formatSex(personview.actualPersonIdentity.sex)}" />
-      <h:outputText value="    " />
-      <h:outputText value="    " />
     </h:panelGrid>
   </div>
 
@@ -143,6 +139,17 @@
       <span class="project">Aktivní tab (identity)</span>&nbsp;
       <span class="site"><a href="person-detail.xhtml">Tab 2 (pobyty)</a></span>
       <span class="site"><a href="person-detail.xhtml">Tab 3 (doklady)</a></span>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="container_12 bottom">
+    <div class="grid_12">
+
+
+
 
     <!-- SEZNAM IDENTIT (ten {} kód je špatně, je to jen zkopírováno z view-person) -->
     <h:panelGrid rendered="#{true}">
@@ -166,7 +173,7 @@
             <td><h:outputText
                 value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
             <td>
-            <h:outputLink value="person-detail.xhtml">
+            <h:outputLink value="identity-detail.xhtml">
                 <h:outputText value="Detail" />
                 <f:param name="personid" value="#{prsnIdentity.idperson}" />
             </h:outputLink>

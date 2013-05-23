@@ -150,6 +150,7 @@ input{border:1px solid #aaa5a2;}
 .input{padding:6px;display:block;border:1px solid #aaa5a2;width:280px;}
 .submit{font-family: Georgia;display:block;cursor:pointer;background:#000;text-align:center;color:#fff;padding:7px 10px;border:none;margin-top:10px;}
 .searchSubmit{font-family: Georgia;display:block;cursor:pointer;background:#000;text-align:center;color:#fff;padding:7px 10px;border:none;margin-top:24px;}
+.iDetailSubmit{font-family: Georgia;display:block;cursor:pointer;background:#000;text-align:center;color:#fff;padding:7px 10px;border:none;margin-top:13px;}
 textarea{border:1px solid #aaa5a2;padding:7px;width:415px;overflow:auto;height:80px;font-family:"Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;font-size:11px;font-weight:normal;}
 fieldset{border:none;margin:0 0 25px 0;clear:both;}
 input.inputError{border:1px solid #E22221;}
