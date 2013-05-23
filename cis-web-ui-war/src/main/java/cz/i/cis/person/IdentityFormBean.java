@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import cz.i.cis.db.date.CisDate;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.validate.IdentityValidateService;
@@ -23,7 +24,7 @@ public class IdentityFormBean implements Serializable {
 
   private Integer idIdentity;
 
-  private String birthdate;
+  private CisDate birthdate;
 
   private String birthname;
 
@@ -206,11 +207,11 @@ public class IdentityFormBean implements Serializable {
     this.othernames = othernames;
   }
 
-  public String getBirthdate() {
+  public CisDate getBirthdate() {
     return birthdate;
   }
 
-  public void setBirthdate(String birthdate) {
+  public void setBirthdate(CisDate birthdate) {
     this.birthdate = birthdate;
   }
 
