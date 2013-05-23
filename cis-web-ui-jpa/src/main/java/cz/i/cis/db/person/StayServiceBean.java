@@ -25,6 +25,7 @@ public class StayServiceBean implements Serializable, StayService {
 
   @Override
   public Tdustay create(Tdustay stay) {
+    stay.setRstatus(0);
     em.persist(stay);
     return stay;
   }

@@ -25,6 +25,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public Identity create(Identity identity) {
+    identity.setRstatus(0);
     em.persist(identity);
     return identity;
   }

@@ -25,6 +25,7 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
 
   @Override
   public Tdustayplace create(Tdustayplace stayPlace) {
+    stayPlace.setRstatus(0);
     em.persist(stayPlace);
     return stayPlace;
   }
