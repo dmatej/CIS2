@@ -138,7 +138,7 @@
               </c:forEach>
             </h:selectOneMenu>
 
-            <h:outputText value="Datum narození (DDMMRRRR):" />
+            <h:outputText value="Datum narození (d.m.yyyy):" />
             <h:inputText id="birthdate" value="#{identity.birthdate}"
               required="true" requiredMessage="Není vyplněno datum narození!">
             </h:inputText>
@@ -150,32 +150,25 @@
             </h:selectOneMenu>
 
             <h:outputText value="Platnost od(d.m.yyyy) :" />
-            <h:inputText id="validfrom" value="#{identity.validfrom}"
-              required="true" requiredMessage="Není vyplněno pole platnost od!">
+            <h:inputText id="validfrom" value="#{identity.validfrom}">
               <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
             <h:outputText value="Platnost do(d.m.yyyy) :" />
-            <h:inputText id="validto" value="#{identity.validto}"
-              required="true" requiredMessage="Není vyplněno pole platnost do!">
+            <h:inputText id="validto" value="#{identity.validto}">
               <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
             <h:outputText value="Titul před jménem :" />
-            <h:inputText id="degreeprefix" value="#{person.degreeprefix}"
-              required="true"
-              requiredMessage="Není vyplněno pole titul před jménem!">
+            <h:inputText id="degreeprefix" value="#{person.degreeprefix}">
             </h:inputText>
 
             <h:outputText value="Titul za jménem :" />
-            <h:inputText id="degreesuffix" value="#{person.degreesuffix}"
-              required="true"
-              requiredMessage="Není vyplněno pole titul za jménem!">
+            <h:inputText id="degreesuffix" value="#{person.degreesuffix}">
             </h:inputText>
 
             <h:outputText value="Poznámka :" />
-            <h:inputText id="note" value="#{person.note}" required="true"
-              requiredMessage="Není vyplněno pole poznámka!">
+            <h:inputText id="note" value="#{person.note}">
             </h:inputText>
 
 
