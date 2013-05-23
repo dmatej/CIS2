@@ -1,6 +1,7 @@
 package cz.i.cis.db.person;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -25,6 +26,8 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public Identity create(Identity identity) {
+    identity.setRstatus(0);
+    identity.setIdorgunit(0);
     em.persist(identity);
     return identity;
   }

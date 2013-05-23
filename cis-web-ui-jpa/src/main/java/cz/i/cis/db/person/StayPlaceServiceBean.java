@@ -1,6 +1,7 @@
 package cz.i.cis.db.person;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -25,6 +26,9 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
 
   @Override
   public Tdustayplace create(Tdustayplace stayPlace) {
+    stayPlace.setRstatus(0);
+    stayPlace.setCidcisuser(0);
+    stayPlace.setCdate(new Timestamp(0));
     em.persist(stayPlace);
     return stayPlace;
   }

@@ -28,7 +28,7 @@ public class Identity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer idevidence;
+    private int idevidence = 0;
 
     private Integer idorgunit;
 
@@ -101,14 +101,6 @@ public class Identity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getIdevidence() {
-        return this.idevidence;
-    }
-
-    public void setIdevidence(Integer idevidence) {
-        this.idevidence = idevidence;
     }
 
     public Integer getIdorgunit() {
