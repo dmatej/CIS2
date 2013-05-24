@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/project.css" type="text/css"
     media="screen, projection" />
   <!-- [template css javascript] end -->
+  <h:outputStylesheet library="css" name="css/table-style.css"  />
 </h:head>
 <h:body>
   <!-- START TOP SECTION -->
@@ -90,25 +91,27 @@
       <div class="grid_4 greyBg">
       <h:panelGrid columns="2">
         <h:outputText value="Jméno: " />
-        <h:inputText />
+        <h:inputText id="firstname" value="#{filterpersons.firstname}"/>
         <h:outputText value="Příjmení: " />
-        <h:inputText />
+        <h:inputText id="lastname" value="#{filterpersons.lastname}"/>
       </h:panelGrid>
       </div>
       <div class="grid_4 greyBg">
       <h:panelGrid columns="2">
         <h:outputText value="Rodné číslo " />
-        <h:inputText />
+        <h:inputText id="birthnumber" value="#{filterpersons.birthnumber}"/>
         <h:outputText value="Pohlaví: " />
-        <h:selectOneMenu value="">
-              <f:selectItem itemLabel="-" itemValue=""></f:selectItem>
+        <h:selectOneMenu id="sex" value="#{filterpersons.sex}">
+              <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
               <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
               <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
         </h:selectOneMenu>
       </h:panelGrid>
       </div>
       <div class="grid_4">
-        <input type="submit" class="searchSubmit" value="Filtrovat" />
+        <h:commandButton value="Filtrovat" action="#{personsview.filtrPersons}">
+            <f:ajax execute="@form" render="@form :personstable"/>
+        </h:commandButton>
       </div>
     </h:form>
 
@@ -124,36 +127,40 @@
 
   <div class="container_12 bottom">
     <div class="grid_12">
-      <table>
-        <tr>
-          <th>Jméno</th>
-          <th>Příjmení</th>
-          <th>Datum narození</th>
-          <th>Aktuální stát</th>
-          <th>Pohlaví</th>
-          <th>Akce</th>
-        </tr>
-        <c:forEach items="#{personsview.listPersonsByActualIdentities()}"
-          var="prsnIdentity">
-          <tr>
-            <td><h:outputText value="#{prsnIdentity.firstname}" /></td>
-            <td><h:outputText value="#{prsnIdentity.lastname}" /></td>
-            <td><h:outputText value="#{prsnIdentity.birthdate}" /></td>
-            <td><h:outputText
-                value="#{codes.findState(prsnIdentity.idstate).name}" /></td>
-            <td><h:outputText
-                value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
-            <td>
-            <h:form>
-                <h:commandButton value="Detail" action="person-detail.xhtml" actionListener="#{personview.loadPerson(prsnIdentity.idperson)}"/>
-            </h:form>
-            </td>
-          </tr>
-        </c:forEach>
+      <h:panelGroup id="personstable">
+        <h:panelGroup rendered="#{personsview.filtered != true}">
+           <h:dataTable value="#{personsview.listPersonsByActualIdentities()}" var="pi"
+               styleClass="table"
+               headerClass="table-header"
+               rowClasses="table-odd-row, table-even-row">
 
-      </table>
+               <h:column>
+                   <!-- column header -->
+                   <f:facet name="header">Jméno</f:facet>
+                   <!-- row record -->
+                   #{pi.firstname} #{pi.lastname}
+               </h:column>
 
+               <h:column>
+                   <f:facet name="header">Datum narození</f:facet>
+                   #{pi.birthdate}
+               </h:column>
 
+               <h:column>
+                   <f:facet name="header">Aktuální stát</f:facet>
+                   #{codes.findState(pi.idstate).name}
+               </h:column>
+
+               <h:column>
+                   <f:facet name="header">Pohlaví</f:facet>
+                   #{personsview.formatSex(pi.sex)}
+               </h:column>
+           </h:dataTable>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{personsview.filtered}">
+            Filtrováno
+        </h:panelGroup>
+      </h:panelGroup>
     </div>
 
 
