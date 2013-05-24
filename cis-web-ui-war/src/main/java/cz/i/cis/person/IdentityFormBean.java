@@ -12,7 +12,9 @@ import javax.inject.Named;
 
 import cz.i.cis.db.date.CisDate;
 import cz.i.cis.db.entities.Identity;
+import cz.i.cis.db.entities.Tduperson;
 import cz.i.cis.db.person.IdentityService;
+import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.other.Constants;
 
@@ -54,8 +56,13 @@ public class IdentityFormBean implements Serializable {
 
   private Date validto;
 
+  private Boolean asActualIdentity = false;
+
   @EJB
   private IdentityService identityservicebean;
+
+  @EJB
+  private PersonService personservicebean;
 
   @EJB
   private IdentityValidateService identityValidateServicebean;
@@ -69,6 +76,11 @@ public class IdentityFormBean implements Serializable {
 
     if (validateIdentity(identity)) {
       selectedIdentity = identityservicebean.create(identity);
+
+      Tduperson person = personservicebean.findPersonById(idperson);
+      person.setIdidentityActual(selectedIdentity.getId());
+      personservicebean.update(person);
+
       return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
     }
 
@@ -279,6 +291,14 @@ public Integer getIdperson() {
 
 public void setIdperson(Integer idperson) {
     this.idperson = idperson;
+}
+
+public Boolean getAsActualIdentity() {
+    return asActualIdentity;
+}
+
+public void setAsActualIdentity(Boolean asActualIdentity) {
+    this.asActualIdentity = asActualIdentity;
 }
 
 }

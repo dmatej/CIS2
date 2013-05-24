@@ -165,6 +165,9 @@
               <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
+            <h:outputText value="Nastavit jako hlavní identitu osoby :" />
+            <h:selectBooleanCheckbox value="#{identity.asActualIdentity}" />
+
             <h:commandButton type="submit" value="Vytvořit" action="#{identity.createIdentity()}">
               <f:param name="personid" value="#{identity.idperson}" />
             </h:commandButton>
