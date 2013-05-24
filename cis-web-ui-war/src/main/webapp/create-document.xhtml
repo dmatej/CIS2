@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<h:html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head xmlns:h="http://java.sun.com/jsf/html">
+	<title>Nový dokment | CIS</title>
+	<!-- [template css] begin -->
+	<link rel="stylesheet" href="css/screen.css" type="text/css"
+		media="screen, projection" />
+	<link rel="stylesheet" href="css/960.css" type="text/css"
+		media="screen, projection" />
+	<link rel="stylesheet" href="css/print.css" type="text/css"
+		media="print" />
+	<!--[if IE]>
+        <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
+    <![endif]-->
+	<!-- [template css] end -->
+
+	<!-- [template css javascript] begin -->
+	<link rel="stylesheet" href="css/project.css" type="text/css"
+		media="screen, projection" />
+	<!-- [template css javascript] end -->
+</h:head>
+<h:body>
+	<!-- START TOP SECTION -->
+	<div class="container_12">
+
+		<!-- START LOGO -->
+		<div class="grid_4 header">
+			<a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
+		</div>
+		<!-- END LOGO -->
+
+		<!-- START NAVIGATION -->
+		<div class="grid_8 header">
+			<div id="navigation">
+				<ul id="nav">
+					<li id="viewPerson"><a href="view-person.xhtml"
+						title="Procházení osob">Procházení osob</a></li>
+					<li id="registerPerson"><a href="create-person.xhtml"
+						title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- END NAVIGATION -->
+
+		<div class="clear"></div>
+	</div>
+	<!-- END TOP SECTION -->
+
+
+	<!-- START MEDIUM SECTION -->
+	<div class="container_12 medium">
+		<div class="grid_6">
+			<div class="getTouch">
+				<h2>Nový dokument</h2>
+			</div>
+		</div>
+		<!--  VYHLEDÁNÍ OSOB -->
+		<div class="grid_6">
+			<div class="searchform">
+
+				<form id="searchform" action="" method="post">
+					<div class="formContent">
+						<table>
+							<tr>
+								<td><label for="search">Vyhledat osobu</label> <input
+									type="text" name="search" id="search" class="input required"
+									value="" /></td>
+								<td><input type="submit" class="searchSubmit"
+									value="Vyhledat" /></td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- END MEDIUM SECTION -->
+
+
+	<!-- START BOTTOM SECTION 2 -->
+	<div class="container_12 slider">
+		<div class="grid_6">
+			<div class="work">
+				<h:form>
+					<h:messages errorClass="errorMessage" infoClass="infoMessage"
+						warnClass="warnMessage"></h:messages>
+
+					<h:panelGrid columns="2">
+						<h:outputText value="Datum vydání (d.M.yyyy):" />
+						<h:inputText id="dateofreceipt" value="#{document.dateofreceipt}"
+							required="false"
+							requiredMessage="Není vyplněno pole datum vydání!">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:outputText value="Datum obnovy :" />
+						<h:inputText id="dateofrenewal" value="#{document.dateofrenewal}"
+							required="false"
+							requiredMessage="Není vyplněno pole datum obnovy!">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:outputText value="Datum zrušení :" />
+						<h:inputText id="dateofcancel" value="#{document.dateofcancel}"
+							required="false"
+							requiredMessage="Není vyplněno pole datum zrušení">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:outputText value="Stát vydání :" />
+						<h:selectOneMenu value="document.idstateissued" id="idstateissued">
+							<c:forEach items="#{codes.listStates()}" var="st">
+								<f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Pobyt :" />
+						<h:selectOneMenu value="document.idtdustay" id="idtdustay">
+							<c:forEach items="" var="s">
+								<f:selectItem itemLabel="${s.refnumber}" itemValue="${s.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Identita :" />
+						<h:selectOneMenu value="document.ididentity" id="ididentity">
+							<c:forEach items="" var="i">
+								<f:selectItem itemLabel="${i.lastname}" itemValue="${i.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Persona :" />
+						<h:selectOneMenu value="document.idperson" id="idperson">
+							<c:forEach items="" var="p">
+								<f:selectItem itemLabel="${p.id}" itemValue="${p.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Typ dokumentu :" />
+						<h:selectOneMenu value="document.idperson" id="idperson">
+							<c:forEach items="codes.listDocumenttypes()" var="dt">
+								<f:selectItem itemLabel="${dt.name}" itemValue="${dt.id}"></f:selectItem>
+							</c:forEach>
+						</h:selectOneMenu>
+
+						<h:outputText value="Poznámka :" />
+						<h:inputText id="note" value="#{document.note}" required="false"
+							requiredMessage="Není vyplněno pole poznámka!">
+						</h:inputText>
+
+						<h:outputText value="Číslo :" />
+						<h:inputText id="note" value="#{document.number}" required="false"
+							requiredMessage="Není vyplněno pole číslo">
+						</h:inputText>
+
+						<h:outputText value="Datum platnosti od :" />
+						<h:inputText id="validfrom" value="#{document.validfrom}"
+							required="true"
+							requiredMessage="Není vyplněno pole datum platnosti od">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+						<h:outputText value="Datum platnosti do :" />
+						<h:inputText id="validto" value="#{document.validto}"
+							required="true"
+							requiredMessage="Není vyplněno pole datum platnosti do">
+							<f:convertDateTime pattern="d.M.yyyy" />
+						</h:inputText>
+
+
+						<h:commandButton type="submit" value="Vytvořit"
+							action="#{document.createDocument()}">
+						</h:commandButton>
+						<h:commandButton type="reset" value="Reset" />
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</div>
+		<div class="clear"></div>
+
+	</div>
+
+	<!-- START FOOTER -->
+	<div class="container_12">
+		<p class="footer">
+			Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
+		</p>
+	</div>
+	<!-- END FOOTER -->
+
+
+
+</h:body>
+</h:html>

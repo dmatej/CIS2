@@ -1,10 +1,9 @@
 package cz.i.cis.documents;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -33,7 +32,7 @@ public class DocumentFormBean implements Serializable {
 
     private Date dateofrenewal;
 
-    private Timestamp ddate;
+    private Date dateofcancel;
 
     private Integer idcodedocumenttype;
 
@@ -97,7 +96,7 @@ public class DocumentFormBean implements Serializable {
         Tdudocument document = new Tdudocument();
         document.setDateofreceipt(dateofreceipt);
         document.setDateofrenewal(dateofrenewal);
-        document.setDdate(ddate);
+        document.setDateofcancel(dateofcancel);
         document.setIdcodedocumenttype(idcodedocumenttype);
         document.setIdidentity(ididentity);
         document.setIdperson(idperson);
@@ -130,14 +129,6 @@ public class DocumentFormBean implements Serializable {
 
     public void setDateofrenewal(Date dateofrenewal) {
         this.dateofrenewal = dateofrenewal;
-    }
-
-    public Timestamp getDdate() {
-        return ddate;
-    }
-
-    public void setDdate(Timestamp ddate) {
-        this.ddate = ddate;
     }
 
     public Integer getIdcodedocumenttype() {
@@ -210,6 +201,14 @@ public class DocumentFormBean implements Serializable {
 
     public void setValidto(Date validto) {
         this.validto = validto;
+    }
+
+    public Date getDateofcancel() {
+      return dateofcancel;
+    }
+
+    public void setDateofcancel(Date dateofcancel) {
+      this.dateofcancel = dateofcancel;
     }
 
 

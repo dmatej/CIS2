@@ -141,6 +141,7 @@
             <h:outputText value="Datum narození (d.m.yyyy):" />
             <h:inputText id="birthdate" value="#{identity.birthdate}"
               required="false" requiredMessage="Není vyplněno datum narození!">
+              <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
             <h:outputText value="Pohlaví :" />
