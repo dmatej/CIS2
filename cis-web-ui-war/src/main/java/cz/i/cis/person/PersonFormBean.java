@@ -17,6 +17,7 @@ import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.db.validate.PersonValidateService;
+import cz.i.cis.other.Constants;
 
 @Named("person")
 @RequestScoped
@@ -62,9 +63,9 @@ public class PersonFormBean implements Serializable {
 
   private String note;
 
-  public void createPersonWithIdentity(Identity identity) {
+  public Boolean createPersonWithIdentity(Identity identity) {
     if (!testBeans())
-      return;
+      return false;
 
     Tduperson person = generateEntity();
     if (validateIdentity(identity) && validatePerson(person)) {
@@ -73,12 +74,16 @@ public class PersonFormBean implements Serializable {
       identity = identityservicebean.create(identity);
       person.setIdidentityActual(identity.getId());
       selectedPerson = personservicebean.update(person);
+
     }
+    else return false;
+
+    return true;
   }
 
-  public void createPerson() {
+  public String createPerson() {
     if (!testBeans())
-      return;
+      return "";
 
     ELContext elContext = FacesContext.getCurrentInstance().getELContext();
     Object ret = elContext.getELResolver()
@@ -87,9 +92,9 @@ public class PersonFormBean implements Serializable {
     IdentityFormBean identityFormBean = (IdentityFormBean) ret;
     Identity actualId = identityFormBean.generateEntity();
 
-    createPersonWithIdentity(actualId);
+    if(!createPersonWithIdentity(actualId)) return "";
 
-    return;
+    return Constants.PAGE_VIEW_PERSONS;
   }
 
   public void updatePerson() {

@@ -159,18 +159,61 @@
 
       <h:panelGroup id="contentTabs">
           <h:panelGroup id="tab1" rendered="#{tabcontrol.renderedTab == 1}">
-            <h:outputText value="Tab 1 Content"/>
-            
+
+             <h:dataTable value="#{personview.listIdentities()}" var="i"
+               styleClass="table"
+               headerClass="table-header"
+               rowClasses="table-odd-row, table-even-row">
+
+               <h:column>
+                   <!-- column header -->
+                   <f:facet name="header">Jméno a příjmení</f:facet>
+                   <!-- row record -->
+                   #{i.firstname} #{i.lastname}
+               </h:column>
+
+               <h:column>
+                   <f:facet name="header">Datum narození</f:facet>
+                   #{i.birthdate}
+               </h:column>
+
+               <h:column>
+                   <f:facet name="header">Aktuální stát</f:facet>
+                   #{codes.findState(i.idstate).name}
+               </h:column>
+
+               <h:column>
+                   <f:facet name="header">Pohlaví</f:facet>
+                   #{personsview.formatSex(i.sex)}
+               </h:column>
+
+               <h:column>
+                   <f:facet name="header">Akce</f:facet>
+                   <h:form>
+                    <h:commandLink value="Jako hlavní">
+                        <f:ajax event="click" render="" listener="#{}" />
+                    </h:commandLink>
+                    <h:commandLink value="Smazat">
+                        <f:ajax event="click" render="" listener="#{}" />
+                    </h:commandLink>
+                   </h:form>
+               </h:column>
+           </h:dataTable>
+           <h:form>
+            <h:commandLink value="Nová identita">
+                <f:ajax event="click" render="" listener="#{}" />
+            </h:commandLink>
+           </h:form>
           </h:panelGroup>
 
           <h:panelGroup id="tab2" rendered="#{tabcontrol.renderedTab == 2}">
             <h:outputText value="Tab 2 Content"/>
-            
+
           </h:panelGroup>
 
           <h:panelGroup id="tab3" rendered="#{tabcontrol.renderedTab == 3}">
             <h:outputText value="Tab 3 Content"/>
-            
+
           </h:panelGroup>
       </h:panelGroup>
   <div class="clear"></div>
