@@ -32,7 +32,7 @@ public class IdentityValidateServiceBean implements Serializable,
 
     // TODO [stulc] validace birthdate
 
-    if (identity.getBirthnumber() != null) {
+    if (identity.getBirthnumber() != null || identity.getBirthnumber().equals("")) {
 
       if (identity.getBirthnumber().length() != 10)
         err.add("BIRTHNUMBER in IDENTITY must have 10 chars!");

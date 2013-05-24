@@ -89,6 +89,7 @@ public class CisDate implements Comparable<CisDate>, Serializable {
   }
 
   public static CisDate parseDate(final Date date) throws ParseException {
+    if (date==null)return EMPTY;
     SimpleDateFormat sdW = new SimpleDateFormat("yyyyMMdd");
     return new CisDate(sdW.format(date));
   }
@@ -202,6 +203,7 @@ public class CisDate implements Comparable<CisDate>, Serializable {
 
   @Override
   public String toString() {
+    if(this.equals(EMPTY)) return "";
     SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
     try {
       Date d = sd.parse(date);

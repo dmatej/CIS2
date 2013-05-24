@@ -95,30 +95,30 @@
 					<h:panelGrid columns="2">
 						<h:outputText value="Titul před jménem :" />
 						<h:inputText id="degreeprefix" value="#{person.degreeprefix}"
-							required="true"
+							required="false"
 							requiredMessage="Není vyplněno pole titul před jménem!">
 						</h:inputText>
 
 						<h:outputText value="Titul za jménem :" />
 						<h:inputText id="degreesuffix" value="#{person.degreesuffix}"
-							required="true"
+							required="false"
 							requiredMessage="Není vyplněno pole titul za jménem!">
 						</h:inputText>
 
 						<h:outputText value="Poznámka :" />
-						<h:inputText id="note" value="#{person.note}" required="true"
+						<h:inputText id="note" value="#{person.note}" required="false"
 							requiredMessage="Není vyplněno pole poznámka!">
 						</h:inputText>
 
 						<h:outputText value="Datum úmrtí (d.m.yyyy) :" />
 						<h:inputText id="deathdate" value="#{person.deathdate}"
-							required="true" requiredMessage="Není vyplněno pole datum úmrtí!">
+							required="false" requiredMessage="Není vyplněno pole datum úmrtí!">
 							<f:convertDateTime pattern="d.M.yyyy" />
 						</h:inputText>
 
 						<h:outputText value="Místo úmrtí :" />
 						<h:inputText id="deathplace" value="#{person.deathplace}"
-							required="true" requiredMessage="Není vyplněno pole místo úmrtí!">
+							required="false" requiredMessage="Není vyplněno pole místo úmrtí!">
 						</h:inputText>
 
 						<h:outputText value="Místo úmrtí :" />

@@ -64,13 +64,13 @@ public class Identity implements Serializable {
 
   public CisDate getBirthdate() {
     if (this.birthdate == null)
-      return null;
+      return CisDate.EMPTY;
     return new CisDate(this.birthdate);
   }
 
   public void setBirthdate(CisDate birthdate) {
     if (birthdate == null) {
-      this.birthdate = null;
+      this.birthdate = CisDate.EMPTY.getCisValue();
     } else {
       this.birthdate = birthdate.getCisValue();
     }
