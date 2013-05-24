@@ -139,17 +139,17 @@
       <h:form id="formTabs">
         <span class="site">
             <h:commandLink value="Identity">
-                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(1)}" />
+                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(1)}" />
             </h:commandLink>
         </span>&nbsp;
         <span class="site">
             <h:commandLink value="Pobyty">
-                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(2)}" />
+                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(2)}" />
             </h:commandLink>
         </span>&nbsp;
         <span class="site">
             <h:commandLink value="Doklady">
-                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(3)}" />
+                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(3)}" />
             </h:commandLink>
         </span>
       </h:form>
@@ -163,8 +163,7 @@
     <div class="grid_12">
 
       <h:panelGroup id="contentTabs">
-          <h:panelGroup id="tab1" rendered="#{tabcontrol.renderedTab == 1}">
-
+          <h:panelGroup id="tab1" rendered="#{actionsdetailp.renderedTab == 1}">
              <h:dataTable value="#{personview.listIdentities()}" var="i"
                styleClass="table"
                headerClass="table-header"
@@ -198,109 +197,121 @@
                </h:column>
            </h:dataTable>
 
+           <h:form>
+            <h:commandLink value="Nová identita">
+                <f:ajax event="click" render=":formidentity" listener="#{actionsdetailp.requestForNewIdentity()}" />
+            </h:commandLink>
+           </h:form>
           </h:panelGroup>
 
-          <h:panelGroup id="tab2" rendered="#{tabcontrol.renderedTab == 2}">
+          <h:panelGroup id="formidentity">
+            <h:form  id="formNewIdentity" rendered="#{actionsdetailp.rqNewIdentity}">
+              <h:messages errorClass="errorMessage" infoClass="infoMessage"
+                warnClass="warnMessage"></h:messages>
+
+              <h:panelGrid columns="2">
+                <h:outputText value="Jméno :" />
+                <h:inputText id="firstname" value="#{identity.firstname}"
+                  required="false" requiredMessage="Není vyplněno křestní jméno!">
+                </h:inputText>
+
+                <h:outputText value="Příjmení :" />
+                <h:inputText id="lastname" value="#{identity.lastname}"
+                  required="false" requiredMessage="Není vyplněno příjmení!">
+                </h:inputText>
+
+                <h:outputText value="Rodné příjmení :" />
+                <h:inputText id="birthname" value="#{identity.birthname}"
+                  required="false" requiredMessage="Není vyplněno rodné příjmení!">
+                </h:inputText>
+
+                <h:outputText value="Ostatní jména :" />
+                <h:inputText id="othernames" value="#{identity.othernames}"
+                  required="false"
+                  requiredMessage="Není vyplněno pole Ostatní jména!">
+                </h:inputText>
+
+                <h:outputText value="Rodné číslo (bez lomítka):" />
+                <h:inputText id="birthnumber" value="#{identity.birthnumber}"
+                  required="false" requiredMessage="Není vyplněno rodné číslo!">
+                </h:inputText>
+
+                <h:outputText value="Místo narození :" />
+                <h:inputText id="birthplace" value="#{identity.birthplace}"
+                  required="false" requiredMessage="Není vyplněno místo narození!">
+                </h:inputText>
+
+                <h:outputText value="Stát narození :" />
+                <h:selectOneMenu value="identity.idstateofbirth" id="birthstate">
+                  <c:forEach items="#{codes.listStates()}" var="st">
+                    <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+                  </c:forEach>
+                </h:selectOneMenu>
+
+                <h:outputText value="Aktuální stát v místě bydliště :" />
+                <h:selectOneMenu value="identity.idstate" id="actualstate">
+                  <c:forEach items="#{codes.listStates()}" var="st">
+                    <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+                  </c:forEach>
+                </h:selectOneMenu>
+
+                <h:outputText value="Datum narození (d.m.yyyy):" />
+                <h:inputText id="birthdate" value="#{identity.birthdate}"
+                  required="false" requiredMessage="Není vyplněno datum narození!">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:inputText>
+
+                <h:outputText value="Pohlaví :" />
+                <h:selectOneMenu value="identity.sex" id="sex">
+                  <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
+                  <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
+                </h:selectOneMenu>
+
+                <h:outputText value="Platnost od(d.m.yyyy) :" />
+                <h:inputText id="validfrom" value="#{identity.validfrom}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:inputText>
+
+                <h:outputText value="Platnost do(d.m.yyyy) :" />
+                <h:inputText id="validto" value="#{identity.validto}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:inputText>
+
+                <h:commandButton type="submit" value="Registrovat"
+                  action="#{identity.createIdentity}">
+                </h:commandButton>
+                <h:commandButton type="reset" value="Reset" />
+              </h:panelGrid>
+             </h:form>
+          </h:panelGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <h:panelGroup id="tab2" rendered="#{actionsdetailp.renderedTab == 2}">
             <h:outputText value="Tab 2 Content"/>
 
           </h:panelGroup>
 
-          <h:panelGroup id="tab3" rendered="#{tabcontrol.renderedTab == 3}">
+          <h:panelGroup id="tab3" rendered="#{actionsdetailp.renderedTab == 3}">
             <h:outputText value="Tab 3 Content"/>
 
           </h:panelGroup>
       </h:panelGroup>
+
+
+
   <div class="clear"></div>
-
-    <!-- SEZNAM IDENTIT (ten {} kód je špatně, je to jen zkopírováno z view-person) -->
-    <h:panelGrid rendered="#{true}">
-      <table>
-        <tr>
-          <th>Jméno</th>
-          <th>Příjmení</th>
-          <th>Datum narození</th>
-          <th>Aktuální stát</th>
-          <th>Pohlaví</th>
-          <th>Akce</th>
-        </tr>
-        <c:forEach items="#{personsview.listPersonsByActualIdentities()}"
-          var="prsnIdentity">
-          <tr>
-            <td><h:outputText value="#{prsnIdentity.firstname}" /></td>
-            <td><h:outputText value="#{prsnIdentity.lastname}" /></td>
-            <td><h:outputText value="#{prsnIdentity.birthdate}" /></td>
-            <td><h:outputText
-                value="#{codes.findState(prsnIdentity.idstate).name}" /></td>
-            <td><h:outputText
-                value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
-            <td>
-            <h:outputLink value="identity-detail.xhtml">
-                <h:outputText value="Detail" />
-                <f:param name="personid" value="#{prsnIdentity.idperson}" />
-            </h:outputLink>
-            </td>
-          </tr>
-        </c:forEach>
-
-      </table>
-    </h:panelGrid>
-
-    <!-- POBYTY ({} kód potřebuje někde doplnit) -->
-    <h:panelGrid rendered="#{true}">
-      <table>
-        <tr>
-          <th>Od</th>
-          <th>Do</th>
-          <th>Účel pobytu</th>
-          <th>Akce</th>
-        </tr>
-        <c:forEach items="#{null}"
-          var="">
-          <tr>
-            <td><h:outputText value="#{stay.grantedFrom}" /></td>
-            <td><h:outputText value="#{stay.grantedTo}" /></td>
-            <td><h:outputText value="#{stay.idpobytucel}" /></td>
-            <td>
-            <h:outputLink value="stay-detail.xhtml">
-                <h:outputText value="Detail" />
-                <f:param name="" value="" />
-            </h:outputLink>
-            </td>
-          </tr>
-        </c:forEach>
-
-      </table>
-    </h:panelGrid>
-
-    <!-- DOKLADY ({} kód potřebuje někde doplnit) -->
-    <h:panelGrid rendered="#{true}">
-      <table>
-        <tr>
-          <th>Typ dokladu</th>
-          <th>Číslo</th>
-          <th>Vydávající stát</th>
-          <th>Schválen od - do</th>
-          <th>Akce</th>
-        </tr>
-        <c:forEach items="#{null}"
-          var="">
-          <tr>
-            <td><h:outputText value="#{document.idcodedocumenttype}" /></td>
-            <td><h:outputText value="#{document.number}" /></td>
-            <td><h:outputText value="#{document.idstateissued}" /></td>
-            <td><h:outputText value="#{document.getValidDates()}" /></td>
-            <td>
-            <h:outputLink value="document-detail.xhtml">
-                <h:outputText value="Detail" />
-                <f:param name="" value="" />
-            </h:outputLink>
-            </td>
-          </tr>
-        </c:forEach>
-
-      </table>
-    </h:panelGrid>
-
 
     </div>
     <div class="clear"></div>

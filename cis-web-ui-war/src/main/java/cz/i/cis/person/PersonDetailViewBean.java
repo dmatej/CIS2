@@ -36,6 +36,7 @@ public class PersonDetailViewBean implements Serializable {
 
     private Integer idperson;
 
+
     public void loadPerson() {
         selectedPerson = null;
         actualPersonIdentity = null;
@@ -70,6 +71,8 @@ public class PersonDetailViewBean implements Serializable {
         return stayservicebean.getStaysForPerson(selectedPerson.getId());
     }
 
+
+
     public Tduperson getSelectedPerson() {
         return selectedPerson;
     }
@@ -85,4 +88,6 @@ public class PersonDetailViewBean implements Serializable {
     public void setIdperson(Integer idperson) {
         this.idperson = idperson;
     }
+
+
 }
