@@ -35,7 +35,6 @@ public class CisDate implements Comparable<CisDate>, Serializable {
    * <li>DD matches (([0-2][0-9])||([3][01])||([Xx]{1,2}))
    * </ul>
    * X charachters are replaced with zeroes. <br>
-   * TODO: X by tu neměly být povoleny, měly by se odstraňovat při parsování!
    *
    * @param cisDate
    *          - values matching [0-9Xx]{8} are accepted, but internaly contains
@@ -86,13 +85,12 @@ public class CisDate implements Comparable<CisDate>, Serializable {
   public static CisDate parseDate(final String date) throws ParseException {
     SimpleDateFormat sd = new SimpleDateFormat("d.M.yyyy");
     Date d = sd.parse(date);
-    String cisDate = new Integer(d.getYear() + 1900).toString();
-    cisDate += d.getMonth() < 10 ? "0" : "";
-    cisDate += d.getMonth();
-    cisDate += d.getDate() < 10 ? "0" : "";
-    cisDate += d.getDate();
+    return parseDate(d);
+  }
 
-    return new CisDate(cisDate);
+  public static CisDate parseDate(final Date date) throws ParseException {
+    SimpleDateFormat sdW = new SimpleDateFormat("yyyyMMdd");
+    return new CisDate(sdW.format(date));
   }
 
   private static CisDateCompareStatus compareItems(final String myItem,
@@ -194,19 +192,25 @@ public class CisDate implements Comparable<CisDate>, Serializable {
     return date.equalsIgnoreCase(((CisDate) obj).date);
 
   }
+
   /**
    * Date yyyymmdd with zeroes when item value is not known
    */
-  public String getCodeDate(){
+  public String getCisValue() {
     return date;
   }
 
-
   @Override
   public String toString() {
-    //TODO [stulc] upravit výpis data narození
-    return date;
+    SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd");
+    try {
+      Date d = sd.parse(date);
 
+      SimpleDateFormat sdW = new SimpleDateFormat("d.m.yyyy");
+      return sdW.format(d);
+    } catch (ParseException e) {
+      return "";
+    }
   }
 
   /**

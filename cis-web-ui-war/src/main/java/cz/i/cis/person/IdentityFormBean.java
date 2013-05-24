@@ -1,6 +1,7 @@
 package cz.i.cis.person;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ public class IdentityFormBean implements Serializable {
 
   private Integer idIdentity;
 
-  private CisDate birthdate;
+  private Date birthdate;
 
   private String birthname;
 
@@ -89,16 +90,24 @@ public class IdentityFormBean implements Serializable {
     if (!testBeans())
       return;
 
-    Identity newIdentity = generateEntity();
+    Identity newIdentity;
+    newIdentity = generateEntity();
     newIdentity.setId(selectedIdentity.getId());
     if (validateIdentity(newIdentity)) {
       selectedIdentity = identityservicebean.update(newIdentity);
     }
+
   }
 
   public Identity generateEntity() {
     Identity identity = new Identity();
-    identity.setBirthdate(birthdate);
+    try {
+      identity.setBirthdate(CisDate.parseDate(birthdate));
+    } catch (ParseException e) {
+      FacesMessage message = new FacesMessage(
+          "Chyba při parsování data narození");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+    }
     identity.setBirthname(birthname);
     identity.setBirthnumber(birthnumber);
     identity.setBirthplace(birthplace);
@@ -207,11 +216,11 @@ public class IdentityFormBean implements Serializable {
     this.othernames = othernames;
   }
 
-  public CisDate getBirthdate() {
+  public Date getBirthdate() {
     return birthdate;
   }
 
-  public void setBirthdate(CisDate birthdate) {
+  public void setBirthdate(Date birthdate) {
     this.birthdate = birthdate;
   }
 
@@ -243,20 +252,20 @@ public class IdentityFormBean implements Serializable {
     this.idIdentity = idIdentity;
   }
 
-public Date getValidfrom() {
+  public Date getValidfrom() {
     return validfrom;
-}
+  }
 
-public void setValidfrom(Date validfrom) {
+  public void setValidfrom(Date validfrom) {
     this.validfrom = validfrom;
-}
+  }
 
-public Date getValidto() {
+  public Date getValidto() {
     return validto;
-}
+  }
 
-public void setValidto(Date validto) {
+  public void setValidto(Date validto) {
     this.validto = validto;
-}
+  }
 
 }

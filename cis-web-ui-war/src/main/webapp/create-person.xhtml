@@ -95,33 +95,33 @@
           <h:panelGrid columns="2">
             <h:outputText value="Jméno :" />
             <h:inputText id="firstname" value="#{identity.firstname}"
-              required="true" requiredMessage="Není vyplněno křestní jméno!">
+              required="false" requiredMessage="Není vyplněno křestní jméno!">
             </h:inputText>
 
             <h:outputText value="Příjmení :" />
             <h:inputText id="lastname" value="#{identity.lastname}"
-              required="true" requiredMessage="Není vyplněno příjmení!">
+              required="false" requiredMessage="Není vyplněno příjmení!">
             </h:inputText>
 
             <h:outputText value="Rodné příjmení :" />
             <h:inputText id="birthname" value="#{identity.birthname}"
-              required="true" requiredMessage="Není vyplněno rodné příjmení!">
+              required="false" requiredMessage="Není vyplněno rodné příjmení!">
             </h:inputText>
 
             <h:outputText value="Ostatní jména :" />
             <h:inputText id="othernames" value="#{identity.othernames}"
-              required="true"
+              required="false"
               requiredMessage="Není vyplněno pole Ostatní jména!">
             </h:inputText>
 
             <h:outputText value="Rodné číslo (bez lomítka):" />
             <h:inputText id="birthnumber" value="#{identity.birthnumber}"
-              required="true" requiredMessage="Není vyplněno rodné číslo!">
+              required="false" requiredMessage="Není vyplněno rodné číslo!">
             </h:inputText>
 
             <h:outputText value="Místo narození :" />
             <h:inputText id="birthplace" value="#{identity.birthplace}"
-              required="true" requiredMessage="Není vyplněno místo narození!">
+              required="false" requiredMessage="Není vyplněno místo narození!">
             </h:inputText>
 
             <h:outputText value="Stát narození :" />
@@ -141,6 +141,7 @@
             <h:outputText value="Datum narození (d.m.yyyy):" />
             <h:inputText id="birthdate" value="#{identity.birthdate}"
               required="true" requiredMessage="Není vyplněno datum narození!">
+              <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
             <h:outputText value="Pohlaví :" />

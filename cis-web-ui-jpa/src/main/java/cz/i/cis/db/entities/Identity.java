@@ -63,6 +63,8 @@ public class Identity implements Serializable {
   }
 
   public CisDate getBirthdate() {
+    if (this.birthdate == null)
+      return null;
     try {
       return CisDate.parseDate(this.birthdate);
     } catch (ParseException e) {
@@ -71,7 +73,11 @@ public class Identity implements Serializable {
   }
 
   public void setBirthdate(CisDate birthdate) {
-    this.birthdate = birthdate.getCodeDate();
+    if (birthdate == null) {
+      this.birthdate = null;
+    } else {
+      this.birthdate = birthdate.getCisValue();
+    }
   }
 
   public String getBirthname() {
