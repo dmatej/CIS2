@@ -65,11 +65,7 @@ public class Identity implements Serializable {
   public CisDate getBirthdate() {
     if (this.birthdate == null)
       return null;
-    try {
-      return CisDate.parseDate(this.birthdate);
-    } catch (ParseException e) {
-      return CisDate.EMPTY;
-    }
+    return new CisDate(this.birthdate);
   }
 
   public void setBirthdate(CisDate birthdate) {

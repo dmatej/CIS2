@@ -206,7 +206,7 @@ public class CisDate implements Comparable<CisDate>, Serializable {
     try {
       Date d = sd.parse(date);
 
-      SimpleDateFormat sdW = new SimpleDateFormat("d.m.yyyy");
+      SimpleDateFormat sdW = new SimpleDateFormat("d.M.yyyy");
       return sdW.format(d);
     } catch (ParseException e) {
       return "";
