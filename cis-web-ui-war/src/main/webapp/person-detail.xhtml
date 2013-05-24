@@ -139,17 +139,17 @@
       <h:form id="formTabs">
         <span class="site">
             <h:commandLink value="Identity">
-                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(1)}" />
+                <f:ajax event="click" render=":contentTabs :formNewIdentity" listener="#{actionsdetailp.handleTabChange(1)}" />
             </h:commandLink>
         </span>&nbsp;
         <span class="site">
             <h:commandLink value="Pobyty">
-                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(2)}" />
+                <f:ajax event="click" render=":contentTabs :formNewIdentity" listener="#{actionsdetailp.handleTabChange(2)}" />
             </h:commandLink>
         </span>&nbsp;
         <span class="site">
             <h:commandLink value="Doklady">
-                <f:ajax event="click" render=":contentTabs :formidentity" listener="#{actionsdetailp.handleTabChange(3)}" />
+                <f:ajax event="click" render=":contentTabs :formNewIdentity" listener="#{actionsdetailp.handleTabChange(3)}" />
             </h:commandLink>
         </span>
       </h:form>
@@ -196,16 +196,34 @@
 
                </h:column>
            </h:dataTable>
-
-           <h:form>
-            <h:commandLink value="Nová identita">
-                <f:ajax event="click" render=":formidentity" listener="#{actionsdetailp.requestForNewIdentity()}" />
-            </h:commandLink>
-           </h:form>
           </h:panelGroup>
 
-          <h:panelGroup id="formidentity">
-            <h:form  id="formNewIdentity" rendered="#{actionsdetailp.rqNewIdentity}">
+
+
+
+
+
+          <h:panelGroup id="tab2" rendered="#{actionsdetailp.renderedTab == 2}">
+            <h:outputText value="Tab 2 Content"/>
+
+          </h:panelGroup>
+
+          <h:panelGroup id="tab3" rendered="#{actionsdetailp.renderedTab == 3}">
+            <h:outputText value="Tab 3 Content"/>
+
+          </h:panelGroup>
+      </h:panelGroup>
+
+
+
+      <h:panelGroup id="formNewIdentity">
+            <h:form rendered="#{actionsdetailp.renderedTab == 1}">
+              <h:commandLink value="Nová identita">
+                <f:ajax event="click" render=":formNewIdentity" listener="#{actionsdetailp.requestForNewIdentity()}" />
+              </h:commandLink>
+            </h:form>
+
+            <h:form rendered="#{actionsdetailp.rqNewIdentity}">
               <h:messages errorClass="errorMessage" infoClass="infoMessage"
                 warnClass="warnMessage"></h:messages>
 
@@ -284,31 +302,6 @@
               </h:panelGrid>
              </h:form>
           </h:panelGroup>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <h:panelGroup id="tab2" rendered="#{actionsdetailp.renderedTab == 2}">
-            <h:outputText value="Tab 2 Content"/>
-
-          </h:panelGroup>
-
-          <h:panelGroup id="tab3" rendered="#{actionsdetailp.renderedTab == 3}">
-            <h:outputText value="Tab 3 Content"/>
-
-          </h:panelGroup>
-      </h:panelGroup>
-
 
 
   <div class="clear"></div>

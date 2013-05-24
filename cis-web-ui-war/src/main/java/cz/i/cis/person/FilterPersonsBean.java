@@ -1,6 +1,3 @@
-/**
- *
- */
 package cz.i.cis.person;
 
 import java.util.ArrayList;

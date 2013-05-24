@@ -1,12 +1,9 @@
 package cz.i.cis.other;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Named;
 
-@ManagedBean(name = "actionsdetailp")
+@ManagedBean(name="actionsdetailp")
 @SessionScoped
 public class ActionsDetailPersonBean {
     private final Integer TABIDENTITY = 1;
@@ -28,7 +25,8 @@ public class ActionsDetailPersonBean {
 
     public void handleTabChange(Integer idTab) {
         renderedTab = idTab;
-        if(renderedTab != TABIDENTITY) rqNewIdentity = false;
+        rqNewIdentity = false;
+        //if(renderedTab != TABIDENTITY) rqNewIdentity = false;
     }
 
     public Integer getRenderedTab() {
