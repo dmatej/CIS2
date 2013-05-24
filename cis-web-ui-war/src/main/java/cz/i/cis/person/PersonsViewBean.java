@@ -11,7 +11,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import cz.i.cis.db.code.CodeService;
-import cz.i.cis.db.entities.CodeState;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
@@ -38,7 +37,7 @@ public class PersonsViewBean implements Serializable {
    * @return Mapa, kde klicem je ID tduperson a hodnotou seznam nalezenych
    *         identit, které patri dane osobe.
    */
-  private Map<Integer, List<Identity>> searchPersonsByName(String firstName,
+  private Map<Integer, List<Identity>> searchIdentities(String firstName,
       String lastName, Boolean isMale, String birthNumber) {
 
     List<Identity> identList = identityservicebean.findIdentitiesByParams(
@@ -62,9 +61,5 @@ public class PersonsViewBean implements Serializable {
       return "Žena";
 
     return "-";
-  }
-
-  public CodeState findState(Integer id) {
-    return codeservicebean.findStateById(id);
   }
 }

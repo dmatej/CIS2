@@ -7,11 +7,6 @@
   xmlns:f="http://java.sun.com/jsf/core"
   xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<f:metadata>
-     <f:viewParam id="id" name="personid" value="#{personview.idperson}" required="true" requiredMessage="Person id is required"/>
-     <f:event type="preRenderView" listener="#{personview.loadPerson}" />
-</f:metadata>
-
 <h:head xmlns:h="http://java.sun.com/jsf/html">
   <title>Detail osoby | CIS</title>
   <!-- [template css] begin -->
@@ -136,9 +131,23 @@
 
   <div class="container_12 bottom">
     <div class="grid_12">
-      <span class="project">Aktivní tab (identity)</span>&nbsp;
-      <span class="site"><a href="person-detail.xhtml">Tab 2 (pobyty)</a></span>
-      <span class="site"><a href="person-detail.xhtml">Tab 3 (doklady)</a></span>
+      <h:form id="formTabs">
+        <span class="site">
+            <h:commandLink value="Identity">
+                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(1)}" />
+            </h:commandLink>
+        </span>&nbsp;
+        <span class="site">
+            <h:commandLink value="Pobyty">
+                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(2)}" />
+            </h:commandLink>
+        </span>&nbsp;
+        <span class="site">
+            <h:commandLink value="Doklady">
+                <f:ajax event="click" render=":contentTabs" listener="#{tabcontrol.handleTabChange(3)}" />
+            </h:commandLink>
+        </span>
+      </h:form>
     </div>
     <div class="clear"></div>
   </div>
@@ -148,8 +157,23 @@
   <div class="container_12 bottom">
     <div class="grid_12">
 
+      <h:panelGroup id="contentTabs">
+          <h:panelGroup id="tab1" rendered="#{tabcontrol.renderedTab == 1}">
+            <h:outputText value="Tab 1 Content"/>
+            
+          </h:panelGroup>
 
+          <h:panelGroup id="tab2" rendered="#{tabcontrol.renderedTab == 2}">
+            <h:outputText value="Tab 2 Content"/>
+            
+          </h:panelGroup>
 
+          <h:panelGroup id="tab3" rendered="#{tabcontrol.renderedTab == 3}">
+            <h:outputText value="Tab 3 Content"/>
+            
+          </h:panelGroup>
+      </h:panelGroup>
+  <div class="clear"></div>
 
     <!-- SEZNAM IDENTIT (ten {} kód je špatně, je to jen zkopírováno z view-person) -->
     <h:panelGrid rendered="#{true}">

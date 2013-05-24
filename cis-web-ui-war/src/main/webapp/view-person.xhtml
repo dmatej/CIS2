@@ -144,10 +144,9 @@
             <td><h:outputText
                 value="#{personsview.formatSex(prsnIdentity.sex)}" /></td>
             <td>
-            <h:outputLink value="person-detail.xhtml">
-                <h:outputText value="Detail" />
-                <f:param name="personid" value="#{prsnIdentity.idperson}" />
-            </h:outputLink>
+            <h:form>
+                <h:commandButton value="Detail" action="person-detail.xhtml" actionListener="#{personview.loadPerson(prsnIdentity.idperson)}"/>
+            </h:form>
             </td>
           </tr>
         </c:forEach>
