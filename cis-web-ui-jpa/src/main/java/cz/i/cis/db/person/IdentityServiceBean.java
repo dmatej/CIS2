@@ -62,7 +62,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
 
   @Override
   public List<Identity> findActualIdentitiesOfPersons() {
-    final String queryStr = "SELECT i FROM Identity i, Tduperson p WHERE i.idperson = p.id and p.rstatus=0";
+    final String queryStr = "SELECT i  FROM Tduperson p, Identity i WHERE p.id = i.idperson and p.rstatus=0";
     TypedQuery<Identity> query = em.createQuery(queryStr, Identity.class);
     final List<Identity> idents = query.getResultList();
 

@@ -16,6 +16,7 @@ import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.person.StayService;
+import cz.i.cis.other.Constants;
 
 @ManagedBean(name = "personview")
 @ViewScoped
@@ -89,5 +90,8 @@ public class PersonDetailViewBean implements Serializable {
         this.idperson = idperson;
     }
 
-
+    public String outcomeNewIdentity()
+    {
+        return Constants.PAGE_CREATE_IDENTITY;
+    }
 }

@@ -25,6 +25,11 @@
     media="screen, projection" />
   <!-- [template css javascript] end -->
 </h:head>
+
+<f:metadata>
+     <f:viewParam name="personid" value="#{identity.idperson}" />
+</f:metadata>
+
 <h:body>
   <!-- START TOP SECTION -->
   <div class="container_12">
@@ -125,14 +130,14 @@
             </h:inputText>
 
             <h:outputText value="Stát narození :" />
-            <h:selectOneMenu value="identity.idstateofbirth" id="birthstate">
+            <h:selectOneMenu value="#{identity.idstateofbirth}" id="birthstate">
               <c:forEach items="#{codes.listStates()}" var="st">
                 <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
             <h:outputText value="Aktuální stát v místě bydliště :" />
-            <h:selectOneMenu value="identity.idstate" id="actualstate">
+            <h:selectOneMenu value="#{identity.idstate}" id="actualstate">
               <c:forEach items="#{codes.listStates()}" var="st">
                 <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
               </c:forEach>
@@ -145,7 +150,7 @@
             </h:inputText>
 
             <h:outputText value="Pohlaví :" />
-            <h:selectOneMenu value="identity.sex" id="sex">
+            <h:selectOneMenu value="#{identity.sex}" id="sex">
               <f:selectItem itemLabel="Muž" itemValue="M"></f:selectItem>
               <f:selectItem itemLabel="Žena" itemValue="Z"></f:selectItem>
             </h:selectOneMenu>
@@ -160,8 +165,8 @@
               <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
-            <h:commandButton type="submit" value="Registrovat"
-              action="#{identity.createIdentity}">
+            <h:commandButton type="submit" value="Vytvořit" action="#{identity.createIdentity()}">
+              <f:param name="personid" value="#{identity.idperson}" />
             </h:commandButton>
             <h:commandButton type="reset" value="Reset" />
           </h:panelGrid>

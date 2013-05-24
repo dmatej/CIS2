@@ -14,6 +14,7 @@ import cz.i.cis.db.date.CisDate;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.validate.IdentityValidateService;
+import cz.i.cis.other.Constants;
 
 @Named("identity")
 @RequestScoped
@@ -59,15 +60,19 @@ public class IdentityFormBean implements Serializable {
   @EJB
   private IdentityValidateService identityValidateServicebean;
 
-  public void createIdentity() {
+  public String createIdentity() {
     if (!testBeans())
-      return;
+      return "";
 
     Identity identity = generateEntity();
+    identity.setIdperson(idperson);
 
     if (validateIdentity(identity)) {
       selectedIdentity = identityservicebean.create(identity);
+      return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
     }
+
+    return null;
   }
 
   private Boolean validateIdentity(Identity identity) {
@@ -267,5 +272,13 @@ public class IdentityFormBean implements Serializable {
   public void setValidto(Date validto) {
     this.validto = validto;
   }
+
+public Integer getIdperson() {
+    return idperson;
+}
+
+public void setIdperson(Integer idperson) {
+    this.idperson = idperson;
+}
 
 }
