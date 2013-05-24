@@ -156,6 +156,18 @@
                    #{personsview.formatSex(pi.sex)}
                </h:column>
 
+               <h:column>
+                   <f:facet name="header">Pohlaví</f:facet>
+                   #{personsview.formatSex(pi.sex)}
+               </h:column>
+
+                <h:column>
+                   <f:facet name="header">Akce</f:facet>
+                   <h:form>
+                    <h:commandButton value="Detail" action="person-detail.xhtml" actionListener="#{personview.loadPerson(pi.idperson)}"/>
+                   </h:form>
+                </h:column>
+
            </h:dataTable>
         </h:panelGroup>
         <h:panelGroup rendered="#{personsview.filtered}">
