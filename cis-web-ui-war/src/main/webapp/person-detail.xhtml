@@ -27,6 +27,11 @@
   <!-- [template css javascript] end -->
 </h:head>
 
+<f:metadata>
+     <f:viewParam name="personid" value="#{personview.idperson}" />
+     <f:event type="preRenderView" listener="#{personview.loadPerson}" />
+</f:metadata>
+
 <h:body>
   <!-- START TOP SECTION -->
   <div class="container_12">
@@ -189,21 +194,10 @@
 
                <h:column>
                    <f:facet name="header">Akce</f:facet>
-                   <h:form>
-                    <h:commandLink value="Jako hlavní">
-                        <f:ajax event="click" render="" listener="#{}" />
-                    </h:commandLink>
-                    <h:commandLink value="Smazat">
-                        <f:ajax event="click" render="" listener="#{}" />
-                    </h:commandLink>
-                   </h:form>
+
                </h:column>
            </h:dataTable>
-           <h:form>
-            <h:commandLink value="Nová identita">
-                <f:ajax event="click" render="" listener="#{}" />
-            </h:commandLink>
-           </h:form>
+
           </h:panelGroup>
 
           <h:panelGroup id="tab2" rendered="#{tabcontrol.renderedTab == 2}">

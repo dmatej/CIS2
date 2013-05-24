@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
 import cz.i.cis.db.entities.Identity;
@@ -15,8 +17,8 @@ import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.person.StayService;
 
-@Named("personview")
-@RequestScoped
+@ManagedBean(name = "personview")
+@ViewScoped
 public class PersonDetailViewBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +34,9 @@ public class PersonDetailViewBean implements Serializable {
     private Tduperson selectedPerson;
     private Identity actualPersonIdentity;
 
-    public void loadPerson(Integer idperson) {
+    private Integer idperson;
+
+    public void loadPerson() {
         selectedPerson = null;
         actualPersonIdentity = null;
 
@@ -72,5 +76,13 @@ public class PersonDetailViewBean implements Serializable {
 
     public Identity getActualPersonIdentity() {
         return actualPersonIdentity;
+    }
+
+    public Integer getIdperson() {
+        return idperson;
+    }
+
+    public void setIdperson(Integer idperson) {
+        this.idperson = idperson;
     }
 }
