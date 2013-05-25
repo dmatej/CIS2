@@ -72,7 +72,6 @@ caption {background:#eee;}
 .top { margin-top:0; padding-top:0; }
 .bottom { margin-bottom:0; padding-bottom:0; }
 .center { text-align: center; }
-.greyBg { background-color: #f3f3f3; }
 
 /*liste e tabelle*/
 li { margin: 0; line-height: 22px; }
@@ -166,6 +165,10 @@ table tr td a {
     height:100%;
     width:100%;
 }
+
+/*greyBg*/
+div.greyBg { background-color: #f3f3f3; }
+div.greyBg { margin-left: 10px; margin-right: 10px; margin-top: 0px; margin-bottom: 0px; padding: 10px 0px 0px 20px; width: 280px !important; }
 
 /*twitter*/
 ul#twitter_update_list li {list-style-type:none;padding: 0 0 10px 0;color:#000;}
