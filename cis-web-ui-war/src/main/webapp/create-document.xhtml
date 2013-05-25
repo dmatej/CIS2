@@ -28,6 +28,7 @@
 
 <f:metadata>
      <f:viewParam name="personid" value="#{document.idperson}" />
+     <f:event type="preRenderView" listener="#{document.init}" />
 </f:metadata>
 
 <h:body>
@@ -120,14 +121,14 @@
             </h:inputText>
 
             <h:outputText value="Stát vydání :" />
-            <h:selectOneMenu value="#{document.idstateissued}" id="idstateissued">
+            <h:selectOneMenu id="idstateissued" value="#{document.idstateissued}">
               <c:forEach items="#{codes.listStates()}" var="st">
                 <f:selectItem itemLabel="#{st.name}" itemValue="#{st.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
            <h:outputText value="Pobyt :" />
-            <h:selectOneMenu value="#{document.idtdustay}" id="idtdustay">
+            <h:selectOneMenu id="idtdustay" value="#{document.idtdustay}">
               <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
               <c:forEach items="#{document.listStays()}" var="s">
                 <f:selectItem itemLabel="#{s.refnumber}" itemValue="#{s.id}"></f:selectItem>
@@ -135,14 +136,14 @@
             </h:selectOneMenu>
 
             <h:outputText value="Identita :" />
-            <h:selectOneMenu value="#{document.ididentity}" id="ididentity">
+            <h:selectOneMenu id="ididentity" value="#{document.ididentity}">
               <c:forEach items="#{document.listIdentitiesOfPerson()}" var="i">
                 <f:selectItem itemLabel="#{i.firstname} #{i.lastname}" itemValue="#{i.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
             <h:outputText value="Typ dokladu :" />
-            <h:selectOneMenu value="#{document.idcodedocumenttype}" id="idperson">
+            <h:selectOneMenu id="idtypedocument" value="#{document.idcodedocumenttype}">
               <c:forEach items="#{codes.listDocumenttypes()}" var="dt">
                 <f:selectItem itemLabel="#{dt.name}" itemValue="#{dt.id}"></f:selectItem>
               </c:forEach>
@@ -154,7 +155,7 @@
             </h:inputText>
 
             <h:outputText value="Číslo :" />
-            <h:inputText id="note" value="#{document.number}" required="false"
+            <h:inputText id="number" value="#{document.number}" required="false"
               requiredMessage="Není vyplněno pole číslo">
             </h:inputText>
 
@@ -173,8 +174,8 @@
             </h:inputText>
 
 
-            <h:commandButton type="submit" value="Vytvořit"
-              action="#{document.createDocument}">
+            <h:commandButton type="submit" value="Vytvořit" action="#{document.createDocument}" >
+                <f:param name="personid" value="#{document.idperson}" />
             </h:commandButton>
             <h:commandButton value="Reset" action="#{document.clearForm}">
                <f:param name="personid" value="#{document.idperson}" />
