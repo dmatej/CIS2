@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Named;
 
@@ -54,6 +55,16 @@ public class PersonDetailViewBean implements Serializable {
 
         Integer idIdentity = selectedPerson.getIdidentityActual();
         actualPersonIdentity = identityservicebean.findIdentityById(idIdentity);
+    }
+
+    public void changeActualIdentity(Integer id)
+    {
+      Identity requiredIdentity = identityservicebean.findIdentityById(id);
+      selectedPerson.setIdidentityActual(id);
+
+      personservicebean.update(selectedPerson);
+
+      actualPersonIdentity = requiredIdentity;
     }
 
     public List<Identity> listIdentities() {
