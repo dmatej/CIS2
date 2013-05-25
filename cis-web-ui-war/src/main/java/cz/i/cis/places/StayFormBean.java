@@ -1,4 +1,4 @@
-package cz.i.cis.person;
+package cz.i.cis.places;
 
 
 import java.io.Serializable;
@@ -13,7 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import cz.i.cis.db.entities.Tdustay;
-import cz.i.cis.db.person.StayService;
+import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.StayValidateService;
 import cz.i.cis.other.Constants;
 

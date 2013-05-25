@@ -1,4 +1,4 @@
-package cz.i.cis.db.person;
+package cz.i.cis.db.places;
 
 import java.util.List;
 

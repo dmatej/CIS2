@@ -22,7 +22,7 @@ import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.entities.Tdudocument;
 import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.person.IdentityService;
-import cz.i.cis.db.person.StayService;
+import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.DocumentValidateService;
 import cz.i.cis.other.Constants;
 

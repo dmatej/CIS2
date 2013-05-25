@@ -17,8 +17,8 @@ import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.entities.Tdustayplace;
 import cz.i.cis.db.person.IdentityService;
 import cz.i.cis.db.person.PersonService;
-import cz.i.cis.db.person.StayPlaceService;
-import cz.i.cis.db.person.StayService;
+import cz.i.cis.db.places.StayPlaceService;
+import cz.i.cis.db.places.StayService;
 import cz.i.cis.other.Constants;
 
 @ManagedBean(name = "personview")

@@ -1,4 +1,4 @@
-package cz.i.cis.person;
+package cz.i.cis.places;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,7 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import cz.i.cis.db.entities.Tdustayplace;
-import cz.i.cis.db.person.StayPlaceService;
+import cz.i.cis.db.places.StayPlaceService;
 import cz.i.cis.db.validate.StayPlaceValidateService;
 
 @Named("stayplace")
