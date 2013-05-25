@@ -83,6 +83,8 @@ public class StayPlaceFormBean implements Serializable {
         return stayPlaceServiceBean.findStayPlacesForStay(idStay);
     }
 
+
+
     private boolean testBeans() {
         if (stayPlaceServiceBean == null) {
             FacesMessage message = new FacesMessage("stayPlaceServiceBean null!");
@@ -100,4 +102,35 @@ public class StayPlaceFormBean implements Serializable {
         return true;
     }
 
+    public Date getDatefrom() {
+      return datefrom;
+    }
+
+    public void setDatefrom(Date datefrom) {
+      this.datefrom = datefrom;
+    }
+
+    public Date getDateto() {
+      return dateto;
+    }
+
+    public void setDateto(Date dateto) {
+      this.dateto = dateto;
+    }
+
+    public String getAddress() {
+      return address;
+    }
+
+    public void setAddress(String address) {
+      this.address = address;
+    }
+
+    public String getNote() {
+      return note;
+    }
+
+    public void setNote(String note) {
+      this.note = note;
+    }
 }

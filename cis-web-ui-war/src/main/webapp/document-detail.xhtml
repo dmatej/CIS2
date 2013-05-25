@@ -86,14 +86,36 @@
 
 
   <!-- START BOTTOM SECTION -->
+  <!-- detail dokladu (ten {} kód potřebuje doplnit) -->
   <div class="container_12 bottom">
-    <div class="grid_12">
-
-      <p>Sem jde obsah</p>
-    </div>
-
-
-    <div class="clear"></div>
+  <div class="grid_4 greyBg">
+    <h:panelGrid columns="2">
+      <h:outputText value="Typ dokladu :" />
+      <h:outputText value="" />
+      <h:outputText value="Číslo dokladu :" />
+      <h:outputText value="" />
+      <h:outputText value="Stát vydání: " />
+      <h:outputText value="" />
+      <h:outputText value="Poznámka: " />
+      <h:outputText value="" />
+    </h:panelGrid>
+  </div>
+  <div class="grid_4 greyBg">
+    <h:panelGrid columns="2">
+      <h:outputText value="Platnost (od - do): " />
+      <h:outputText value="" />
+      <h:outputText value="Datum vydání: " />
+      <h:outputText value="" />
+      <h:outputText value="Datum obnovy: " />
+      <h:outputText value="" />
+      <h:outputText value="Datum zrušení: " />
+      <h:outputText value="" />
+    </h:panelGrid>
+  </div>
+  <div class="grid_4">
+    <input type="submit" class="iDetailSubmit" value="Zpět na detail osoby" />
+  </div>
+  <div class="clear"></div>
   </div>
   <!-- END BOTTOM SECTION -->
 

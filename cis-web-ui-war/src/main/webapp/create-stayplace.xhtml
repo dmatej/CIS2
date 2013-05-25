@@ -2,157 +2,157 @@
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <h:html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core"
+  xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head xmlns:h="http://java.sun.com/jsf/html">
-	<title>Nové místo pobytu | CIS</title>
-	<!-- [template css] begin -->
-	<link rel="stylesheet" href="css/screen.css" type="text/css"
-		media="screen, projection" />
-	<link rel="stylesheet" href="css/960.css" type="text/css"
-		media="screen, projection" />
-	<link rel="stylesheet" href="css/print.css" type="text/css"
-		media="print" />
-	<!--[if IE]>
+  <title>Nové místo pobytu | CIS</title>
+  <!-- [template css] begin -->
+  <link rel="stylesheet" href="css/screen.css" type="text/css"
+    media="screen, projection" />
+  <link rel="stylesheet" href="css/960.css" type="text/css"
+    media="screen, projection" />
+  <link rel="stylesheet" href="css/print.css" type="text/css"
+    media="print" />
+  <!--[if IE]>
         <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
     <![endif]-->
-	<!-- [template css] end -->
+  <!-- [template css] end -->
 
-	<!-- [template css javascript] begin -->
-	<link rel="stylesheet" href="css/project.css" type="text/css"
-		media="screen, projection" />
-	<!-- [template css javascript] end -->
+  <!-- [template css javascript] begin -->
+  <link rel="stylesheet" href="css/project.css" type="text/css"
+    media="screen, projection" />
+  <!-- [template css javascript] end -->
 </h:head>
 <h:body>
-	<!-- START TOP SECTION -->
-	<div class="container_12">
+  <!-- START TOP SECTION -->
+  <div class="container_12">
 
-		<!-- START LOGO -->
-		<div class="grid_4 header">
-			<a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
-		</div>
-		<!-- END LOGO -->
+    <!-- START LOGO -->
+    <div class="grid_4 header">
+      <a href="view-person.xhtml"><img src="images/logo.gif" alt="logo" /></a>
+    </div>
+    <!-- END LOGO -->
 
-		<!-- START NAVIGATION -->
-		<div class="grid_8 header">
-			<div id="navigation">
-				<ul id="nav">
-					<li id="viewPerson"><a href="view-person.xhtml"
-						title="Procházení osob">Procházení osob</a></li>
-					<li id="registerPerson"><a href="create-person.xhtml"
-						title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
-				</ul>
-			</div>
-		</div>
-		<!-- END NAVIGATION -->
+    <!-- START NAVIGATION -->
+    <div class="grid_8 header">
+      <div id="navigation">
+        <ul id="nav">
+          <li id="viewPerson"><a href="view-person.xhtml"
+            title="Procházení osob">Procházení osob</a></li>
+          <li id="registerPerson"><a href="create-person.xhtml"
+            title="Registrace osoby" class="currentPage">Registrace osoby</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- END NAVIGATION -->
 
-		<div class="clear"></div>
-	</div>
-	<!-- END TOP SECTION -->
-
-
-	<!-- START MEDIUM SECTION -->
-	<div class="container_12 medium">
-		<div class="grid_6">
-			<div class="getTouch">
-				<h2>Nové místo pobytu</h2>
-			</div>
-		</div>
-		<!--  VYHLEDÁNÍ OSOB -->
-		<div class="grid_6">
-			<div class="searchform">
-
-				<form id="searchform" action="" method="post">
-					<div class="formContent">
-						<table>
-							<tr>
-								<td><label for="search">Vyhledat osobu</label> <input
-									type="text" name="search" id="search" class="input required"
-									value="" /></td>
-								<td><input type="submit" class="searchSubmit"
-									value="Vyhledat" /></td>
-							</tr>
-						</table>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<!-- END MEDIUM SECTION -->
+    <div class="clear"></div>
+  </div>
+  <!-- END TOP SECTION -->
 
 
-	<!-- START BOTTOM SECTION 2 -->
-	<div class="container_12 slider">
-		<div class="grid_6">
-			<div class="work">
-				<h:form>
-					<h:messages errorClass="errorMessage" infoClass="infoMessage"
-						warnClass="warnMessage"></h:messages>
+  <!-- START MEDIUM SECTION -->
+  <div class="container_12 medium">
+    <div class="grid_6">
+      <div class="getTouch">
+        <h2>Nové místo pobytu</h2>
+      </div>
+    </div>
+    <!--  VYHLEDÁNÍ OSOB -->
+    <div class="grid_6">
+      <div class="searchform">
 
-					<h:panelGrid columns="2">
-						<h:outputText value="Adresa :" />
-						<h:inputText id="address" value="#{stayplace.address}" required="false"
-							requiredMessage="Není vyplněno pole adresa!">
-						</h:inputText>
-
-
-						<h:outputText value="Pobyt :" />
-						<h:selectOneMenu value="stayplace.idtdustay" id="idtdustay">
-							<c:forEach items="" var="s">
-								<f:selectItem itemLabel="${s.refnumber}" itemValue="${s.id}"></f:selectItem>
-							</c:forEach>
-						</h:selectOneMenu>
-
-
-						<h:outputText value="Persona :" />
-						<h:selectOneMenu value="stayplace.idperson" id="idperson">
-							<c:forEach items="" var="p">
-								<f:selectItem itemLabel="${p.id}" itemValue="${p.id}"></f:selectItem>
-							</c:forEach>
-						</h:selectOneMenu>
-
-						<h:outputText value="Poznámka :" />
-						<h:inputText id="note" value="#{stayplace.note}" required="false"
-							requiredMessage="Není vyplněno pole poznámka!">
-						</h:inputText>
-
-						<h:outputText value="Datum platnosti od :" />
-						<h:inputText id="datefrom" value="#{stayplace.datefrom}"
-							required="true"
-							requiredMessage="Není vyplněno pole datum platnosti od">
-							<f:convertDateTime pattern="d.M.yyyy" />
-						</h:inputText>
-
-						<h:outputText value="Datum platnosti do :" />
-						<h:inputText id="dateto" value="#{stayplace.dateto}"
-							required="true"
-							requiredMessage="Není vyplněno pole datum platnosti do">
-							<f:convertDateTime pattern="d.M.yyyy" />
-						</h:inputText>
+        <form id="searchform" action="" method="post">
+          <div class="formContent">
+            <table>
+              <tr>
+                <td><label for="search">Vyhledat osobu</label> <input
+                  type="text" name="search" id="search" class="input required"
+                  value="" /></td>
+                <td><input type="submit" class="searchSubmit"
+                  value="Vyhledat" /></td>
+              </tr>
+            </table>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- END MEDIUM SECTION -->
 
 
-						<h:commandButton type="submit" value="Vytvořit"
-							action="#{address.createStayPlace()}">
-						</h:commandButton>
-						<h:commandButton type="reset" value="Reset" />
-					</h:panelGrid>
-				</h:form>
-			</div>
-		</div>
-		<div class="clear"></div>
+  <!-- START BOTTOM SECTION 2 -->
+  <div class="container_12 slider">
+    <div class="grid_6">
+      <div class="work">
+        <h:form>
+          <h:messages errorClass="errorMessage" infoClass="infoMessage"
+            warnClass="warnMessage"></h:messages>
 
-	</div>
+          <h:panelGrid columns="2">
+            <h:outputText value="Adresa :" />
+            <h:inputText id="address" value="#{stayplace.address}" required="false"
+              requiredMessage="Není vyplněno pole adresa!">
+            </h:inputText>
 
-	<!-- START FOOTER -->
-	<div class="container_12">
-		<p class="footer">
-			Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
-		</p>
-	</div>
-	<!-- END FOOTER -->
+
+            <h:outputText value="Pobyt :" />
+            <h:selectOneMenu value="stayplace.idtdustay" id="idtdustay">
+              <c:forEach items="#{null}" var="s">
+                <f:selectItem itemLabel="${s.refnumber}" itemValue="${s.id}"></f:selectItem>
+              </c:forEach>
+            </h:selectOneMenu>
+
+
+            <h:outputText value="Persona :" />
+            <h:selectOneMenu value="stayplace.idperson" id="idperson">
+              <c:forEach items="#{null}" var="p">
+                <f:selectItem itemLabel="${p.id}" itemValue="${p.id}"></f:selectItem>
+              </c:forEach>
+            </h:selectOneMenu>
+
+            <h:outputText value="Poznámka :" />
+            <h:inputText id="note" value="#{stayplace.note}" required="false"
+              requiredMessage="Není vyplněno pole poznámka!">
+            </h:inputText>
+
+            <h:outputText value="Datum platnosti od :" />
+            <h:inputText id="datefrom" value="#{stayplace.datefrom}"
+              required="true"
+              requiredMessage="Není vyplněno pole datum platnosti od">
+              <f:convertDateTime pattern="d.M.yyyy" />
+            </h:inputText>
+
+            <h:outputText value="Datum platnosti do :" />
+            <h:inputText id="dateto" value="#{stayplace.dateto}"
+              required="true"
+              requiredMessage="Není vyplněno pole datum platnosti do">
+              <f:convertDateTime pattern="d.M.yyyy" />
+            </h:inputText>
+
+
+            <h:commandButton type="submit" value="Vytvořit"
+              action="#{address.createStayPlace()}">
+            </h:commandButton>
+            <h:commandButton type="reset" value="Reset" />
+          </h:panelGrid>
+        </h:form>
+      </div>
+    </div>
+    <div class="clear"></div>
+
+  </div>
+
+  <!-- START FOOTER -->
+  <div class="container_12">
+    <p class="footer">
+      Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
+    </p>
+  </div>
+  <!-- END FOOTER -->
 
 
 
