@@ -150,8 +150,13 @@
             </h:commandLink>
         </span>&nbsp;
         <span class="site">
-            <h:commandLink value="Doklady">
+            <h:commandLink value="Místa pobytů">
                 <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(3)}" />
+            </h:commandLink>
+        </span>&nbsp;
+        <span class="site">
+            <h:commandLink value="Doklady">
+                <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(4)}" />
             </h:commandLink>
         </span>
       </h:form>
@@ -167,39 +172,30 @@
       <h:panelGroup id="contentTabs">
           <h:panelGroup id="tab1" rendered="#{actionsdetailp.renderedTab == 1}">
 
-               <h:dataTable value="#{personview.listIdentities()}" var="i"
-                 styleClass="table"
-                 headerClass="table-header"
-                 rowClasses="table-odd-row, table-even-row">
-
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Jméno a příjmení</f:facet>
-                     <!-- row record -->
-                     #{i.firstname} #{i.lastname}
-                 </h:column>
-
-                 <h:column>
-                     <f:facet name="header">Datum narození</f:facet>
-                     #{i.birthdate}
-                 </h:column>
-
-                 <h:column>
-                     <f:facet name="header">Aktuální stát</f:facet>
-                     #{codes.findState(i.idstate).name}
-                 </h:column>
-
-                 <h:column>
-                     <f:facet name="header">Pohlaví</f:facet>
-                     #{personsview.formatSex(i.sex)}
-                 </h:column>
-
-                 <h:column>
-                     <f:facet name="header">Akce</f:facet>
-
-                     <h:commandButton value="Jako hlavní" action="#{personview.changeActualIdentity(i.id)}"><f:ajax render=":infoUser :formIdentities"/></h:commandButton>
-                 </h:column>
-             </h:dataTable>
+        <table class="table">
+            <tr>
+                <th class="table-header">Jméno a příjmení</th>
+                <th class="table-header">Datum narození</th>
+                <th class="table-header">Aktuální stát</th>
+                <th class="table-header">Pohlaví</th>
+                <th class="table-header">Akce</th>
+            </tr>
+            <tbody>
+                <ui:repeat value="#{personview.listIdentities()}" var="i" varStatus="status">
+                        <tr>
+                          <td class="table-even-row">#{i.firstname} #{i.lastname}</td>
+                          <td class="table-even-row">#{i.birthdate}</td>
+                          <td class="table-even-row">#{codes.findState(i.idstate).name}</td>
+                          <td class="table-even-row">#{i.sex}</td>
+                          <td class="table-even-row">
+                            <h:commandButton value="Jako hlavní" action="#{personview.changeActualIdentity(i.id)}">
+                              <f:ajax render=":infoUser :formIdentities"/>
+                            </h:commandButton>
+                          </td>
+                        </tr>
+                </ui:repeat>
+            </tbody>
+        </table>
 
            <h:link value="Přidat identitu" outcome="#{personview.outcomeNewIdentity()}" >
                <f:param name="personid" value="#{personview.idperson}" />
@@ -212,12 +208,72 @@
 
 
           <h:panelGroup id="tab2" rendered="#{actionsdetailp.renderedTab == 2}">
-            <h:outputText value="Tab 2 Content"/>
+               <h:dataTable value="#{personview.listStays()}" var="s"
+                 styleClass="table"
+                 headerClass="table-header"
+                 rowClasses="table-odd-row, table-even-row">
 
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Účel pobytu</f:facet>
+                     <!-- row record -->
+
+                 </h:column>
+
+             </h:dataTable>
+
+             <h:link value="Nový pobyt" outcome="#{personview.outcomeNewStay()}" >
+                 <f:param name="personid" value="#{personview.idperson}" />
+             </h:link>
           </h:panelGroup>
 
+
+
+
+
           <h:panelGroup id="tab3" rendered="#{actionsdetailp.renderedTab == 3}">
-            <h:outputText value="Tab 3 Content"/>
+               <h:dataTable value="#{personview.listStayplaces()}" var="sp"
+                 styleClass="table"
+                 headerClass="table-header"
+                 rowClasses="table-odd-row, table-even-row">
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Místo</f:facet>
+                     <!-- row record -->
+
+                 </h:column>
+
+             </h:dataTable>
+
+             <h:link value="Nové místo pobytu" outcome="#{personview.outcomeNewStayplace()}" >
+                 <f:param name="personid" value="#{personview.idperson}" />
+             </h:link>
+          </h:panelGroup>
+
+
+
+
+
+
+          <h:panelGroup id="tab4" rendered="#{actionsdetailp.renderedTab == 4}">
+               <h:dataTable value="#{personview.listDocuments()}" var="d"
+                 styleClass="table"
+                 headerClass="table-header"
+                 rowClasses="table-odd-row, table-even-row">
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Typ dokumentu</f:facet>
+                     <!-- row record -->
+
+                 </h:column>
+
+             </h:dataTable>
+
+             <h:link value="Přidat dokument" outcome="#{personview.outcomeNewDocument()}" >
+                 <f:param name="personid" value="#{personview.idperson}" />
+             </h:link>
 
           </h:panelGroup>
       </h:panelGroup>

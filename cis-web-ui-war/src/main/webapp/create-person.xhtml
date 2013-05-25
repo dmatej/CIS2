@@ -176,7 +176,10 @@
             <h:commandButton type="submit" value="Registrovat"
               action="#{person.createPerson}">
             </h:commandButton>
-            <h:commandButton type="reset" value="Reset" />
+            <h:commandButton value="Reset" action="#{person.clearForm}">
+               <f:param name="personid" value="#{person.idperson}" />
+              <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
           </h:panelGrid>
         </h:form>
       </div>

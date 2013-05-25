@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -83,7 +84,24 @@ public class StayPlaceFormBean implements Serializable {
         return stayPlaceServiceBean.findStayPlacesForStay(idStay);
     }
 
+    public void clearForm()
+    {
+      Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+      try
+      {
+        idperson = Integer.parseInt(params.get("personid"));
+      }
+      catch(Exception e) {idperson = null; }
 
+      //for sure (thanks RequestScope are data deleted)
+
+      datefrom = null;
+      dateto = null;
+      ddate = null;
+      address = null;
+      idtdustay = null;
+      note = null;
+    }
 
     private boolean testBeans() {
         if (stayPlaceServiceBean == null) {
@@ -132,5 +150,13 @@ public class StayPlaceFormBean implements Serializable {
 
     public void setNote(String note) {
       this.note = note;
+    }
+
+    public Integer getIdperson() {
+      return idperson;
+    }
+
+    public void setIdperson(Integer idperson) {
+      this.idperson = idperson;
     }
 }

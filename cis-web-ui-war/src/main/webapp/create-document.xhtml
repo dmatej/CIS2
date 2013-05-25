@@ -25,6 +25,11 @@
     media="screen, projection" />
   <!-- [template css javascript] end -->
 </h:head>
+
+<f:metadata>
+     <f:viewParam name="personid" value="#{document.idperson}" />
+</f:metadata>
+
 <h:body>
   <!-- START TOP SECTION -->
   <div class="container_12">
@@ -115,37 +120,31 @@
             </h:inputText>
 
             <h:outputText value="Stát vydání :" />
-            <h:selectOneMenu value="document.idstateissued" id="idstateissued">
+            <h:selectOneMenu value="#{document.idstateissued}" id="idstateissued">
               <c:forEach items="#{codes.listStates()}" var="st">
-                <f:selectItem itemLabel="${st.name}" itemValue="${st.id}"></f:selectItem>
+                <f:selectItem itemLabel="#{st.name}" itemValue="#{st.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
-            <h:outputText value="Pobyt :" />
-            <h:selectOneMenu value="document.idtdustay" id="idtdustay">
-              <c:forEach items="" var="s">
-                <f:selectItem itemLabel="${s.refnumber}" itemValue="${s.id}"></f:selectItem>
+           <h:outputText value="Pobyt :" />
+            <h:selectOneMenu value="#{document.idtdustay}" id="idtdustay">
+              <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
+              <c:forEach items="#{document.listStays()}" var="s">
+                <f:selectItem itemLabel="#{s.refnumber}" itemValue="#{s.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
             <h:outputText value="Identita :" />
-            <h:selectOneMenu value="document.ididentity" id="ididentity">
-              <c:forEach items="" var="i">
-                <f:selectItem itemLabel="${i.lastname}" itemValue="${i.id}"></f:selectItem>
-              </c:forEach>
-            </h:selectOneMenu>
-
-            <h:outputText value="Persona :" />
-            <h:selectOneMenu value="document.idperson" id="idperson">
-              <c:forEach items="" var="p">
-                <f:selectItem itemLabel="${p.id}" itemValue="${p.id}"></f:selectItem>
+            <h:selectOneMenu value="#{document.ididentity}" id="ididentity">
+              <c:forEach items="#{document.listIdentitiesOfPerson()}" var="i">
+                <f:selectItem itemLabel="#{i.firstname} #{i.lastname}" itemValue="#{i.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
             <h:outputText value="Typ dokladu :" />
-            <h:selectOneMenu value="document.idperson" id="idperson">
-              <c:forEach items="codes.listDocumenttypes()" var="dt">
-                <f:selectItem itemLabel="${dt.name}" itemValue="${dt.id}"></f:selectItem>
+            <h:selectOneMenu value="#{document.idcodedocumenttype}" id="idperson">
+              <c:forEach items="#{codes.listDocumenttypes()}" var="dt">
+                <f:selectItem itemLabel="#{dt.name}" itemValue="#{dt.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
@@ -175,9 +174,12 @@
 
 
             <h:commandButton type="submit" value="Vytvořit"
-              action="#{document.createDocument()}">
+              action="#{document.createDocument}">
             </h:commandButton>
-            <h:commandButton type="reset" value="Reset" />
+            <h:commandButton value="Reset" action="#{document.clearForm}">
+               <f:param name="personid" value="#{document.idperson}" />
+              <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
           </h:panelGrid>
         </h:form>
       </div>

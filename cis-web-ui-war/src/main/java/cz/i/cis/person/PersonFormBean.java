@@ -3,6 +3,7 @@ package cz.i.cis.person;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.el.ELContext;
@@ -43,6 +44,7 @@ public class PersonFormBean implements Serializable {
 
   private Integer ididentityActual;
 
+
   private Date deathdate;
 
   private String deathplace;
@@ -62,6 +64,7 @@ public class PersonFormBean implements Serializable {
   private Integer idstayplaceActual;
 
   private String note;
+
 
   public Boolean createPersonWithIdentity(Identity identity) {
     if (!testBeans())
@@ -111,8 +114,6 @@ public class PersonFormBean implements Serializable {
   private Boolean validatePerson(Tduperson person) {
     String[] validate = personValidateServicebean.validate(person);
     if (validate == null) {
-      FacesMessage message = new FacesMessage("Validace persony OK!");
-      FacesContext.getCurrentInstance().addMessage(null, message);
       return true;
     } else {
       for (int i = 0; i < validate.length; i++) {
@@ -127,8 +128,6 @@ public class PersonFormBean implements Serializable {
   private Boolean validateIdentity(Identity identity) {
     String[] validate = identityValidateServicebean.validate(identity);
     if (validate == null) {
-      FacesMessage message = new FacesMessage("Validace identity OK!");
-      FacesContext.getCurrentInstance().addMessage(null, message);
       return true;
     } else {
       for (int i = 0; i < validate.length; i++) {
@@ -181,6 +180,35 @@ public class PersonFormBean implements Serializable {
     }
 
     return true;
+  }
+
+  public void clearForm()
+  {
+    Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    try
+    {
+      idperson = Integer.parseInt(params.get("personid"));
+    }
+    catch(Exception e) { idperson = null; }
+
+    //for sure (thanks RequestScope are data deleted)
+    ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+    Object ret = elContext.getELResolver()
+        .getValue(elContext, null, "identity");
+
+    IdentityFormBean identityFormBean = (IdentityFormBean) ret;
+    identityFormBean.clearForm();
+
+    deathdate = null;
+    deathplace = null;
+    degreeprefix = null;
+    degreesuffix = null;
+    iddeathplace = null;
+    iddeathstate = null;
+    idimage = null;
+    idstayActual = null;
+    idstayplaceActual = null;
+    note = null;
   }
 
   private Tduperson generateEntity() {

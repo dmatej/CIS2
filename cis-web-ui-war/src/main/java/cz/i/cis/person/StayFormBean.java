@@ -1,8 +1,10 @@
 package cz.i.cis.person;
 
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -13,6 +15,7 @@ import javax.inject.Named;
 import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.person.StayService;
 import cz.i.cis.db.validate.StayValidateService;
+import cz.i.cis.other.Constants;
 
 @Named("stay")
 @RequestScoped
@@ -40,9 +43,7 @@ public class StayFormBean implements Serializable {
 
   private Integer idpobytucel;
 
-  private Boolean isNewStayRequest = false;
-
-  public Tdustay createStay() {
+  public String createStay() {
     if (!testBeans())
       return null;
 
@@ -63,8 +64,7 @@ public class StayFormBean implements Serializable {
       return null;
     }
 
-    isNewStayRequest = false;
-    return stay;
+    return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
   }
 
   private Tdustay generateEntity() {
@@ -78,11 +78,28 @@ public class StayFormBean implements Serializable {
     return stay;
   }
 
-  public List<Tdustay> getStaysForPerson(Integer idPerson) {
+  public void clearForm()
+  {
+    Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    try
+    {
+      idperson = Integer.parseInt(params.get("personid"));
+    }
+    catch(Exception e) { idperson = null; }
+
+  //for sure (thanks RequestScope are data deleted)
+    grantedfrom = null;
+    grantedto = null;
+    note = null;
+    refnumber = null;
+    idpobytucel = null;
+  }
+
+  public List<Tdustay> listStaysForPerson(Integer idPerson) {
     if (!testBeans())
       return null;
 
-    return stayServiceBean.getStaysForPerson(idPerson);
+    return stayServiceBean.listStaysForPerson(idPerson);
   }
 
   private boolean testBeans() {
@@ -99,11 +116,6 @@ public class StayFormBean implements Serializable {
     }
 
     return true;
-  }
-
-  public void newStayRequest()
-  {
-      isNewStayRequest = true;
   }
 
   public Integer getId() {
@@ -161,15 +173,4 @@ public class StayFormBean implements Serializable {
   public void setIdpobytucel(Integer idpobytucel) {
     this.idpobytucel = idpobytucel;
   }
-
-  public Boolean getIsNewStayRequest() {
-    return isNewStayRequest;
-  }
-
-  public void setIsNewStayRequest(Boolean isNewStayRequest) {
-    this.isNewStayRequest = isNewStayRequest;
-  }
-
-
-
 }

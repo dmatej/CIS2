@@ -98,7 +98,7 @@
             warnClass="warnMessage"></h:messages>
 
           <h:panelGrid columns="2">
-            <h:outputText value="Jméno :" />
+            <h:outputText value="Jméno : #{identity.idperson}" />
             <h:inputText id="firstname" value="#{identity.firstname}"
               required="false" requiredMessage="Není vyplněno křestní jméno!">
             </h:inputText>
@@ -171,7 +171,10 @@
             <h:commandButton type="submit" value="Vytvořit" action="#{identity.createIdentity()}">
               <f:param name="personid" value="#{identity.idperson}" />
             </h:commandButton>
-            <h:commandButton type="reset" value="Reset" />
+            <h:commandButton value="Reset" action="#{identity.clearForm}">
+              <f:param name="personid" value="#{identity.idperson}" />
+              <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
           </h:panelGrid>
         </h:form>
       </div>

@@ -25,6 +25,11 @@
     media="screen, projection" />
   <!-- [template css javascript] end -->
 </h:head>
+
+<f:metadata>
+     <f:viewParam name="personid" value="#{stayplace.idperson}" />
+</f:metadata>
+
 <h:body>
   <!-- START TOP SECTION -->
   <div class="container_12">
@@ -137,7 +142,10 @@
             <h:commandButton type="submit" value="Vytvořit"
               action="#{address.createStayPlace()}">
             </h:commandButton>
-            <h:commandButton type="reset" value="Reset" />
+            <h:commandButton value="Reset" action="#{stayplace.clearForm}">
+               <f:param name="personid" value="#{stayplace.idperson}" />
+              <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
           </h:panelGrid>
         </h:form>
       </div>

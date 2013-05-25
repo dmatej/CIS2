@@ -1,9 +1,12 @@
 package cz.i.cis.documents;
 
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -12,8 +15,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import cz.i.cis.db.documents.DocumentService;
+import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.entities.Tdudocument;
+import cz.i.cis.db.entities.Tdustay;
+import cz.i.cis.db.person.IdentityService;
+import cz.i.cis.db.person.StayService;
 import cz.i.cis.db.validate.DocumentValidateService;
+import cz.i.cis.other.Constants;
 
 @Named("document")
 @RequestScoped
@@ -27,6 +35,11 @@ public class DocumentFormBean implements Serializable {
     @EJB
     private DocumentValidateService documentValidateServicebean;
 
+    @EJB
+    private IdentityService identityservicebean;
+
+    @EJB
+    private StayService stayservicebean;
 
     private Date dateofreceipt;
 
@@ -52,7 +65,7 @@ public class DocumentFormBean implements Serializable {
 
     private Date validto;
 
-    public Tdudocument createDocument() {
+    public String createDocument() {
         if (!testBeans())
             return null;
 
@@ -72,7 +85,8 @@ public class DocumentFormBean implements Serializable {
             }
             return null;
         }
-        return document;
+
+        return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
     }
 
     private boolean testBeans() {
@@ -107,7 +121,20 @@ public class DocumentFormBean implements Serializable {
         document.setValidfrom(validfrom);
         document.setValidto(validto);
         return document;
+    }
 
+    public List<Identity> listIdentitiesOfPerson()
+    {
+      if(idperson == null) return new ArrayList<Identity>();
+
+      return identityservicebean.findIdentitiesForPerson(idperson);
+    }
+
+    public List<Tdustay> listStays()
+    {
+      if(idperson == null) return new ArrayList<Tdustay>();
+
+      return stayservicebean.listStaysForPerson(idperson);
     }
 
     public String getValidDates() {
@@ -210,7 +237,4 @@ public class DocumentFormBean implements Serializable {
     public void setDateofcancel(Date dateofcancel) {
       this.dateofcancel = dateofcancel;
     }
-
-
-
 }

@@ -3,6 +3,7 @@ package cz.i.cis.person;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -77,9 +78,12 @@ public class IdentityFormBean implements Serializable {
     if (validateIdentity(identity)) {
       selectedIdentity = identityservicebean.create(identity);
 
-      Tduperson person = personservicebean.findPersonById(idperson);
-      person.setIdidentityActual(selectedIdentity.getId());
-      personservicebean.update(person);
+      if(asActualIdentity)
+      {
+        Tduperson person = personservicebean.findPersonById(idperson);
+        person.setIdidentityActual(selectedIdentity.getId());
+        personservicebean.update(person);
+      }
 
       return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
     }
@@ -154,6 +158,32 @@ public class IdentityFormBean implements Serializable {
       // TODO hlaska
       return;
     }
+  }
+
+  public void clearForm()
+  {
+    Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+    try
+    {
+      idperson = Integer.parseInt(params.get("personid"));
+    }
+    catch(Exception e) { idperson = null; }
+
+    //for sure (thanks RequestScope are data deleted)
+    birthdate = null;
+    birthname = null;
+    birthnumber = null;
+    birthplace = null;
+    firstname = null;
+    idevidence = null;
+    idperson = null;
+    idstate = null;
+    idstateofbirth = null;
+    lastname = null;
+    othernames = null;
+    sex = null;
+    validfrom = null;
+    validto = null;
   }
 
   private boolean testBeans() {
