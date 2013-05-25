@@ -196,9 +196,8 @@
 
                  <h:column>
                      <f:facet name="header">Akce</f:facet>
-                     <h:commandButton value="Jako hlavní" rendered="#{personview.actualPersonIdentity.id != i.id}" action="#{null}">
-                       <f:ajax event="click" render=":infoUser :formIdentities" listener="#{personview.changeActualIdentity(i.id)}"/>
-                     </h:commandButton>
+
+                     <h:commandButton value="Jako hlavní" action="#{personview.changeActualIdentity(i.id)}"><f:ajax render=":infoUser :formIdentities"/></h:commandButton>
                  </h:column>
              </h:dataTable>
 
