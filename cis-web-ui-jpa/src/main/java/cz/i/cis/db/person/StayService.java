@@ -12,5 +12,5 @@ public interface StayService {
     public Tdustay update(Tdustay stay);
     public Tdustay delete(Tdustay stay);
 
-    public List<Tdustay> getStaysForPerson(Integer idPerson);
+    public List<Tdustay> listStaysForPerson(Integer idPerson);
 }
