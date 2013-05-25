@@ -32,7 +32,7 @@ public class DocumentServiceBean implements Serializable, DocumentService {
 
   @Override
   public List<Tdudocument> findDocumentsForPerson(Integer idPerson) {
-    final String query = "SELECT i from tdudocument i WHERE idperson=:personID and rstatus=0";
+    final String query = "SELECT d FROM Tdudocument d WHERE d.idperson=:personID and d.rstatus=0";
     TypedQuery<Tdudocument> query1 = em.createQuery(query, Tdudocument.class);
     query1.setParameter("personID", idPerson);
     final List<Tdudocument> docs = query1.getResultList();
