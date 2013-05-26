@@ -25,7 +25,7 @@ public class ActionsDetailPersonBean {
 
         if(ret != null)
         {
-          ((PersonDetailViewBean) ret).deleteDetailViews();
+          ((PersonDetailViewBean) ret).cleanDetailViews();
         }
     }
 

@@ -54,6 +54,9 @@ public class PersonDetailViewBean implements Serializable {
 
   private Identity selectedIdentity = null;
 
+  private List<Tdustay> stays = null;
+
+  private List<Tdustayplace> stayplaces = null;
 
   public void loadPerson() {
     selectedPerson = null;
@@ -95,10 +98,10 @@ public class PersonDetailViewBean implements Serializable {
 
 
   public List<Tdustay> listStays() {
-    if (selectedPerson == null)
-      return new ArrayList<Tdustay>();
+    if (selectedPerson != null) stays = stayservicebean.listStaysForPerson(selectedPerson.getId());
+    else stays = new ArrayList<Tdustay>();
 
-    return stayservicebean.listStaysForPerson(selectedPerson.getId());
+    return stays;
   }
 
 
@@ -113,10 +116,10 @@ public class PersonDetailViewBean implements Serializable {
 
 
   public List<Tdustayplace> listStayplaces() {
-    if (selectedPerson == null)
-      return new ArrayList<Tdustayplace>();
+    if (selectedPerson != null) stayplaces = stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId());
+    else stayplaces = new ArrayList<Tdustayplace>();
 
-    return stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId());
+    return stayplaces;
   }
 
 
@@ -141,12 +144,28 @@ public class PersonDetailViewBean implements Serializable {
     }
   }
 
-  public void deleteDetailViews()
+  public void deleteStay(Integer id)
+  {
+    for (Tdustay s : stays) {
+      if (s.getId() == id) {
+        stayservicebean.delete(s);
+        break;
+      }
+    }
+  }
+
+
+  public void cleanDetailViews()
   {
     selectedDoc = null;
     documents = new ArrayList<Tdudocument>();
+
     selectedIdentity = null;
     identities = new ArrayList<Identity>();
+
+    stays = new ArrayList<Tdustay>();
+
+    stayplaces = new ArrayList<Tdustayplace>();
   }
 
   public Tduperson getSelectedPerson() {

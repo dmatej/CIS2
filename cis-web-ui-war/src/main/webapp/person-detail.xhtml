@@ -213,9 +213,12 @@
 
                  <h:column>
                      <!-- column header -->
-                     <f:facet name="header">Období</f:facet>
+                     <f:facet name="header">Uděleno</f:facet>
                      <!-- row record -->
-                     <h:outputText value="#{s.grantedfrom} - #{s.grantedto}" >
+                     <h:outputText value="#{s.grantedfrom}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>-
+                     <h:outputText value="#{s.grantedto}" >
                         <f:convertDateTime pattern="d.M.yyyy" />
                      </h:outputText>
                  </h:column>
@@ -225,6 +228,15 @@
                      <f:facet name="header">Poznámka</f:facet>
                      <!-- row record -->
                      #{s.note}
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Akce</f:facet>
+                     <!-- row record -->
+                     <h:commandButton value="Smazat" action="#{personview.deleteStay(s.id)}">
+                         <f:ajax render=":formIdentities"/>
+                     </h:commandButton>
                  </h:column>
 
              </h:dataTable>
@@ -269,6 +281,7 @@
                      <!-- row record -->
                      #{sp.note}
                  </h:column>
+
              </h:dataTable>
 
              <h:link value="Nové místo pobytu" outcome="#{personview.outcomeNewStayplace()}" >
