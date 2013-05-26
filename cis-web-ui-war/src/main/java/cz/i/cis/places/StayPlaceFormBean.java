@@ -1,27 +1,43 @@
-package cz.i.cis.person;
+package cz.i.cis.places;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import cz.i.cis.db.entities.Tduperson;
+import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.entities.Tdustayplace;
-import cz.i.cis.db.person.StayPlaceService;
+import cz.i.cis.db.person.PersonService;
+import cz.i.cis.db.places.StayPlaceService;
+import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.StayPlaceValidateService;
+import cz.i.cis.other.Constants;
 
-@Named("stayplace")
+@ManagedBean(name = "stayplace")
+@ViewScoped
 public class StayPlaceFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @EJB
     private StayPlaceService stayPlaceServiceBean;
+
+    @EJB
+    private StayService stayServiceBean;
+
+    @EJB
+    private PersonService  personServiceBean;
 
     @EJB
     private StayPlaceValidateService stayPlaceValidateServicebean;
@@ -40,7 +56,9 @@ public class StayPlaceFormBean implements Serializable {
 
     private String note;
 
-    public Tdustayplace createStayPlace() {
+    private Boolean asActual = false;
+
+    public String createStayPlace() {
         if (!testBeans())
             return null;
 
@@ -57,8 +75,14 @@ public class StayPlaceFormBean implements Serializable {
         if (validate == null) {
             stayPlace = stayPlaceServiceBean.create(stayPlace);
 
-            FacesMessage message = new FacesMessage("Pobyt vytvořen!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
+            if(asActual)
+            {
+                Tduperson p = personServiceBean.findPersonById(idperson);
+                p.setIdstayplaceActual(stayPlace.getId());
+                p.setIdstayActual(stayPlace.getIdtdustay());
+                personServiceBean.update(p);
+            }
+
         } else {
             for (int i = 0; i < validate.length; i++) {
                 FacesMessage message = new FacesMessage(
@@ -67,7 +91,8 @@ public class StayPlaceFormBean implements Serializable {
             }
             return null;
         }
-        return stayPlace;
+
+        return Constants.PAGE_VIEW_DETAIL + "?faces-redirect=true&amp;includeViewParams=true";
     }
 
     public List<Tdustayplace> getStayPlacesForPerson(Integer idPerson) {
@@ -84,6 +109,13 @@ public class StayPlaceFormBean implements Serializable {
         return stayPlaceServiceBean.findStayPlacesForStay(idStay);
     }
 
+    public List<Tdustay> listStays()
+    {
+      if(idperson == null) return new ArrayList<Tdustay>();
+
+      return stayServiceBean.listStaysForPerson(idperson);
+    }
+
     public void clearForm()
     {
       Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -97,7 +129,6 @@ public class StayPlaceFormBean implements Serializable {
 
       datefrom = null;
       dateto = null;
-      ddate = null;
       address = null;
       idtdustay = null;
       note = null;
@@ -158,5 +189,21 @@ public class StayPlaceFormBean implements Serializable {
 
     public void setIdperson(Integer idperson) {
       this.idperson = idperson;
+    }
+
+    public Boolean getAsActual() {
+      return asActual;
+    }
+
+    public void setAsActual(Boolean asActual) {
+      this.asActual = asActual;
+    }
+
+    public Integer getIdtdustay() {
+      return idtdustay;
+    }
+
+    public void setIdtdustay(Integer idtdustay) {
+      this.idtdustay = idtdustay;
     }
 }

@@ -7,10 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -19,12 +22,12 @@ import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.entities.Tdudocument;
 import cz.i.cis.db.entities.Tdustay;
 import cz.i.cis.db.person.IdentityService;
-import cz.i.cis.db.person.StayService;
+import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.DocumentValidateService;
 import cz.i.cis.other.Constants;
 
-@Named("document")
-@RequestScoped
+@ManagedBean(name = "document")
+@ViewScoped
 public class DocumentFormBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,6 +68,16 @@ public class DocumentFormBean implements Serializable {
 
     private Date validto;
 
+    private List<Identity> identities;
+
+    private List<Tdustay> stays;
+
+    public void init()
+    {
+      identities = listIdentitiesOfPerson();
+      stays = listStays();
+    }
+
     public String createDocument() {
         if (!testBeans())
             return null;
@@ -74,9 +87,6 @@ public class DocumentFormBean implements Serializable {
         String[] validate = documentValidateServicebean.validate(document);
         if (validate == null) {
             document = documentServiceBean.create(document);
-
-            FacesMessage message = new FacesMessage("Dokument vytvořen!");
-            FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
             for (int i = 0; i < validate.length; i++) {
                 FacesMessage message = new FacesMessage(
@@ -121,6 +131,28 @@ public class DocumentFormBean implements Serializable {
         document.setValidfrom(validfrom);
         document.setValidto(validto);
         return document;
+    }
+
+    public void clearForm()
+    {
+      Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+      try
+      {
+        idperson = Integer.parseInt(params.get("personid"));
+      }
+      catch(Exception e) { idperson = null; }
+
+    //for sure (thanks RequestScope are data deleted)
+      dateofreceipt = null;
+      dateofrenewal = null;
+      dateofcancel = null;
+      idcodedocumenttype = null;
+      ididentity = null;
+      idstateissued = null;
+      idtdustay = null;
+      note = null;
+      number = null;
+      validfrom = null;
     }
 
     public List<Identity> listIdentitiesOfPerson()
@@ -236,5 +268,15 @@ public class DocumentFormBean implements Serializable {
 
     public void setDateofcancel(Date dateofcancel) {
       this.dateofcancel = dateofcancel;
+    }
+
+
+    public List<Identity> getIdentities() {
+      return identities;
+    }
+
+
+    public List<Tdustay> getStays() {
+      return stays;
     }
 }

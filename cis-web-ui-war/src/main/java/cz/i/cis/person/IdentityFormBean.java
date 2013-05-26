@@ -129,15 +129,22 @@ public class IdentityFormBean implements Serializable {
           "Chyba při parsování data narození");
       FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    identity.setBirthname(birthname);
+
     identity.setBirthnumber(birthnumber);
+
+    if(birthname == null) identity.setBirthname(lastname);
+    else identity.setBirthname(birthname);
+
     identity.setBirthplace(birthplace);
     identity.setFirstname(firstname);
     identity.setIdperson(idperson);
     identity.setIdstate(idstate);
     identity.setIdstateofbirth(idstateofbirth);
     identity.setLastname(lastname);
-    identity.setOthernames(othernames);
+
+    if(othernames == null) identity.setOthernames(lastname);
+    else identity.setOthernames(othernames);
+
     identity.setSex(sex);
     identity.setValidfrom(validfrom);
     identity.setValidto(validto);

@@ -128,8 +128,10 @@
               </c:forEach>
             </h:selectOneMenu>
 
+            <h:outputText value="Nastavit jako aktuální pobyt:" />
+            <h:selectBooleanCheckbox value="#{stay.asActual}" />
 
-            <h:commandButton type="submit" value="Registrovat"
+            <h:commandButton type="submit" value="Vytvořit"
               action="#{stay.createStay}">
             </h:commandButton>
             <h:commandButton value="Reset" action="#{stay.clearForm}">

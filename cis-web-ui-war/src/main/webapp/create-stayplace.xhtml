@@ -105,17 +105,9 @@
 
 
             <h:outputText value="Pobyt :" />
-            <h:selectOneMenu value="stayplace.idtdustay" id="idtdustay">
-              <c:forEach items="#{null}" var="s">
-                <f:selectItem itemLabel="${s.refnumber}" itemValue="${s.id}"></f:selectItem>
-              </c:forEach>
-            </h:selectOneMenu>
-
-
-            <h:outputText value="Persona :" />
-            <h:selectOneMenu value="stayplace.idperson" id="idperson">
-              <c:forEach items="#{null}" var="p">
-                <f:selectItem itemLabel="${p.id}" itemValue="${p.id}"></f:selectItem>
+            <h:selectOneMenu id="idtdustay" value="#{stayplace.idtdustay}">
+              <c:forEach items="#{stayplace.listStays()}" var="s">
+                <f:selectItem itemLabel="#{s.refnumber}" itemValue="#{s.id}"></f:selectItem>
               </c:forEach>
             </h:selectOneMenu>
 
@@ -138,9 +130,10 @@
               <f:convertDateTime pattern="d.M.yyyy" />
             </h:inputText>
 
+            <h:outputText value="Nastavit jako aktuální místo pobytu:" />
+            <h:selectBooleanCheckbox value="#{stayplace.asActual}" />
 
-            <h:commandButton type="submit" value="Vytvořit"
-              action="#{address.createStayPlace()}">
+            <h:commandButton type="submit" value="Vytvořit" action="#{stayplace.createStayPlace}">
             </h:commandButton>
             <h:commandButton value="Reset" action="#{stayplace.clearForm}">
                <f:param name="personid" value="#{stayplace.idperson}" />
