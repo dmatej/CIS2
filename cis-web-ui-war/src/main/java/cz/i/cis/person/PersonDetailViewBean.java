@@ -1,6 +1,5 @@
 package cz.i.cis.person;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,122 +23,178 @@ import cz.i.cis.other.Constants;
 @ManagedBean(name = "personview")
 @ViewScoped
 public class PersonDetailViewBean implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    @EJB
-    private PersonService personservicebean;
+  private static final long serialVersionUID = 1L;
 
-    @EJB
-    private IdentityService identityservicebean;
+  @EJB
+  private PersonService personservicebean;
 
-    @EJB
-    private StayService stayservicebean;
+  @EJB
+  private IdentityService identityservicebean;
 
-    @EJB
-    private DocumentService documentservicebean;
+  @EJB
+  private StayService stayservicebean;
 
-    @EJB
-    private StayPlaceService stayplaceservicebean;
+  @EJB
+  private DocumentService documentservicebean;
 
-    private Tduperson selectedPerson;
-    private Identity actualPersonIdentity;
+  @EJB
+  private StayPlaceService stayplaceservicebean;
 
-    private Integer idperson;
+  private Tduperson selectedPerson;
+  private Identity actualPersonIdentity;
+
+  private Integer idperson;
+
+  private List<Tdudocument> documents = null;
+
+  private Tdudocument selectedDoc = null;
+
+  private List<Identity> identities = null;
+
+  private Identity selectedIdentity = null;
 
 
-    public void loadPerson() {
-        selectedPerson = null;
-        actualPersonIdentity = null;
+  public void loadPerson() {
+    selectedPerson = null;
+    actualPersonIdentity = null;
 
-        if (idperson == null) {
-            return;
-        }
-
-        selectedPerson = personservicebean.findPersonById(idperson);
-        if (selectedPerson == null) {
-            // TODO hlaska
-            return;
-        }
-
-        Integer idIdentity = selectedPerson.getIdidentityActual();
-        actualPersonIdentity = identityservicebean.findIdentityById(idIdentity);
+    if (idperson == null) {
+      return;
     }
 
-    public void changeActualIdentity(Integer id)
-    {
-      Identity requiredIdentity = identityservicebean.findIdentityById(id);
-      selectedPerson.setIdidentityActual(id);
-
-      personservicebean.update(selectedPerson);
-
-      actualPersonIdentity = requiredIdentity;
+    selectedPerson = personservicebean.findPersonById(idperson);
+    if (selectedPerson == null) {
+      // TODO hlaska
+      return;
     }
 
-    public List<Identity> listIdentities() {
+    Integer idIdentity = selectedPerson.getIdidentityActual();
+    actualPersonIdentity = identityservicebean.findIdentityById(idIdentity);
+  }
 
-        if (selectedPerson == null)
-            return new ArrayList<Identity>();
 
-        return identityservicebean.findIdentitiesForPerson(selectedPerson
-                .getId());
+  public void changeActualIdentity(Integer id) {
+    Identity requiredIdentity = identityservicebean.findIdentityById(id);
+    selectedPerson.setIdidentityActual(id);
+
+    personservicebean.update(selectedPerson);
+
+    actualPersonIdentity = requiredIdentity;
+  }
+
+
+  public List<Identity> listIdentities() {
+    if (selectedPerson != null)
+      identities = identityservicebean.findIdentitiesForPerson(selectedPerson.getId());
+    else
+      identities = new ArrayList<Identity>();
+
+    return identities;
+  }
+
+
+  public List<Tdustay> listStays() {
+    if (selectedPerson == null)
+      return new ArrayList<Tdustay>();
+
+    return stayservicebean.listStaysForPerson(selectedPerson.getId());
+  }
+
+
+  public List<Tdudocument> listDocuments() {
+    if (selectedPerson != null)
+      documents = documentservicebean.findDocumentsForPerson(selectedPerson.getId());
+    else
+      documents = new ArrayList<Tdudocument>();
+
+    return documents;
+  }
+
+
+  public List<Tdustayplace> listStayplaces() {
+    if (selectedPerson == null)
+      return new ArrayList<Tdustayplace>();
+
+    return stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId());
+  }
+
+
+  public void showDocument(Integer id) {
+    selectedDoc = null;
+    for (Tdudocument d : documents) {
+      if (d.getId() == id) {
+        selectedDoc = d;
+        break;
+      }
     }
+  }
 
-    public List<Tdustay> listStays() {
-        if (selectedPerson == null)
-            return new ArrayList<Tdustay>();
 
-        return stayservicebean.listStaysForPerson(selectedPerson.getId());
+  public void showIdentity(Integer id) {
+    selectedIdentity = null;
+    for (Identity i : identities) {
+      if (i.getId() == id) {
+        selectedIdentity = i;
+        break;
+      }
     }
+  }
 
-    public List<Tdudocument> listDocuments()
-    {
-      if (selectedPerson == null)
-        return new ArrayList<Tdudocument>();
+  public void deleteDetailViews()
+  {
+    selectedDoc = null;
+    documents = new ArrayList<Tdudocument>();
+    selectedIdentity = null;
+    identities = new ArrayList<Identity>();
+  }
 
-      return documentservicebean.findDocumentsForPerson(selectedPerson.getId());
-    }
+  public Tduperson getSelectedPerson() {
+    return selectedPerson;
+  }
 
-    public List<Tdustayplace> listStayplaces()
-    {
-      if (selectedPerson == null)
-        return new ArrayList<Tdustayplace>();
 
-      return stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId());
-    }
+  public Identity getActualPersonIdentity() {
+    return actualPersonIdentity;
+  }
 
-    public Tduperson getSelectedPerson() {
-        return selectedPerson;
-    }
 
-    public Identity getActualPersonIdentity() {
-        return actualPersonIdentity;
-    }
+  public Integer getIdperson() {
+    return idperson;
+  }
 
-    public Integer getIdperson() {
-        return idperson;
-    }
 
-    public void setIdperson(Integer idperson) {
-        this.idperson = idperson;
-    }
+  public void setIdperson(Integer idperson) {
+    this.idperson = idperson;
+  }
 
-    public String outcomeNewIdentity()
-    {
-        return Constants.PAGE_CREATE_IDENTITY;
-    }
 
-    public String outcomeNewDocument()
-    {
-        return Constants.PAGE_CREATE_DOCUMENT;
-    }
+  public String outcomeNewIdentity() {
+    return Constants.PAGE_CREATE_IDENTITY;
+  }
 
-    public String outcomeNewStay()
-    {
-        return Constants.PAGE_CREATE_STAY;
-    }
 
-    public String outcomeNewStayplace()
-    {
-        return Constants.PAGE_CREATE_STAYPLACE;
-    }
+  public String outcomeNewDocument() {
+    return Constants.PAGE_CREATE_DOCUMENT;
+  }
+
+
+  public String outcomeNewStay() {
+    return Constants.PAGE_CREATE_STAY;
+  }
+
+
+  public String outcomeNewStayplace() {
+    return Constants.PAGE_CREATE_STAYPLACE;
+  }
+
+
+  public Tdudocument getSelectedDoc() {
+    return this.selectedDoc;
+  }
+
+
+  public Identity getSelectedIdentity() {
+    return selectedIdentity;
+  }
 }
