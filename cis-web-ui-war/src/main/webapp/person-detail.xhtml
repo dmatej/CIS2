@@ -1,79 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<h:html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition template="master-template.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://java.sun.com/jsp/jstl/core">
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
 
-<h:head xmlns:h="http://java.sun.com/jsf/html">
-  <title>Detail osoby | CIS</title>
-  <!-- [template css] begin -->
-  <link rel="stylesheet" href="css/screen.css" type="text/css"
-    media="screen, projection" />
-  <link rel="stylesheet" href="css/960.css" type="text/css"
-    media="screen, projection" />
-  <link rel="stylesheet" href="css/print.css" type="text/css"
-    media="print" />
-  <!--[if IE]>
-        <link rel="stylesheet" href="css/ie.css" type="text/css" media="screen, projection" />
-    <![endif]-->
-  <!-- [template css] end -->
+<ui:define name="title">Detail osoby</ui:define>
 
-  <!-- [template css javascript] begin -->
-  <link rel="stylesheet" href="css/project.css" type="text/css"
-    media="screen, projection" />
-  <!-- [template css javascript] end -->
-</h:head>
+<ui:param name="navigation" value="general" />
 
-<f:metadata>
-     <f:viewParam name="personid" value="#{personview.idperson}" />
-     <f:event type="preRenderView" listener="#{personview.loadPerson}" />
-</f:metadata>
-
-<h:body>
-  <!-- START TOP SECTION -->
-  <div class="container_12">
-
-    <!-- START LOGO -->
-    <div class="grid_4 header">
-      <a href="view-person.xhtml"><img src="images/logo.gif"
-        alt="logo" /></a>
-    </div>
-    <!-- END LOGO -->
-
-    <!-- START NAVIGATION -->
-    <div class="grid_8 header">
-      <div id="navigation">
-        <ul id="nav">
-          <li id="viewPerson"><a href="view-person.xhtml"
-            title="Procházení osob">Procházení osob</a></li>
-          <li id="registerPerson"><a href="create-person.xhtml"
-            title="Registrace osoby">Registrace osoby</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- END NAVIGATION -->
-
-    <div class="clear"></div>
-  </div>
-  <!-- END TOP SECTION -->
+<ui:define name="content">
 
 
-  <!-- START MEDIUM SECTION -->
-  <div class="container_12 medium">
-    <div class="grid_6">
-      <div class="getTouch">
-        <h2>Detail osoby</h2>
-      </div>
-    </div>
-    <div class="clear"></div>
-  </div>
-  <!-- END MEDIUM SECTION -->
 
 
-  <!-- START BOTTOM SECTION -->
   <div class="container_12 bottom">
   <h:panelGroup id="infoUser">
     <div class="grid_4 greyBg">
@@ -122,22 +63,22 @@
       <h:form id="formTabs">
         <span class="site">
             <h:commandLink value="Identity">
-                <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(1)}" />
+                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(1)}" />
             </h:commandLink>
-        </span>&nbsp;
+        </span><h:outputText value="&#160;" />
         <span class="site">
             <h:commandLink value="Pobyty">
-                <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(2)}" />
+                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(2)}" />
             </h:commandLink>
-        </span>&nbsp;
+        </span><h:outputText value="&#160;" />
         <span class="site">
             <h:commandLink value="Místa pobytů">
-                <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(3)}" />
+                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(3)}" />
             </h:commandLink>
-        </span>&nbsp;
+        </span><h:outputText value="&#160;" />
         <span class="site">
             <h:commandLink value="Doklady">
-                <f:ajax event="click" render=":formIdentities" listener="#{actionsdetailp.handleTabChange(4)}" />
+                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(4)}" />
             </h:commandLink>
         </span>
       </h:form>
@@ -172,6 +113,12 @@
                             <h:commandButton value="Jako hlavní" action="#{personview.changeActualIdentity(i.id)}">
                               <f:ajax render=":infoUser :formIdentities"/>
                             </h:commandButton>
+                            <h:commandButton value="Detail" action="#{personview.showIdentity(i.id)}">
+                             <f:ajax render=":entityDetail"/>
+                            </h:commandButton>
+                            <h:link value="Upravit" outcome="#{personview.outcomeEditIdentity()}" >
+                                <f:param name="identityid" value="#{i.id}" />
+                            </h:link>
                           </td>
                         </tr>
                 </ui:repeat>
@@ -210,7 +157,7 @@
 
                  <h:column>
                      <!-- column header -->
-                     <f:facet name="header">Období</f:facet>
+                     <f:facet name="header">Uděleno</f:facet>
                      <!-- row record -->
                      <h:outputText value="#{s.grantedfrom}" >
                         <f:convertDateTime pattern="d.M.yyyy" />
@@ -269,6 +216,16 @@
                      <!-- row record -->
                      #{sp.note}
                  </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Akce</f:facet>
+                     <!-- row record -->
+                     <h:commandButton value="Smazat" action="#{personview.deleteStayplace(sp.id)}">
+                         <f:ajax render=":formIdentities"/>
+                     </h:commandButton>
+                 </h:column>
+
              </h:dataTable>
 
              <h:link value="Nové místo pobytu" outcome="#{personview.outcomeNewStayplace()}" >
@@ -331,9 +288,14 @@
 
                  <h:column>
                      <!-- column header -->
-                     <f:facet name="header">Poznámka</f:facet>
+                     <f:facet name="header">Akce</f:facet>
                      <!-- row record -->
-                     #{d.note}
+                     <h:commandButton value="Detail" action="#{personview.showDocument(d.id)}">
+                         <f:ajax render=":entityDetail"/>
+                     </h:commandButton>
+                     <h:commandButton value="Smazat" action="#{personview.deleteDocument(d.id)}">
+                         <f:ajax render=":formIdentities :entityDetail"/>
+                     </h:commandButton>
                  </h:column>
 
              </h:dataTable>
@@ -346,6 +308,72 @@
       </h:panelGroup>
     </h:form>
 
+    <div class="clear"></div>
+
+    <h:panelGroup id="entityDetail">
+        <h:panelGroup rendered = "#{personview.selectedDoc != null}">
+          <div class="grid_4 greyBg">
+            <h:panelGrid columns="2">
+              <h:outputText value="Typ dokladu :" />
+              <h:outputText value="#{codes.findDocumentType(personview.selectedDoc.id).name}" />
+              <h:outputText value="Číslo dokladu :" />
+              <h:outputText value="#{personview.selectedDoc.number}" />
+              <h:outputText value="Stát vydání: " />
+              <h:outputText value="#{codes.findState(personview.selectedDoc.idstateissued).name}" />
+              <h:outputText value="Poznámka: " />
+              <h:outputText value="#{personview.selectedDoc.note}" />
+              <h:outputText value="Platnost od: " />
+              <h:outputText value="#{personview.selectedDoc.validfrom}" >
+                   <f:convertDateTime pattern="d.M.yyyy" />
+              </h:outputText>
+              <h:outputText value="Platnost do: " />
+              <h:outputText value="#{personview.selectedDoc.validto}" >
+                   <f:convertDateTime pattern="d.M.yyyy" />
+              </h:outputText>
+              <h:outputText value="Datum vydání: " />
+              <h:outputText value="#{personview.selectedDoc.dateofreceipt}" >
+                   <f:convertDateTime pattern="d.M.yyyy" />
+              </h:outputText>
+              <h:outputText value="Datum obnovy: " />
+              <h:outputText value="#{personview.selectedDoc.dateofrenewal}" >
+                   <f:convertDateTime pattern="d.M.yyyy" />
+              </h:outputText>
+              <h:outputText value="Datum zrušení: " />
+              <h:outputText value="#{personview.selectedDoc.dateofcancel}" >
+                   <f:convertDateTime pattern="d.M.yyyy" />
+              </h:outputText>
+            </h:panelGrid>
+          </div>
+        </h:panelGroup>
+
+        <h:panelGroup rendered = "#{personview.selectedIdentity != null}">
+          <div class="grid_4 greyBg">
+            <h:panelGrid columns="2">
+              <h:outputText value="Jméno: " />
+              <h:outputText value="#{personview.selectedIdentity.firstname}" />
+              <h:outputText value="Příjmení: " />
+              <h:outputText value="#{personview.selectedIdentity.lastname}" />
+              <h:outputText value="Rodné jméno " />
+              <h:outputText value="#{personview.selectedIdentity.birthname}" />
+              <h:outputText value="Ostatní jména: " />
+              <h:outputText value="#{personview.selectedIdentity.othernames}" />
+              <h:outputText value="Pohlaví: " />
+              <h:outputText value="#{personsview.formatSex(personview.selectedIdentity.sex)}" />
+              <h:outputText value="Datum narození: " />
+              <h:outputText value="#{personview.selectedIdentity.birthdate}" />
+              <h:outputText value="Rodné číslo: " />
+              <h:outputText value="#{personview.selectedIdentity.birthnumber}" />
+              <h:outputText value="Místo narození: " />
+              <h:outputText value="#{personview.selectedIdentity.birthplace}" />
+              <h:outputText value="Stát narození: " />
+              <h:outputText value="#{codes.findState(personview.selectedIdentity.idstateofbirth).name}" />
+              <h:outputText value="Aktuální stát v místě bydliště: " />
+              <h:outputText value="#{codes.findState(personview.selectedIdentity.idstate).name}" />
+            </h:panelGrid>
+          </div>
+        </h:panelGroup>
+    </h:panelGroup>
+
 
   <div class="clear"></div>
 
@@ -356,17 +384,11 @@
 
     <div class="clear"></div>
 
-  <!-- END BOTTOM SECTION -->
-
-  <!-- START FOOTER -->
-  <div class="container_12">
-    <p class="footer">
-      Created by <strong>ICZ</strong> a.s. <br /> <a href="http://i.cz">http://i.cz</a>
-    </p>
-  </div>
-  <!-- END FOOTER -->
 
 
 
-</h:body>
-</h:html>
+</ui:define>
+</ui:composition>
+
+
+
