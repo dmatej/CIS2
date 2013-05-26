@@ -11,22 +11,32 @@ import javax.persistence.Query;
 
 import cz.i.cis.db.entities.Tduperson;
 
+/**
+ * Implementace beany pro slučování person do jedné.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class CollapsePersonServiceBean implements Serializable,
     CollapsePersonService {
 
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
+  /** beana pro práci s personou */
   @EJB
   private PersonServiceBean personServiceBean;
 
   public CollapsePersonServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tduperson collapsePersons(Tduperson mainPerson,
       Tduperson importedPerson) {
@@ -73,6 +83,15 @@ public class CollapsePersonServiceBean implements Serializable,
     return mainPerson;
   }
 
+  /**
+   * Přesune místa pobytu od staré k nové personě.
+   *
+   * @param mainPerson
+   *          nová persona
+   * @param importedPerson
+   *          stará persona
+   * @return počet přesunutých míst pobytu
+   */
   private Integer moveStayPlace(Tduperson mainPerson, Tduperson importedPerson) {
     final String queryStr = "UPDATE Tdustayplace sp SET sp.idperson = :idPerNew WHERE"
         + " sp.rstatus=0 and sp.idperson = :idPerOld";
@@ -83,6 +102,15 @@ public class CollapsePersonServiceBean implements Serializable,
 
   }
 
+  /**
+   * Přesune pobyty od staré k nové personě.
+   *
+   * @param mainPerson
+   *          nová persona
+   * @param importedPerson
+   *          stará persona
+   * @return počet přesunutých pobytů
+   */
   private Integer moveStay(Tduperson mainPerson, Tduperson importedPerson) {
     final String queryStr = "UPDATE Tdustay s SET s.idperson = :idPerNew WHERE"
         + " s.rstatus=0 and s.idperson = :idPerOld";
@@ -93,6 +121,15 @@ public class CollapsePersonServiceBean implements Serializable,
 
   }
 
+  /**
+   * Přesune identity od staré k nové personě.
+   *
+   * @param mainPerson
+   *          nová persona
+   * @param importedPerson
+   *          stará persona
+   * @return počet přesunutých identit
+   */
   private Integer moveIdentity(Tduperson mainPerson, Tduperson importedPerson) {
     final String queryStr = "UPDATE Identity i SET i.idperson = :idPerNew WHERE"
         + " i.rstatus=0 and i.idperson = :idPerOld";

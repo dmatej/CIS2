@@ -14,18 +14,27 @@ import cz.i.cis.db.entities.CodePermissiontype;
 import cz.i.cis.db.entities.CodePurposeofstay;
 import cz.i.cis.db.entities.CodeState;
 
+/**
+ * Implementace beany, která hledá v číselnících
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class CodeServiceBean implements Serializable, CodeService {
 
+  /** serial id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public CodeServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public CodeDocumenttype findDocumentTypeById(Integer id) {
     final String query = "SELECT cd from CodeDocumenttype cd where cd.id=:codeID";
@@ -39,6 +48,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CodePermissiontype findPermissionTypeById(Integer id) {
     final String query = "SELECT cp from CodePermissiontype cp where cp.id=:codeID";
@@ -52,6 +62,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CodePurposeofstay findPurposeOfStayById(Integer id) {
     final String query = "SELECT cp from CodePurposeofstay cp where cp.id=:codeID";
@@ -65,6 +76,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CodeState findStateById(Integer id) {
     final String query = "SELECT cs from CodeState cs where cs.id=:codeID";
@@ -77,6 +89,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<CodeDocumenttype> findDocumentTypes() {
     final String query = "SELECT cd from CodeDocumenttype cd";
@@ -86,6 +99,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<CodePermissiontype> findPermissionTypes() {
     final String query = "SELECT cp from CodePermissiontype cp";
@@ -95,6 +109,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<CodePurposeofstay> findPurposeOfStays() {
     final String query = "SELECT cp from CodePurposeofstay cp";
@@ -104,6 +119,7 @@ public class CodeServiceBean implements Serializable, CodeService {
     return res;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<CodeState> findStates() {
     final String query = "SELECT cs from CodeState cs";

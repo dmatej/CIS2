@@ -12,6 +12,12 @@ import javax.persistence.TypedQuery;
 
 import cz.i.cis.db.entities.Tdudocument;
 
+/**
+ * Implementace beany pro práci s dokumenty
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class DocumentServiceBean implements Serializable, DocumentService {

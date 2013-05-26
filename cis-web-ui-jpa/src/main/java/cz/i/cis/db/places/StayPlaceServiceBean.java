@@ -12,18 +12,27 @@ import javax.persistence.TypedQuery;
 
 import cz.i.cis.db.entities.Tdustayplace;
 
+/**
+ * Implementace beany pro práci s místy pobytu.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class StayPlaceServiceBean implements Serializable, StayPlaceService {
 
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public StayPlaceServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustayplace create(Tdustayplace stayPlace) {
     stayPlace.setRstatus(0);
@@ -33,11 +42,13 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
     return stayPlace;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustayplace update(Tdustayplace stayPlace) {
     return em.merge(stayPlace);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Tdustayplace> findStayPlacesForPerson(Integer idPerson) {
     final String query = "SELECT sp from Tdustayplace sp WHERE sp.idperson=:personID and sp.rstatus=0";
@@ -48,6 +59,7 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
     return stays;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Tdustayplace> findStayPlacesForStay(Integer idStay) {
     final String query = "SELECT sp from Tdustayplace sp WHERE sp.idtdustay=:stayID and sp.rstatus=0";
@@ -58,12 +70,14 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
     return stays;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustayplace delete(Tdustayplace stayPlace) {
     stayPlace.setRstatus(-1);
     return update(stayPlace);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustayplace findStayPlaceById(Integer id) {
     final String query = "SELECT sp from Tdustayplace sp WHERE sp.id=:idSP";

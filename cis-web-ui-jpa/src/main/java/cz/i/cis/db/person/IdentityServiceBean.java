@@ -11,18 +11,27 @@ import javax.persistence.TypedQuery;
 
 import cz.i.cis.db.entities.Identity;
 
+/**
+ * Implementace beany pro práci s identitami.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class IdentityServiceBean implements Serializable, IdentityService {
 
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public IdentityServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Identity create(Identity identity) {
     identity.setRstatus(0);
@@ -31,6 +40,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     return identity;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Identity> findIdentitiesForPerson(Integer idPerson) {
     final String query = "SELECT i from Identity i WHERE i.idperson=:personID and i.rstatus=0";
@@ -41,6 +51,7 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     return ident;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Identity findIdentityById(Integer idIdentity) {
     final String query = "SELECT i from Identity i WHERE i.id=:idIden";
@@ -54,11 +65,13 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     return ident.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Identity update(Identity identity) {
     return em.merge(identity);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Identity> findActualIdentitiesOfPersons() {
     final String queryStr = "SELECT i  FROM Tduperson p, Identity i WHERE p.ididentityActual = i.id and p.rstatus=0";
@@ -68,12 +81,14 @@ public class IdentityServiceBean implements Serializable, IdentityService {
     return idents;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Identity delete(Identity identity) {
     identity.setRstatus(-1);
     return update(identity);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Identity> findIdentitiesByParams(String firstName,
       String lastName, Boolean isMale, String birthNumber) {
