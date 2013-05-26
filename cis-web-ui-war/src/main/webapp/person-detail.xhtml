@@ -215,9 +215,35 @@
 
                  <h:column>
                      <!-- column header -->
+                     <f:facet name="header">Ref. číslo</f:facet>
+                     <!-- row record -->
+                     #{s.refnumber}
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
                      <f:facet name="header">Účel pobytu</f:facet>
                      <!-- row record -->
+                     #{codes.findPurposeOfStay(s.idpobytucel).name}
+                 </h:column>
 
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Období</f:facet>
+                     <!-- row record -->
+                     <h:outputText value="#{s.grantedfrom}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>-
+                     <h:outputText value="#{s.grantedto}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Poznámka</f:facet>
+                     <!-- row record -->
+                     #{s.note}
                  </h:column>
 
              </h:dataTable>
@@ -264,9 +290,51 @@
 
                  <h:column>
                      <!-- column header -->
-                     <f:facet name="header">Typ dokumentu</f:facet>
+                     <f:facet name="header">Typ</f:facet>
                      <!-- row record -->
+                     #{codes.findDocumentType(d.idcodedocumenttype).name}
+                 </h:column>
 
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Číslo</f:facet>
+                     <!-- row record -->
+                     #{d.number}
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Stát vydání</f:facet>
+                     <!-- row record -->
+                     #{codes.findState(d.idstateissued).name}
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Datum vydání</f:facet>
+                     <!-- row record -->
+                     <h:outputText value="#{d.dateofreceipt}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Platnost</f:facet>
+                     <!-- row record -->
+                     <h:outputText value="#{d.validfrom}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>-
+                     <h:outputText value="#{d.validto}" >
+                        <f:convertDateTime pattern="d.M.yyyy" />
+                     </h:outputText>
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Poznámka</f:facet>
+                     <!-- row record -->
+                     #{d.note}
                  </h:column>
 
              </h:dataTable>

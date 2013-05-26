@@ -1,6 +1,7 @@
 package cz.i.cis.db.documents;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -26,6 +27,8 @@ public class DocumentServiceBean implements Serializable, DocumentService {
   @Override
   public Tdudocument create(Tdudocument document) {
     document.setRstatus(0);
+    document.setCidcisuser(0);
+    document.setCdate(new Timestamp(0));
     em.persist(document);
     return document;
   }
