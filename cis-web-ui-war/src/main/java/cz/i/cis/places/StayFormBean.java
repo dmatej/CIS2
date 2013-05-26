@@ -12,7 +12,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import cz.i.cis.db.entities.Tduperson;
 import cz.i.cis.db.entities.Tdustay;
+import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.StayValidateService;
 import cz.i.cis.other.Constants;
@@ -29,6 +31,9 @@ public class StayFormBean implements Serializable {
   @EJB
   private StayValidateService stayValidateServicebean;
 
+  @EJB
+  private PersonService  personServiceBean;
+
   private Integer id;
 
   private Date grantedfrom;
@@ -43,6 +48,8 @@ public class StayFormBean implements Serializable {
 
   private Integer idpobytucel;
 
+  private Boolean asActual = false;
+
   public String createStay() {
     if (!testBeans())
       return null;
@@ -53,8 +60,13 @@ public class StayFormBean implements Serializable {
     if (validate == null) {
       stay = stayServiceBean.create(stay);
 
-      FacesMessage message = new FacesMessage("Pobyt vytvořen!");
-      FacesContext.getCurrentInstance().addMessage(null, message);
+      if(asActual)
+      {
+          Tduperson p = personServiceBean.findPersonById(idperson);
+          p.setIdstayplaceActual(null);
+          p.setIdstayActual(stay.getId());
+          personServiceBean.update(p);
+      }
     } else {
       for (int i = 0; i < validate.length; i++) {
         FacesMessage message = new FacesMessage("Chyba při validaci pobytu! ("
@@ -172,5 +184,15 @@ public class StayFormBean implements Serializable {
 
   public void setIdpobytucel(Integer idpobytucel) {
     this.idpobytucel = idpobytucel;
+  }
+
+
+  public Boolean getAsActual() {
+    return asActual;
+  }
+
+
+  public void setAsActual(Boolean asActual) {
+    this.asActual = asActual;
   }
 }
