@@ -144,6 +144,7 @@ public class PersonDetailViewBean implements Serializable {
     }
   }
 
+
   public void deleteStay(Integer id)
   {
     for (Tdustay s : stays) {
@@ -152,6 +153,28 @@ public class PersonDetailViewBean implements Serializable {
         break;
       }
     }
+  }
+
+  public void deleteStayplace(Integer id)
+  {
+    for (Tdustayplace sp : stayplaces) {
+      if (sp.getId() == id) {
+        stayplaceservicebean.delete(sp);
+        break;
+      }
+    }
+  }
+
+  public void deleteDocument(Integer id)
+  {
+    for (Tdudocument d : documents) {
+      if (d.getId() == id) {
+        documentservicebean.delete(d);
+        break;
+      }
+    }
+
+    if(selectedDoc != null && selectedDoc.getId() == id) selectedDoc = null;
   }
 
 
@@ -215,5 +238,10 @@ public class PersonDetailViewBean implements Serializable {
 
   public Identity getSelectedIdentity() {
     return selectedIdentity;
+  }
+
+  public String outcomeEditIdentity()
+  {
+    return Constants.PAGE_UPDATE_IDENTITY;
   }
 }

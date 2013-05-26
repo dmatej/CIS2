@@ -332,5 +332,4 @@ public class PersonFormBean implements Serializable {
   public void setIdperson(Integer idperson) {
     this.idperson = idperson;
   }
-
 }

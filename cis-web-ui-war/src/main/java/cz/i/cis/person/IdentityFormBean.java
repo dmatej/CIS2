@@ -6,10 +6,10 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 
 import cz.i.cis.db.date.CisDate;
 import cz.i.cis.db.entities.Identity;
@@ -19,8 +19,8 @@ import cz.i.cis.db.person.PersonService;
 import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.other.Constants;
 
-@Named("identity")
-@RequestScoped
+@ManagedBean(name = "identity")
+@ViewScoped
 public class IdentityFormBean implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -93,31 +93,49 @@ public class IdentityFormBean implements Serializable {
 
   private Boolean validateIdentity(Identity identity) {
     String[] validate = identityValidateServicebean.validate(identity);
+
     if (validate == null) {
-      FacesMessage message = new FacesMessage("Validace identity OK!");
-      FacesContext.getCurrentInstance().addMessage(null, message);
       return true;
-    } else {
-      for (int i = 0; i < validate.length; i++) {
-        FacesMessage message = new FacesMessage(
-            "Chyba při validaci identity! (" + validate[i] + ")");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-      }
-      return false;
     }
+
+    for (int i = 0; i < validate.length; i++) {
+      FacesMessage message = new FacesMessage("Chyba při validaci identity! (" + validate[i] + ")");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    return false;
   }
 
-  public void updateIdentity() {
-    if (!testBeans())
-      return;
-
+  public String updateIdentity() {
     Identity newIdentity;
     newIdentity = generateEntity();
     newIdentity.setId(selectedIdentity.getId());
-    if (validateIdentity(newIdentity)) {
-      selectedIdentity = identityservicebean.update(newIdentity);
+    if (!validateIdentity(newIdentity)) {
+      return null;
     }
 
+    selectedIdentity.setBirthnumber(birthnumber);
+
+    if(birthname == null) selectedIdentity.setBirthname(lastname);
+    else selectedIdentity.setBirthname(birthname);
+
+    selectedIdentity.setBirthplace(birthplace);
+    selectedIdentity.setFirstname(firstname);
+    selectedIdentity.setIdperson(idperson);
+    selectedIdentity.setIdstate(idstate);
+    selectedIdentity.setIdstateofbirth(idstateofbirth);
+    selectedIdentity.setLastname(lastname);
+
+    if(othernames == null) selectedIdentity.setOthernames(lastname);
+    else selectedIdentity.setOthernames(othernames);
+
+    selectedIdentity.setSex(sex);
+    selectedIdentity.setValidfrom(validfrom);
+    selectedIdentity.setValidto(validto);
+
+    identityservicebean.update(selectedIdentity);
+
+    return Constants.PAGE_VIEW_DETAIL + "?personid=" + selectedIdentity.getIdperson() + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
   public Identity generateEntity() {
@@ -162,9 +180,24 @@ public class IdentityFormBean implements Serializable {
 
     selectedIdentity = identityservicebean.findIdentityById(idIdentity);
     if (selectedIdentity == null) {
-      // TODO hlaska
+      FacesMessage message = new FacesMessage(
+          "Cílová identita nebyla nalezena");
+      FacesContext.getCurrentInstance().addMessage(null, message);
       return;
     }
+
+    birthname = selectedIdentity.getBirthname();
+    birthnumber = selectedIdentity.getBirthnumber();
+    birthplace = selectedIdentity.getBirthplace();
+    firstname = selectedIdentity.getFirstname();
+    idperson = selectedIdentity.getIdperson();
+    idstate = selectedIdentity.getIdstate();
+    idstateofbirth = selectedIdentity.getIdstateofbirth();
+    lastname = selectedIdentity.getLastname();
+    othernames =  selectedIdentity.getOthernames();
+    sex =  selectedIdentity.getSex();
+    validfrom =  selectedIdentity.getValidfrom();
+    validto =  selectedIdentity.getValidto();
   }
 
   public void clearForm()

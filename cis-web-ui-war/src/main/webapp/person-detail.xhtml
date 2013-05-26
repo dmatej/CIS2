@@ -175,6 +175,9 @@
                             <h:commandButton value="Detail" action="#{personview.showIdentity(i.id)}">
                              <f:ajax render=":entityDetail"/>
                             </h:commandButton>
+                            <h:link value="Upravit" outcome="#{personview.outcomeEditIdentity()}" >
+                                <f:param name="identityid" value="#{i.id}" />
+                            </h:link>
                           </td>
                         </tr>
                 </ui:repeat>
@@ -230,15 +233,6 @@
                      #{s.note}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Akce</f:facet>
-                     <!-- row record -->
-                     <h:commandButton value="Smazat" action="#{personview.deleteStay(s.id)}">
-                         <f:ajax render=":formIdentities"/>
-                     </h:commandButton>
-                 </h:column>
-
              </h:dataTable>
 
              <h:link value="Nový pobyt" outcome="#{personview.outcomeNewStay()}" >
@@ -280,6 +274,15 @@
                      <f:facet name="header">Poznámka</f:facet>
                      <!-- row record -->
                      #{sp.note}
+                 </h:column>
+
+                 <h:column>
+                     <!-- column header -->
+                     <f:facet name="header">Akce</f:facet>
+                     <!-- row record -->
+                     <h:commandButton value="Smazat" action="#{personview.deleteStayplace(sp.id)}">
+                         <f:ajax render=":formIdentities"/>
+                     </h:commandButton>
                  </h:column>
 
              </h:dataTable>
@@ -348,6 +351,9 @@
                      <!-- row record -->
                      <h:commandButton value="Detail" action="#{personview.showDocument(d.id)}">
                          <f:ajax render=":entityDetail"/>
+                     </h:commandButton>
+                     <h:commandButton value="Smazat" action="#{personview.deleteDocument(d.id)}">
+                         <f:ajax render=":formIdentities :entityDetail"/>
                      </h:commandButton>
                  </h:column>
 
