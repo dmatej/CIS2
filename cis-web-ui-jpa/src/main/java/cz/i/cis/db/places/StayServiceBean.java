@@ -54,4 +54,17 @@ public class StayServiceBean implements Serializable, StayService {
     return update(stay);
   }
 
+  @Override
+  public Tdustay findStayById(Integer id) {
+    final String query = "SELECT s from Tdustay s WHERE s.id=:idS";
+    TypedQuery<Tdustay> query1 = em.createQuery(query, Tdustay.class);
+    query1.setParameter("idS", id);
+    final List<Tdustay> ident = query1.getResultList();
+
+    if (ident.size() != 1)
+      return null;
+
+    return ident.get(0);
+  }
+
 }

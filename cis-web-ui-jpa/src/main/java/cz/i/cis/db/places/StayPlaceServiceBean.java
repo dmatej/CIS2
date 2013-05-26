@@ -64,4 +64,17 @@ public class StayPlaceServiceBean implements Serializable, StayPlaceService {
     return update(stayPlace);
   }
 
+  @Override
+  public Tdustayplace findStayPlaceById(Integer id) {
+    final String query = "SELECT sp from Tdustayplace sp WHERE sp.id=:idSP";
+    TypedQuery<Tdustayplace> query1 = em.createQuery(query, Tdustayplace.class);
+    query1.setParameter("idSP", id);
+    final List<Tdustayplace> ident = query1.getResultList();
+
+    if (ident.size() != 1)
+      return null;
+
+    return ident.get(0);
+  }
+
 }

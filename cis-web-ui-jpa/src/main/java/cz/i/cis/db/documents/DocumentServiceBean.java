@@ -24,6 +24,7 @@ public class DocumentServiceBean implements Serializable, DocumentService {
   public DocumentServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdudocument create(Tdudocument document) {
     document.setRstatus(0);
@@ -33,6 +34,7 @@ public class DocumentServiceBean implements Serializable, DocumentService {
     return document;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Tdudocument> findDocumentsForPerson(Integer idPerson) {
     final String query = "SELECT d FROM Tdudocument d WHERE d.idperson=:personID and d.rstatus=0";
@@ -43,15 +45,31 @@ public class DocumentServiceBean implements Serializable, DocumentService {
     return docs;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdudocument update(Tdudocument document) {
     return em.merge(document);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdudocument delete(Tdudocument document) {
     document.setRstatus(-1);
     return update(document);
+  }
+
+  /** {@inheritDoc} */
+  @Override
+  public Tdudocument findDocumentsById(Integer id) {
+    final String query = "SELECT d from Tdudocument d WHERE d.id=:idDoc";
+    TypedQuery<Tdudocument> query1 = em.createQuery(query, Tdudocument.class);
+    query1.setParameter("idDoc", id);
+    final List<Tdudocument> ident = query1.getResultList();
+
+    if (ident.size() != 1)
+      return null;
+
+    return ident.get(0);
   }
 
 }

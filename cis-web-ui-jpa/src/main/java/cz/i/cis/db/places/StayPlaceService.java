@@ -15,4 +15,5 @@ public interface StayPlaceService {
     public List<Tdustayplace> findStayPlacesForPerson(Integer idPerson);
 
     public List<Tdustayplace> findStayPlacesForStay(Integer idStay);
+    public Tdustayplace findStayPlaceById(Integer id);
 }
