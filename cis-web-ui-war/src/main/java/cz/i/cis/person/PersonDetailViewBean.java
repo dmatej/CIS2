@@ -212,22 +212,22 @@ public class PersonDetailViewBean implements Serializable {
 
 
   public String outcomeNewIdentity() {
-    return Constants.PAGE_CREATE_IDENTITY;
+    return Constants.PAGE_CREATE_IDENTITY + "?personid=" + idperson + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
 
   public String outcomeNewDocument() {
-    return Constants.PAGE_CREATE_DOCUMENT;
+    return Constants.PAGE_CREATE_DOCUMENT + "?personid=" + idperson + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
 
   public String outcomeNewStay() {
-    return Constants.PAGE_CREATE_STAY;
+    return Constants.PAGE_CREATE_STAY + "?personid=" + idperson + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
 
   public String outcomeNewStayplace() {
-    return Constants.PAGE_CREATE_STAYPLACE;
+    return Constants.PAGE_CREATE_STAYPLACE + "?personid=" + idperson + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
 
@@ -240,8 +240,13 @@ public class PersonDetailViewBean implements Serializable {
     return selectedIdentity;
   }
 
-  public String outcomeEditIdentity()
+  public String outcomeEditIdentity(Integer id)
   {
-    return Constants.PAGE_UPDATE_IDENTITY;
+    return Constants.PAGE_UPDATE_IDENTITY + "?identityid=" + id + "&amp;faces-redirect=true&amp;includeViewParams=true";
+  }
+
+  public String outcomeEditPerson(Integer id)
+  {
+    return Constants.PAGE_UPDATE_PERSON + "?documentid=" + id + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 }

@@ -11,7 +11,10 @@
 <ui:param name="navigation" value="general" />
 
 <ui:define name="content">
-
+  <f:metadata>
+       <f:viewParam name="personid" value="#{personview.idperson}" />
+       <f:event type="preRenderView" listener="#{personview.loadPerson}" />
+  </f:metadata>
 
 
 
@@ -116,18 +119,13 @@
                             <h:commandButton value="Detail" action="#{personview.showIdentity(i.id)}">
                              <f:ajax render=":entityDetail"/>
                             </h:commandButton>
-                            <h:link value="Upravit" outcome="#{personview.outcomeEditIdentity()}" >
-                                <f:param name="identityid" value="#{i.id}" />
-                            </h:link>
+                            <h:commandButton value="Upravit" action="#{personview.outcomeEditIdentity(i.id)}" />
                           </td>
                         </tr>
                 </ui:repeat>
             </tbody>
         </table>
-
-           <h:link value="Přidat identitu" outcome="#{personview.outcomeNewIdentity()}" >
-               <f:param name="personid" value="#{personview.idperson}" />
-           </h:link>
+           <h:commandButton value="Přidat identitu" action="#{personview.outcomeNewIdentity()}" />
           </h:panelGroup>
 
 
@@ -175,10 +173,7 @@
                  </h:column>
 
              </h:dataTable>
-
-             <h:link value="Nový pobyt" outcome="#{personview.outcomeNewStay()}" >
-                 <f:param name="personid" value="#{personview.idperson}" />
-             </h:link>
+             <h:commandButton value="Nový pobyt" action="#{personview.outcomeNewStay()}" />
           </h:panelGroup>
 
 
@@ -227,10 +222,7 @@
                  </h:column>
 
              </h:dataTable>
-
-             <h:link value="Nové místo pobytu" outcome="#{personview.outcomeNewStayplace()}" >
-                 <f:param name="personid" value="#{personview.idperson}" />
-             </h:link>
+             <h:commandButton value="Nové místo pobytu" action="#{personview.outcomeNewStayplace()}" />
           </h:panelGroup>
 
 
@@ -297,12 +289,8 @@
                          <f:ajax render=":formIdentities :entityDetail"/>
                      </h:commandButton>
                  </h:column>
-
              </h:dataTable>
-
-             <h:link value="Přidat dokument" outcome="#{personview.outcomeNewDocument()}" >
-                 <f:param name="personid" value="#{personview.idperson}" />
-             </h:link>
+            <h:commandButton value="Přidat dokument" action="#{personview.outcomeNewDocument()}" />
 
           </h:panelGroup>
       </h:panelGroup>
