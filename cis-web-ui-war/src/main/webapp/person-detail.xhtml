@@ -3,371 +3,508 @@
   xmlns:ui="http://java.sun.com/jsf/facelets"
   xmlns:h="http://java.sun.com/jsf/html"
   xmlns:f="http://java.sun.com/jsf/core"
-  xmlns:c="http://java.sun.com/jsp/jstl/core"
->
+  xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<ui:define name="title">Detail osoby</ui:define>
+  <ui:define name="title">Detail osoby</ui:define>
 
-<ui:param name="navigation" value="general" />
+  <ui:param name="navigation" value="general" />
 
-<ui:define name="content">
-  <f:metadata>
-       <f:viewParam name="personid" value="#{personview.idperson}" />
-       <f:event type="preRenderView" listener="#{personview.loadPerson}" />
-  </f:metadata>
-
+  <ui:define name="content">
+    <f:metadata>
+      <f:viewParam name="personid" value="#{personview.idperson}" />
+      <f:event type="preRenderView" listener="#{personview.loadPerson}" />
+    </f:metadata>
 
 
-  <div class="container_12 bottom">
-  <h:panelGroup id="infoUser">
-    <div class="grid_4 greyBg">
-      <h:panelGrid columns="2">
-        <h:outputText value="Jméno: " />
-        <h:outputText value="#{personview.actualPersonIdentity.firstname}" />
-        <h:outputText value="Příjmení: " />
-        <h:outputText value="#{personview.actualPersonIdentity.lastname}" />
-        <h:outputText value="Rodné jméno " />
-        <h:outputText value="#{personview.actualPersonIdentity.birthname}" />
-        <h:outputText value="Ostatní jména: " />
-        <h:outputText value="#{personview.actualPersonIdentity.othernames}" />
-      </h:panelGrid>
+    <div class="container_12 bottom">
+      <h:panelGroup id="infoUser">
+        <div class="grid_4 greyBg">
+          <h:panelGrid columns="2">
+            <h:outputText value="Jméno: " />
+            <h:outputText value="#{personview.actualPersonIdentity.firstname}" />
+            <h:outputText value="Příjmení: " />
+            <h:outputText value="#{personview.actualPersonIdentity.lastname}" />
+            <h:outputText value="Rodné jméno " />
+            <h:outputText value="#{personview.actualPersonIdentity.birthname}" />
+            <h:outputText value="Ostatní jména: " />
+            <h:outputText
+              value="#{personview.actualPersonIdentity.othernames}" />
+            <h:outputText value="Pohlaví: " />
+            <h:outputText
+              value="#{personsview.formatSex(personview.actualPersonIdentity.sex)}" />
+            <h:outputText value="" /><h:outputText value="" />
+            <h:outputText value="Titul před jménem " />
+            <h:outputText value="#{personview.selectedPerson.degreeprefix}" />
+            <h:outputText value="Titul za jménem " />
+            <h:outputText value="#{personview.selectedPerson.degreesuffix}" />
+          </h:panelGrid>
+        </div>
+        <div class="grid_4 greyBg">
+          <h:panelGrid columns="2">
+            <h:outputText value="Datum narození: " />
+            <h:outputText value="#{personview.actualPersonIdentity.birthdate}" />
+            <h:outputText value="Rodné číslo: " />
+            <h:outputText
+              value="#{personview.actualPersonIdentity.birthnumber}" />
+            <h:outputText value="Místo narození: " />
+            <h:outputText
+              value="#{personview.actualPersonIdentity.birthplace}" />
+            <h:outputText value="Stát narození: " />
+            <h:outputText
+              value="#{codes.findState(personview.actualPersonIdentity.idstateofbirth).name}" />
+            <h:outputText value="" /><h:outputText value="" />
+            <h:outputText value="Místo úmrtí: " />
+            <h:outputText
+              value="#{personview.selectedPerson.deathplace}" />
+            <h:outputText value="Stát úmrtí: " />
+            <h:outputText
+              value="#{codes.findState(personview.selectedPerson.iddeathstate).name}" />
+            <h:outputText value="Datum úmrtí: " />
+            <h:outputText
+              value="#{personview.selectedPerson.deathdate}" >
+              <f:convertDateTime pattern="d.M.yyyy" />
+            </h:outputText>
+          </h:panelGrid>
+        </div>
+        <div class="grid_4 greyBg">
+          <h:panelGrid columns="2">
+            <h:outputText value="Stát v místě bydliště: " />
+            <h:outputText
+              value="#{codes.findState(personview.actualPersonIdentity.idstate).name}" />
+            <h:outputText value="Aktuální pobyt: " />
+            <h:outputText
+              value="#{personview.actualStay.refnumber}" />
+            <h:outputText value="Aktuální místo pobytu: " />
+            <h:outputText
+              value="#{personview.actualStayPlace.address}" />
+            <h:outputText value="Poznámka: " />
+            <h:outputText
+              value="#{personview.selectedPerson.note}" />
+          </h:panelGrid>
+        </div>
+      </h:panelGroup>
+
+      <div class="clear"></div>
+      <br/>
+      <h:form>
+            <h:commandButton value="Upravit osobu">
+              <f:ajax event="click" render=":entityDetail :formPerson"
+                listener="#{personview.reqEditPersonData()}" />
+            </h:commandButton>
+      </h:form>
+
+
+
+      <div class="clear"></div>
     </div>
-    <div class="grid_4 greyBg">
-      <h:panelGrid columns="2">
-        <h:outputText value="Rodné číslo: " />
-        <h:outputText value="#{personview.actualPersonIdentity.birthnumber}" />
-        <h:outputText value="Místo narození: " />
-        <h:outputText value="#{personview.actualPersonIdentity.birthplace}" />
-        <h:outputText value="Stát narození: " />
-        <h:outputText value="#{codes.findState(personview.actualPersonIdentity.idstateofbirth).name}" />
-      </h:panelGrid>
-    </div>
-    <div class="grid_4 greyBg">
-      <h:panelGrid columns="2">
-        <h:outputText value="Aktuální stát v místě bydliště: " />
-        <h:outputText value="#{codes.findState(personview.actualPersonIdentity.idstate).name}" />
-        <h:outputText value="Datum narození: " />
-        <h:outputText value="#{personview.actualPersonIdentity.birthdate}" />
-        <h:outputText value="Pohlaví: " />
-        <h:outputText value="#{personsview.formatSex(personview.actualPersonIdentity.sex)}" />
-      </h:panelGrid>
-    </div>
-  </h:panelGroup>
-
-  <div class="clear"></div>
-  </div>
 
     <div class="separator"></div>
 
-  <div class="clear"></div>
-
-  <div class="container_12 bottom">
-    <div class="grid_12">
-      <h:form id="formTabs">
-        <span class="site">
-            <h:commandLink value="Identity">
-                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(1)}" />
-            </h:commandLink>
-        </span><h:outputText value="&#160;" />
-        <span class="site">
-            <h:commandLink value="Pobyty">
-                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(2)}" />
-            </h:commandLink>
-        </span><h:outputText value="&#160;" />
-        <span class="site">
-            <h:commandLink value="Místa pobytů">
-                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(3)}" />
-            </h:commandLink>
-        </span><h:outputText value="&#160;" />
-        <span class="site">
-            <h:commandLink value="Doklady">
-                <f:ajax event="click" render=":formIdentities :entityDetail" listener="#{actionsdetailp.handleTabChange(4)}" />
-            </h:commandLink>
-        </span>
-      </h:form>
-    </div>
     <div class="clear"></div>
-  </div>
 
-  <div class="clear"></div>
+    <div class="container_12 bottom">
+      <div class="grid_12">
+        <h:form id="formTabs">
+          <span class="site"> <h:commandLink value="Identity">
+              <f:ajax event="click" render=":formIdentities :entityDetail :formPerson"
+                listener="#{actionsdetailp.handleTabChange(1)}" />
+            </h:commandLink>
+          </span>
+          <h:outputText value="&#160;" />
+          <span class="site"> <h:commandLink value="Pobyty">
+              <f:ajax event="click" render=":formIdentities :entityDetail :formPerson"
+                listener="#{actionsdetailp.handleTabChange(2)}" />
+            </h:commandLink>
+          </span>
+          <h:outputText value="&#160;" />
+          <span class="site"> <h:commandLink value="Místa pobytů">
+              <f:ajax event="click" render=":formIdentities :entityDetail :formPerson"
+                listener="#{actionsdetailp.handleTabChange(3)}" />
+            </h:commandLink>
+          </span>
+          <h:outputText value="&#160;" />
+          <span class="site"> <h:commandLink value="Doklady">
+              <f:ajax event="click" render=":formIdentities :entityDetail :formPerson"
+                listener="#{actionsdetailp.handleTabChange(4)}" />
+            </h:commandLink>
+          </span>
+        </h:form>
+      </div>
+      <div class="clear"></div>
+    </div>
 
-  <div class="container_12 bottom">
-    <div class="grid_12">
-    <h:form id="formIdentities">
-      <h:panelGroup id="contentTabs">
-          <h:panelGroup id="tab1" rendered="#{actionsdetailp.renderedTab == 1}">
+    <div class="clear"></div>
 
-        <table class="table">
-            <tr>
-                <th class="table-header">Jméno a příjmení</th>
-                <th class="table-header">Datum narození</th>
-                <th class="table-header">Aktuální stát</th>
-                <th class="table-header">Pohlaví</th>
-                <th class="table-header">Akce</th>
-            </tr>
-            <tbody>
-                <ui:repeat value="#{personview.listIdentities()}" var="i" varStatus="status">
-                        <tr>
-                          <td class="table-even-row">#{i.firstname} #{i.lastname}</td>
-                          <td class="table-even-row">#{i.birthdate}</td>
-                          <td class="table-even-row">#{codes.findState(i.idstate).name}</td>
-                          <td class="table-even-row">#{i.sex}</td>
-                          <td class="table-even-row">
-                            <h:commandButton value="Jako hlavní" action="#{personview.changeActualIdentity(i.id)}">
-                              <f:ajax render=":infoUser :formIdentities"/>
-                            </h:commandButton>
-                            <h:commandButton value="Detail" action="#{personview.showIdentity(i.id)}">
-                             <f:ajax render=":entityDetail"/>
-                            </h:commandButton>
-                            <h:commandButton value="Upravit" action="#{personview.outcomeEditIdentity(i.id)}" />
-                          </td>
-                        </tr>
-                </ui:repeat>
-            </tbody>
-        </table>
-           <h:commandButton value="Přidat identitu" action="#{personview.outcomeNewIdentity()}" />
-          </h:panelGroup>
+    <div class="container_12 bottom">
+      <div class="grid_12">
+        <h:form id="formIdentities">
+          <h:panelGroup id="contentTabs">
+            <h:panelGroup id="tab1"
+              rendered="#{actionsdetailp.renderedTab == 1}">
+
+              <table class="table">
+                <tr>
+                  <th class="table-header">Jméno a příjmení</th>
+                  <th class="table-header">Datum narození</th>
+                  <th class="table-header">Aktuální stát</th>
+                  <th class="table-header">Pohlaví</th>
+                  <th class="table-header">Akce</th>
+                </tr>
+                <tbody>
+                  <ui:repeat value="#{personview.listIdentities()}" var="i"
+                    varStatus="status">
+                    <tr>
+                      <td class="table-even-row">#{i.firstname} #{i.lastname}</td>
+                      <td class="table-even-row">#{i.birthdate}</td>
+                      <td class="table-even-row">#{codes.findState(i.idstate).name}</td>
+                      <td class="table-even-row">#{personsview.formatSex(i.sex)}</td>
+                      <td class="table-even-row"><h:commandButton
+                          value="Jako hlavní"
+                          action="#{personview.changeActualIdentity(i.id)}">
+                          <f:ajax render=":infoUser :formIdentities" />
+                        </h:commandButton> <h:commandButton value="Detail"
+                          action="#{personview.showIdentity(i.id)}">
+                          <f:ajax render=":entityDetail :formPerson" />
+                        </h:commandButton> <h:commandButton value="Upravit"
+                          action="#{personview.outcomeEditIdentity(i.id)}" /></td>
+                    </tr>
+                  </ui:repeat>
+                </tbody>
+              </table>
+              <h:commandButton value="Přidat identitu"
+                action="#{personview.outcomeNewIdentity()}" />
+            </h:panelGroup>
 
 
 
 
 
 
-          <h:panelGroup id="tab2" rendered="#{actionsdetailp.renderedTab == 2}">
-               <h:dataTable value="#{personview.listStays()}" var="s"
-                 styleClass="table"
-                 headerClass="table-header"
-                 rowClasses="table-odd-row, table-even-row">
+            <h:panelGroup id="tab2"
+              rendered="#{actionsdetailp.renderedTab == 2}">
+              <h:dataTable value="#{personview.listStays()}" var="s"
+                styleClass="table" headerClass="table-header"
+                rowClasses="table-odd-row, table-even-row">
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Ref. číslo</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Ref. číslo</f:facet>
+                  <!-- row record -->
                      #{s.refnumber}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Účel pobytu</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Účel pobytu</f:facet>
+                  <!-- row record -->
                      #{codes.findPurposeOfStay(s.idpobytucel).name}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Uděleno</f:facet>
-                     <!-- row record -->
-                     <h:outputText value="#{s.grantedfrom}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>-
-                     <h:outputText value="#{s.grantedto}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>
-                 </h:column>
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Uděleno</f:facet>
+                  <!-- row record -->
+                  <h:outputText value="#{s.grantedfrom}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>-
+                     <h:outputText value="#{s.grantedto}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>
+                </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Poznámka</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Poznámka</f:facet>
+                  <!-- row record -->
                      #{s.note}
                  </h:column>
 
-             </h:dataTable>
-             <h:commandButton value="Nový pobyt" action="#{personview.outcomeNewStay()}" />
-          </h:panelGroup>
+              </h:dataTable>
+              <h:commandButton value="Nový pobyt"
+                action="#{personview.outcomeNewStay()}" />
+            </h:panelGroup>
 
 
 
 
 
-          <h:panelGroup id="tab3" rendered="#{actionsdetailp.renderedTab == 3}">
-               <h:dataTable value="#{personview.listStayplaces()}" var="sp"
-                 styleClass="table"
-                 headerClass="table-header"
-                 rowClasses="table-odd-row, table-even-row">
+            <h:panelGroup id="tab3"
+              rendered="#{actionsdetailp.renderedTab == 3}">
+              <h:dataTable value="#{personview.listStayplaces()}" var="sp"
+                styleClass="table" headerClass="table-header"
+                rowClasses="table-odd-row, table-even-row">
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Adresa</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Adresa</f:facet>
+                  <!-- row record -->
                      #{sp.address}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Období</f:facet>
-                     <!-- row record -->
-                     <h:outputText value="#{sp.datefrom}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>-
-                     <h:outputText value="#{sp.dateto}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>
-                 </h:column>
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Období</f:facet>
+                  <!-- row record -->
+                  <h:outputText value="#{sp.datefrom}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>-
+                     <h:outputText value="#{sp.dateto}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>
+                </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Poznámka</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Poznámka</f:facet>
+                  <!-- row record -->
                      #{sp.note}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Akce</f:facet>
-                     <!-- row record -->
-                     <h:commandButton value="Smazat" action="#{personview.deleteStayplace(sp.id)}">
-                         <f:ajax render=":formIdentities"/>
-                     </h:commandButton>
-                 </h:column>
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Akce</f:facet>
+                  <!-- row record -->
+                  <h:commandButton value="Smazat"
+                    action="#{personview.deleteStayplace(sp.id)}">
+                    <f:ajax render=":formIdentities" />
+                  </h:commandButton>
+                </h:column>
 
-             </h:dataTable>
-             <h:commandButton value="Nové místo pobytu" action="#{personview.outcomeNewStayplace()}" />
-          </h:panelGroup>
-
-
-
-
+              </h:dataTable>
+              <h:commandButton value="Nové místo pobytu"
+                action="#{personview.outcomeNewStayplace()}" />
+            </h:panelGroup>
 
 
-          <h:panelGroup id="tab4" rendered="#{actionsdetailp.renderedTab == 4}">
-               <h:dataTable value="#{personview.listDocuments()}" var="d"
-                 styleClass="table"
-                 headerClass="table-header"
-                 rowClasses="table-odd-row, table-even-row">
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Typ</f:facet>
-                     <!-- row record -->
+
+
+
+            <h:panelGroup id="tab4"
+              rendered="#{actionsdetailp.renderedTab == 4}">
+              <h:dataTable value="#{personview.listDocuments()}" var="d"
+                styleClass="table" headerClass="table-header"
+                rowClasses="table-odd-row, table-even-row">
+
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Typ</f:facet>
+                  <!-- row record -->
                      #{codes.findDocumentType(d.idcodedocumenttype).name}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Číslo</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Číslo</f:facet>
+                  <!-- row record -->
                      #{d.number}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Stát vydání</f:facet>
-                     <!-- row record -->
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Stát vydání</f:facet>
+                  <!-- row record -->
                      #{codes.findState(d.idstateissued).name}
                  </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Datum vydání</f:facet>
-                     <!-- row record -->
-                     <h:outputText value="#{d.dateofreceipt}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>
-                 </h:column>
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Datum vydání</f:facet>
+                  <!-- row record -->
+                  <h:outputText value="#{d.dateofreceipt}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>
+                </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Platnost</f:facet>
-                     <!-- row record -->
-                     <h:outputText value="#{d.validfrom}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>-
-                     <h:outputText value="#{d.validto}" >
-                        <f:convertDateTime pattern="d.M.yyyy" />
-                     </h:outputText>
-                 </h:column>
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Platnost</f:facet>
+                  <!-- row record -->
+                  <h:outputText value="#{d.validfrom}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>-
+                     <h:outputText value="#{d.validto}">
+                    <f:convertDateTime pattern="d.M.yyyy" />
+                  </h:outputText>
+                </h:column>
 
-                 <h:column>
-                     <!-- column header -->
-                     <f:facet name="header">Akce</f:facet>
-                     <!-- row record -->
-                     <h:commandButton value="Detail" action="#{personview.showDocument(d.id)}">
-                         <f:ajax render=":entityDetail"/>
-                     </h:commandButton>
-                     <h:commandButton value="Smazat" action="#{personview.deleteDocument(d.id)}">
-                         <f:ajax render=":formIdentities :entityDetail"/>
-                     </h:commandButton>
-                 </h:column>
-             </h:dataTable>
-            <h:commandButton value="Přidat dokument" action="#{personview.outcomeNewDocument()}" />
+                <h:column>
+                  <!-- column header -->
+                  <f:facet name="header">Akce</f:facet>
+                  <!-- row record -->
+                  <h:commandButton value="Detail"
+                    action="#{personview.showDocument(d.id)}">
+                    <f:ajax render=":entityDetail :formPerson" />
+                  </h:commandButton>
+                  <h:commandButton value="Smazat"
+                    action="#{personview.deleteDocument(d.id)}">
+                    <f:ajax render=":formIdentities :entityDetail" />
+                  </h:commandButton>
+                </h:column>
+              </h:dataTable>
+              <h:commandButton value="Přidat dokument"
+                action="#{personview.outcomeNewDocument()}" />
 
+            </h:panelGroup>
           </h:panelGroup>
-      </h:panelGroup>
-    </h:form>
+        </h:form>
 
-    <div class="clear"></div>
+        <br/>
+        <br/>
 
-    <h:panelGroup id="entityDetail">
-        <h:panelGroup rendered = "#{personview.selectedDoc != null}">
-          <div class="grid_4 greyBg">
-            <h:panelGrid columns="2">
-              <h:outputText value="Typ dokladu :" />
-              <h:outputText value="#{codes.findDocumentType(personview.selectedDoc.id).name}" />
-              <h:outputText value="Číslo dokladu :" />
-              <h:outputText value="#{personview.selectedDoc.number}" />
-              <h:outputText value="Stát vydání: " />
-              <h:outputText value="#{codes.findState(personview.selectedDoc.idstateissued).name}" />
-              <h:outputText value="Poznámka: " />
-              <h:outputText value="#{personview.selectedDoc.note}" />
-              <h:outputText value="Platnost od: " />
-              <h:outputText value="#{personview.selectedDoc.validfrom}" >
-                   <f:convertDateTime pattern="d.M.yyyy" />
-              </h:outputText>
-              <h:outputText value="Platnost do: " />
-              <h:outputText value="#{personview.selectedDoc.validto}" >
-                   <f:convertDateTime pattern="d.M.yyyy" />
-              </h:outputText>
-              <h:outputText value="Datum vydání: " />
-              <h:outputText value="#{personview.selectedDoc.dateofreceipt}" >
-                   <f:convertDateTime pattern="d.M.yyyy" />
-              </h:outputText>
-              <h:outputText value="Datum obnovy: " />
-              <h:outputText value="#{personview.selectedDoc.dateofrenewal}" >
-                   <f:convertDateTime pattern="d.M.yyyy" />
-              </h:outputText>
-              <h:outputText value="Datum zrušení: " />
-              <h:outputText value="#{personview.selectedDoc.dateofcancel}" >
-                   <f:convertDateTime pattern="d.M.yyyy" />
-              </h:outputText>
-            </h:panelGrid>
-          </div>
+
+        <h:panelGroup id="entityDetail">
+          <h:panelGroup rendered="#{personview.selectedDoc != null}">
+            <div class="grid_4 greyBg">
+              <h:panelGrid columns="2">
+                <h:outputText value="Typ dokladu :" />
+                <h:outputText
+                  value="#{codes.findDocumentType(personview.selectedDoc.id).name}" />
+                <h:outputText value="Číslo dokladu :" />
+                <h:outputText value="#{personview.selectedDoc.number}" />
+                <h:outputText value="Stát vydání: " />
+                <h:outputText
+                  value="#{codes.findState(personview.selectedDoc.idstateissued).name}" />
+                <h:outputText value="Poznámka: " />
+                <h:outputText value="#{personview.selectedDoc.note}" />
+                <h:outputText value="Platnost od: " />
+                <h:outputText value="#{personview.selectedDoc.validfrom}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:outputText>
+                <h:outputText value="Platnost do: " />
+                <h:outputText value="#{personview.selectedDoc.validto}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:outputText>
+                <h:outputText value="Datum vydání: " />
+                <h:outputText value="#{personview.selectedDoc.dateofreceipt}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:outputText>
+                <h:outputText value="Datum obnovy: " />
+                <h:outputText value="#{personview.selectedDoc.dateofrenewal}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:outputText>
+                <h:outputText value="Datum zrušení: " />
+                <h:outputText value="#{personview.selectedDoc.dateofcancel}">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:outputText>
+              </h:panelGrid>
+            </div>
+          </h:panelGroup>
+
+          <h:panelGroup rendered="#{personview.selectedIdentity != null}">
+            <div class="grid_4 greyBg">
+              <h:panelGrid columns="2">
+                <h:outputText value="Jméno: " />
+                <h:outputText value="#{personview.selectedIdentity.firstname}" />
+                <h:outputText value="Příjmení: " />
+                <h:outputText value="#{personview.selectedIdentity.lastname}" />
+                <h:outputText value="Rodné jméno " />
+                <h:outputText value="#{personview.selectedIdentity.birthname}" />
+                <h:outputText value="Ostatní jména: " />
+                <h:outputText value="#{personview.selectedIdentity.othernames}" />
+                <h:outputText value="Pohlaví: " />
+                <h:outputText
+                  value="#{personsview.formatSex(personview.selectedIdentity.sex)}" />
+                <h:outputText value="Datum narození: " />
+                <h:outputText value="#{personview.selectedIdentity.birthdate}" />
+                <h:outputText value="Rodné číslo: " />
+                <h:outputText value="#{personview.selectedIdentity.birthnumber}" />
+                <h:outputText value="Místo narození: " />
+                <h:outputText value="#{personview.selectedIdentity.birthplace}" />
+                <h:outputText value="Stát narození: " />
+                <h:outputText
+                  value="#{codes.findState(personview.selectedIdentity.idstateofbirth).name}" />
+                <h:outputText value="Aktuální stát v místě bydliště: " />
+                <h:outputText
+                  value="#{codes.findState(personview.selectedIdentity.idstate).name}" />
+              </h:panelGrid>
+            </div>
+          </h:panelGroup>
         </h:panelGroup>
 
-        <h:panelGroup rendered = "#{personview.selectedIdentity != null}">
-          <div class="grid_4 greyBg">
-            <h:panelGrid columns="2">
-              <h:outputText value="Jméno: " />
-              <h:outputText value="#{personview.selectedIdentity.firstname}" />
-              <h:outputText value="Příjmení: " />
-              <h:outputText value="#{personview.selectedIdentity.lastname}" />
-              <h:outputText value="Rodné jméno " />
-              <h:outputText value="#{personview.selectedIdentity.birthname}" />
-              <h:outputText value="Ostatní jména: " />
-              <h:outputText value="#{personview.selectedIdentity.othernames}" />
-              <h:outputText value="Pohlaví: " />
-              <h:outputText value="#{personsview.formatSex(personview.selectedIdentity.sex)}" />
-              <h:outputText value="Datum narození: " />
-              <h:outputText value="#{personview.selectedIdentity.birthdate}" />
-              <h:outputText value="Rodné číslo: " />
-              <h:outputText value="#{personview.selectedIdentity.birthnumber}" />
-              <h:outputText value="Místo narození: " />
-              <h:outputText value="#{personview.selectedIdentity.birthplace}" />
-              <h:outputText value="Stát narození: " />
-              <h:outputText value="#{codes.findState(personview.selectedIdentity.idstateofbirth).name}" />
-              <h:outputText value="Aktuální stát v místě bydliště: " />
-              <h:outputText value="#{codes.findState(personview.selectedIdentity.idstate).name}" />
-            </h:panelGrid>
-          </div>
-        </h:panelGroup>
-    </h:panelGroup>
 
 
-  <div class="clear"></div>
+        <h:form id="formPerson">
 
+            <h:panelGroup id="pgFormPerson" rendered="#{personview.personEditData != null}">
+              <h:messages errorClass="errorMessage" infoClass="infoMessage"
+              warnClass="warnMessage"></h:messages>
+            <div style="border: 2px black solid;">
+              <h:panelGrid columns="2">
+                <h:outputText value="Titul před jménem :" />
+                <h:inputText id="degreeprefix" value="#{personview.personEditData.degreeprefix}"
+                  required="false"
+                  requiredMessage="Není vyplněno pole titul před jménem!">
+                </h:inputText>
+
+                <h:outputText value="Titul za jménem :" />
+                <h:inputText id="degreesuffix" value="#{personview.personEditData.degreesuffix}"
+                  required="false"
+                  requiredMessage="Není vyplněno pole titul za jménem!">
+                </h:inputText>
+
+                <h:outputText value="Poznámka :" />
+                <h:inputText id="note" value="#{personview.personEditData.note}" required="false"
+                  requiredMessage="Není vyplněno pole poznámka!">
+                </h:inputText>
+
+                <h:outputText value="Datum úmrtí (d.m.yyyy) :" />
+                <h:inputText id="deathdate" value="#{personview.personEditData.deathdate}"
+                  required="false" requiredMessage="Není vyplněno pole datum úmrtí!">
+                  <f:convertDateTime pattern="d.M.yyyy" />
+                </h:inputText>
+
+                <h:outputText value="Místo úmrtí :" />
+                <h:inputText id="deathplace" value="#{personview.personEditData.deathplace}"
+                  required="false" requiredMessage="Není vyplněno pole místo úmrtí!">
+                </h:inputText>
+
+                <h:outputText value="Stát úmrtí :" />
+                <h:selectOneMenu value="#{personview.personEditData.iddeathstate}" id="iddeathstate">
+                  <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
+                  <c:forEach items="#{codes.listStates()}" var="st">
+                    <f:selectItem itemLabel="#{st.name}" itemValue="#{st.id}"></f:selectItem>
+                  </c:forEach>
+                </h:selectOneMenu>
+
+                <h:outputText value="Aktuální pobyt :" />
+                <h:selectOneMenu value="#{personview.personEditData.idstayActual}" id="idstayActual">
+                  <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
+                  <c:forEach items="#{personview.personEditData.listStays}" var="s">
+                    <f:selectItem itemLabel="#{s.refnumber}" itemValue="#{s.id}"></f:selectItem>
+                  </c:forEach>
+                </h:selectOneMenu>
+
+                <h:outputText value="Aktuální místo pobytu :" />
+                <h:selectOneMenu value="#{personview.personEditData.idstayplaceActual}"
+                  id="idstayplaceActual">
+                  <f:selectItem itemLabel="-" itemValue="#{null}"></f:selectItem>
+                  <c:forEach items="#{personview.personEditData.listStayPlaces}" var="ap">
+                    <f:selectItem itemLabel="#{ap.address}" itemValue="#{ap.id}"></f:selectItem>
+                  </c:forEach>
+                </h:selectOneMenu>
+
+                <h:commandButton value="Upravit" action="#{personview.editPersonData()}">
+                  <f:ajax execute="@form" render=":infoUser :formPerson" />
+                </h:commandButton>
+                <h:commandButton value="Storno"
+                            action="#{personview.stornoReqEditPersonData()}">
+                  <f:ajax render=":formPerson" />
+                </h:commandButton>
+              </h:panelGrid>
+            </div>
+          </h:panelGroup>
+
+        </h:form>
+
+
+
+
+        <div class="clear"></div>
+
+      </div>
+      <div class="clear"></div>
     </div>
-    <div class="clear"></div>
-  </div>
 
 
     <div class="clear"></div>
@@ -375,7 +512,7 @@
 
 
 
-</ui:define>
+  </ui:define>
 </ui:composition>
 
 

@@ -22,6 +22,12 @@ import cz.i.cis.db.places.StayService;
 import cz.i.cis.db.validate.StayPlaceValidateService;
 import cz.i.cis.other.Constants;
 
+/**
+*  Třída pro formulář s místem pobytu.
+*
+* @author Jan Šváb
+*
+*/
 @ManagedBean(name = "stayplace")
 @ViewScoped
 public class StayPlaceFormBean implements Serializable {

@@ -222,7 +222,7 @@ public class DocumentFormBean implements Serializable {
   /**
    * Vrátí řetězec platnosti dokumentu
    *
-   * @return
+   * @return Řetezec platnosti dokumentu.
    */
   public String getValidDates() {
     DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -409,7 +409,7 @@ public class DocumentFormBean implements Serializable {
   /**
    * Nastaví datum platnosti do.
    *
-   * @param datum
+   * @param validto
    *          platnosti do
    */
   public void setValidto(Date validto) {

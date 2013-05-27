@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import cz.i.cis.db.code.CodeService;
 import cz.i.cis.db.documents.DocumentService;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.entities.Tdudocument;
@@ -25,7 +26,6 @@ import cz.i.cis.other.Constants;
  * pobytu, identity i dokumenty a zobrazovat jejich detaily.
  *
  * @author Jan Šváb
- *
  */
 @ManagedBean(name = "personview")
 @ViewScoped
@@ -53,11 +53,15 @@ public class PersonDetailViewBean implements Serializable {
   @EJB
   private StayPlaceService stayplaceservicebean;
 
-  /** aktuálí vybraná persona */
+  @EJB
+  private CodeService codeservicebean;
+
   private Tduperson selectedPerson;
 
   /** aktuální identita persony */
   private Identity actualPersonIdentity;
+  private Tdustay actualStay;
+  private Tdustayplace actualStayPlace;
 
   /** id persony */
   private Integer idperson;
@@ -81,6 +85,12 @@ public class PersonDetailViewBean implements Serializable {
   private List<Tdustayplace> stayplaces = null;
 
   /**
+   * Pokud vyvolan pozadavek na zmenu dat osoby, obsahuje data formulare pro zmenu udaju.
+   */
+  private PersonEditData personEditData = null;
+
+
+  /**
    * Načte personu podle nastaveného idperson.
    */
   public void loadPerson() {
@@ -93,13 +103,19 @@ public class PersonDetailViewBean implements Serializable {
 
     selectedPerson = personservicebean.findPersonById(idperson);
     if (selectedPerson == null) {
-      // TODO hlaska
       return;
     }
 
     Integer idIdentity = selectedPerson.getIdidentityActual();
     actualPersonIdentity = identityservicebean.findIdentityById(idIdentity);
+
+    if (selectedPerson.getIdstayActual() != null)
+      actualStay = stayservicebean.findStayById(selectedPerson.getIdstayActual());
+
+    if (selectedPerson.getIdstayplaceActual() != null)
+      actualStayPlace = stayplaceservicebean.findStayPlaceById(selectedPerson.getIdstayplaceActual());
   }
+
 
   /**
    * Změní aktuální identitu persony.
@@ -116,6 +132,7 @@ public class PersonDetailViewBean implements Serializable {
     actualPersonIdentity = requiredIdentity;
   }
 
+
   /**
    * Vrátí list identit persony.
    *
@@ -123,13 +140,13 @@ public class PersonDetailViewBean implements Serializable {
    */
   public List<Identity> listIdentities() {
     if (selectedPerson != null)
-      identities = identityservicebean.findIdentitiesForPerson(selectedPerson
-          .getId());
+      identities = identityservicebean.findIdentitiesForPerson(selectedPerson.getId());
     else
       identities = new ArrayList<Identity>();
 
     return identities;
   }
+
 
   /**
    * Vrátí list pobytů persony.
@@ -145,6 +162,7 @@ public class PersonDetailViewBean implements Serializable {
     return stays;
   }
 
+
   /**
    * Vrátí list dokumentů persony.
    *
@@ -152,13 +170,13 @@ public class PersonDetailViewBean implements Serializable {
    */
   public List<Tdudocument> listDocuments() {
     if (selectedPerson != null)
-      documents = documentservicebean.findDocumentsForPerson(selectedPerson
-          .getId());
+      documents = documentservicebean.findDocumentsForPerson(selectedPerson.getId());
     else
       documents = new ArrayList<Tdudocument>();
 
     return documents;
   }
+
 
   /**
    * Vrátí list míst pobytu persony.
@@ -167,13 +185,13 @@ public class PersonDetailViewBean implements Serializable {
    */
   public List<Tdustayplace> listStayplaces() {
     if (selectedPerson != null)
-      stayplaces = stayplaceservicebean.findStayPlacesForPerson(selectedPerson
-          .getId());
+      stayplaces = stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId());
     else
       stayplaces = new ArrayList<Tdustayplace>();
 
     return stayplaces;
   }
+
 
   /**
    * Nastaví vybraný dokument.
@@ -182,7 +200,9 @@ public class PersonDetailViewBean implements Serializable {
    *          id nového vybraného dokumentu
    */
   public void showDocument(Integer id) {
+    personEditData = null;
     selectedDoc = null;
+
     for (Tdudocument d : documents) {
       if (d.getId() == id) {
         selectedDoc = d;
@@ -191,6 +211,7 @@ public class PersonDetailViewBean implements Serializable {
     }
   }
 
+
   /**
    * Nastaví aktuální vybranou identitu.
    *
@@ -198,7 +219,9 @@ public class PersonDetailViewBean implements Serializable {
    *          id nové vybrané identity
    */
   public void showIdentity(Integer id) {
+    personEditData = null;
     selectedIdentity = null;
+
     for (Identity i : identities) {
       if (i.getId() == id) {
         selectedIdentity = i;
@@ -206,6 +229,7 @@ public class PersonDetailViewBean implements Serializable {
       }
     }
   }
+
 
   /**
    * Smaže pobyt.
@@ -222,6 +246,7 @@ public class PersonDetailViewBean implements Serializable {
     }
   }
 
+
   /**
    * Smaže místo pobytu.
    *
@@ -236,6 +261,7 @@ public class PersonDetailViewBean implements Serializable {
       }
     }
   }
+
 
   /**
    * Smaže dokument.
@@ -255,6 +281,7 @@ public class PersonDetailViewBean implements Serializable {
       selectedDoc = null;
   }
 
+
   /**
    * Smaže detaily zobrazení persony.
    */
@@ -270,12 +297,68 @@ public class PersonDetailViewBean implements Serializable {
     stayplaces = new ArrayList<Tdustayplace>();
   }
 
+
+  /**
+   * Reakce na pozadavek na editaci osoby. Pripravi data pro editacni formular.
+   */
+  public void reqEditPersonData() {
+    selectedDoc = null;
+    selectedIdentity = null;
+
+    if (selectedPerson == null)
+      return;
+
+    personEditData = new PersonEditData();
+    personEditData.setDeathdate(selectedPerson.getDeathdate());
+    personEditData.setDeathplace(selectedPerson.getDeathplace());
+    personEditData.setDegreeprefix(selectedPerson.getDegreeprefix());
+    personEditData.setDegreesuffix(selectedPerson.getDegreesuffix());
+    personEditData.setNote(selectedPerson.getNote());
+    personEditData.setIddeathplace(selectedPerson.getIddeathplace());
+    personEditData.setIddeathstate(selectedPerson.getIddeathstate());
+    personEditData.setIdstayActual(selectedPerson.getIdstayActual());
+    personEditData.setIdstayplaceActual(selectedPerson.getIdstayplaceActual());
+
+    personEditData.setListStays(stayservicebean.listStaysForPerson(selectedPerson.getId()));
+    personEditData.setListStayPlaces(stayplaceservicebean.findStayPlacesForPerson(selectedPerson.getId()));
+  }
+
+
+  /**
+   * Stornuje pozadavek na editace dat osoby.
+   */
+  public void stornoReqEditPersonData() {
+    personEditData = null;
+  }
+
+
+  /**
+   * Provede editaci osoby.
+   */
+  public void editPersonData() {
+    selectedPerson.setDeathdate(personEditData.getDeathdate());
+    selectedPerson.setDeathplace(personEditData.getDeathplace());
+    selectedPerson.setDegreeprefix(personEditData.getDegreeprefix());
+    selectedPerson.setDegreesuffix(personEditData.getDegreesuffix());
+    selectedPerson.setNote(personEditData.getNote());
+    selectedPerson.setIddeathplace(personEditData.getIddeathplace());
+    selectedPerson.setIddeathstate(personEditData.getIddeathstate());
+    selectedPerson.setIdstayActual(personEditData.getIdstayActual());
+    selectedPerson.setIdstayplaceActual(personEditData.getIdstayplaceActual());
+
+    personservicebean.update(selectedPerson);
+
+    personEditData = null;
+  }
+
+
   /**
    * @return vybraná persona.
    */
   public Tduperson getSelectedPerson() {
     return selectedPerson;
   }
+
 
   /**
    * @return aktuální identita vybrané persony
@@ -284,12 +367,14 @@ public class PersonDetailViewBean implements Serializable {
     return actualPersonIdentity;
   }
 
+
   /**
    * @return id vybrané persony
    */
   public Integer getIdperson() {
     return idperson;
   }
+
 
   /**
    * Nastaví id vybrané persony.
@@ -301,25 +386,49 @@ public class PersonDetailViewBean implements Serializable {
     this.idperson = idperson;
   }
 
+
+  /**
+   * Vraci adresu formulare pro vytvoreni nove identity.
+   *
+   * @return URL formulare pro vytvoreni nove identity
+   */
   public String outcomeNewIdentity() {
     return Constants.PAGE_CREATE_IDENTITY + "?personid=" + idperson
         + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
+
+  /**
+   * Vraci adresu formulare pro vytvoreni noveho dokumentu.
+   *
+   * @return URL formulare pro vytvoreni noveho dokumentu
+   */
   public String outcomeNewDocument() {
     return Constants.PAGE_CREATE_DOCUMENT + "?personid=" + idperson
         + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
+
+  /**
+   * Vraci adresu formulare pro vytvoreni noveho pobytu.
+   *
+   * @return URL formulare pro vytvoreni nove identity
+   */
   public String outcomeNewStay() {
-    return Constants.PAGE_CREATE_STAY + "?personid=" + idperson
-        + "&amp;faces-redirect=true&amp;includeViewParams=true";
+    return Constants.PAGE_CREATE_STAY + "?personid=" + idperson + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
+
+  /**
+   * Vraci adresu formulare pro vytvoreni noveho mista pobytu.
+   *
+   * @return URL formulare pro vytvoreni nove identity
+   */
   public String outcomeNewStayplace() {
     return Constants.PAGE_CREATE_STAYPLACE + "?personid=" + idperson
         + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
+
 
   /**
    * @return vybraný dokument
@@ -328,6 +437,7 @@ public class PersonDetailViewBean implements Serializable {
     return this.selectedDoc;
   }
 
+
   /**
    * @return vybraná identita
    */
@@ -335,13 +445,38 @@ public class PersonDetailViewBean implements Serializable {
     return selectedIdentity;
   }
 
+
+  /**
+   * Vraci adresu formulare pro editaci identity.
+   *
+   * @param id ID identity, ktera se ma editovat
+   * @return URL formulare pro editaci identity
+   */
   public String outcomeEditIdentity(Integer id) {
-    return Constants.PAGE_UPDATE_IDENTITY + "?identityid=" + id
-        + "&amp;faces-redirect=true&amp;includeViewParams=true";
+    return Constants.PAGE_UPDATE_IDENTITY + "?identityid=" + id + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
 
-  public String outcomeEditPerson(Integer id) {
-    return Constants.PAGE_UPDATE_PERSON + "?documentid=" + id
-        + "&amp;faces-redirect=true&amp;includeViewParams=true";
+
+  /**
+   * @return Reference na objekt dat editacniho formulare osoby
+   */
+  public PersonEditData getPersonEditData() {
+    return personEditData;
+  }
+
+
+  /**
+   * @return Reference na objekt s aktualnim pobytem
+   */
+  public Tdustay getActualStay() {
+    return actualStay;
+  }
+
+
+  /**
+   * @return Reference na objekt s aktualnim mistem pobytu
+   */
+  public Tdustayplace getActualStayPlace() {
+    return actualStayPlace;
   }
 }

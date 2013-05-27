@@ -159,14 +159,13 @@ public class PersonFormBean implements Serializable {
     String[] validate = personValidateServicebean.validate(person);
     if (validate == null) {
       return true;
-    } else {
-      for (int i = 0; i < validate.length; i++) {
-        FacesMessage message = new FacesMessage("Chyba při validaci persony! ("
-            + validate[i] + ")");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-      }
-      return false;
     }
+    for (int i = 0; i < validate.length; i++) {
+      FacesMessage message = new FacesMessage("Chyba při validaci persony! ("
+          + validate[i] + ")");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    return false;
   }
 
   /**
@@ -180,14 +179,13 @@ public class PersonFormBean implements Serializable {
     String[] validate = identityValidateServicebean.validate(identity);
     if (validate == null) {
       return true;
-    } else {
-      for (int i = 0; i < validate.length; i++) {
-        FacesMessage message = new FacesMessage(
-            "Chyba při validaci identity! (" + validate[i] + ")");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-      }
-      return false;
     }
+    for (int i = 0; i < validate.length; i++) {
+      FacesMessage message = new FacesMessage(
+          "Chyba při validaci identity! (" + validate[i] + ")");
+      FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    return false;
   }
 
   /**
@@ -202,7 +200,6 @@ public class PersonFormBean implements Serializable {
 
     selectedPerson = personservicebean.findPersonById(idperson);
     if (selectedPerson == null) {
-      // TODO hlaska
       return;
     }
   }
