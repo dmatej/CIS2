@@ -1,9 +1,14 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -11,20 +16,22 @@ import java.util.Date;
  *
  */
 @Entity
-public class Cisrole implements Serializable {
+public class Cisrole implements Serializable, ModifableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Timestamp cdate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cdate;
 
     private Integer cidcisuser;
 
     private String code;
 
-    private Timestamp ddate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ddate;
 
     private String description;
 
@@ -34,7 +41,8 @@ public class Cisrole implements Serializable {
 
     private Short type;
 
-    private Timestamp udate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date udate;
 
     private Integer uidcisuser;
 
@@ -55,11 +63,11 @@ public class Cisrole implements Serializable {
         this.id = id;
     }
 
-    public Timestamp getCdate() {
+    public Date getCdate() {
         return this.cdate;
     }
 
-    public void setCdate(Timestamp cdate) {
+    public void setCdate(Date cdate) {
         this.cdate = cdate;
     }
 
@@ -79,11 +87,11 @@ public class Cisrole implements Serializable {
         this.code = code;
     }
 
-    public Timestamp getDdate() {
+    public Date getDdate() {
         return this.ddate;
     }
 
-    public void setDdate(Timestamp ddate) {
+    public void setDdate(Date ddate) {
         this.ddate = ddate;
     }
 
@@ -119,11 +127,11 @@ public class Cisrole implements Serializable {
         this.type = type;
     }
 
-    public Timestamp getUdate() {
+    public Date getUdate() {
         return this.udate;
     }
 
-    public void setUdate(Timestamp udate) {
+    public void setUdate(Date udate) {
         this.udate = udate;
     }
 

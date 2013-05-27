@@ -60,8 +60,9 @@ public class Identity implements Serializable {
   }
 
   public CisDate getBirthdate() {
-    if (this.birthdate == null)
+    if (this.birthdate == null) {
       return CisDate.EMPTY;
+    }
     return new CisDate(this.birthdate);
   }
 

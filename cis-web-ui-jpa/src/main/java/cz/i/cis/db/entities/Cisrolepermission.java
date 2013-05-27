@@ -1,114 +1,138 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the cisrolepermission database table.
- *
  */
 @Entity
-public class Cisrolepermission implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Cisrolepermission implements Serializable, Stamped {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  private static final long serialVersionUID = 1L;
 
-    private Timestamp cdate;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private Integer cidcisuser;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date cdate;
 
-    private Timestamp ddate;
+  private Integer cidcisuser;
 
-    private Integer didcisuser;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date ddate;
 
-    private Integer idpermission;
+  private Integer didcisuser;
 
-    private Integer idrole;
+  private Integer idpermission;
 
-    @Temporal(TemporalType.DATE)
-    private Date validfrom;
+  private Integer idrole;
 
-    @Temporal(TemporalType.DATE)
-    private Date validto;
+  @Temporal(TemporalType.DATE)
+  private Date validfrom;
 
-    public Cisrolepermission() {
-    }
+  @Temporal(TemporalType.DATE)
+  private Date validto;
 
-    public Integer getId() {
-        return this.id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Cisrolepermission() {
+  }
 
-    public Timestamp getCdate() {
-        return this.cdate;
-    }
 
-    public void setCdate(Timestamp cdate) {
-        this.cdate = cdate;
-    }
+  public Integer getId() {
+    return this.id;
+  }
 
-    public Integer getCidcisuser() {
-        return this.cidcisuser;
-    }
 
-    public void setCidcisuser(Integer cidcisuser) {
-        this.cidcisuser = cidcisuser;
-    }
+  public void setId(final Integer id) {
+    this.id = id;
+  }
 
-    public Timestamp getDdate() {
-        return this.ddate;
-    }
 
-    public void setDdate(Timestamp ddate) {
-        this.ddate = ddate;
-    }
+  public Date getCdate() {
+    return this.cdate;
+  }
 
-    public Integer getDidcisuser() {
-        return this.didcisuser;
-    }
 
-    public void setDidcisuser(Integer didcisuser) {
-        this.didcisuser = didcisuser;
-    }
+  public void setCdate(final Date cdate) {
+    this.cdate = cdate;
+  }
 
-    public Integer getIdpermission() {
-        return this.idpermission;
-    }
 
-    public void setIdpermission(Integer idpermission) {
-        this.idpermission = idpermission;
-    }
+  public Integer getCidcisuser() {
+    return this.cidcisuser;
+  }
 
-    public Integer getIdrole() {
-        return this.idrole;
-    }
 
-    public void setIdrole(Integer idrole) {
-        this.idrole = idrole;
-    }
+  public void setCidcisuser(final Integer cidcisuser) {
+    this.cidcisuser = cidcisuser;
+  }
 
-    public Date getValidfrom() {
-        return this.validfrom;
-    }
 
-    public void setValidfrom(Date validfrom) {
-        this.validfrom = validfrom;
-    }
+  public Date getDdate() {
+    return this.ddate;
+  }
 
-    public Date getValidto() {
-        return this.validto;
-    }
 
-    public void setValidto(Date validto) {
-        this.validto = validto;
-    }
+  public void setDdate(final Date ddate) {
+    this.ddate = ddate;
+  }
 
+
+  public Integer getDidcisuser() {
+    return this.didcisuser;
+  }
+
+
+  public void setDidcisuser(final Integer didcisuser) {
+    this.didcisuser = didcisuser;
+  }
+
+
+  public Integer getIdpermission() {
+    return this.idpermission;
+  }
+
+
+  public void setIdpermission(final Integer idpermission) {
+    this.idpermission = idpermission;
+  }
+
+
+  public Integer getIdrole() {
+    return this.idrole;
+  }
+
+
+  public void setIdrole(final Integer idrole) {
+    this.idrole = idrole;
+  }
+
+
+  public Date getValidfrom() {
+    return this.validfrom;
+  }
+
+
+  public void setValidfrom(final Date validfrom) {
+    this.validfrom = validfrom;
+  }
+
+
+  public Date getValidto() {
+    return this.validto;
+  }
+
+
+  public void setValidto(final Date validto) {
+    this.validto = validto;
+  }
 }
