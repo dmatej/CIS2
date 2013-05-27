@@ -244,4 +244,9 @@ public class PersonDetailViewBean implements Serializable {
   {
     return Constants.PAGE_UPDATE_IDENTITY + "?identityid=" + id + "&amp;faces-redirect=true&amp;includeViewParams=true";
   }
+
+  public String outcomeEditPerson(Integer id)
+  {
+    return Constants.PAGE_UPDATE_PERSON + "?documentid=" + id + "&amp;faces-redirect=true&amp;includeViewParams=true";
+  }
 }

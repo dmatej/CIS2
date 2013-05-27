@@ -22,4 +22,7 @@ public final class Constants {
 
 
     public static final String PAGE_UPDATE_IDENTITY = "update-identity.xhtml";
+
+    public static final String PAGE_UPDATE_PERSON = "update-person.xhtml";
+
 }

@@ -11,7 +11,13 @@
 <ui:param name="navigation" value="general" />
 
 <ui:define name="content">
-
+  <f:metadata>
+    <f:viewParam name="identityid" value="#{identity.idIdentity}" />
+    <f:event type="preRenderView" listener="#{identity.loadIdentity}" />
+  </f:metadata>
+  <f:metadata>
+    <f:viewParam name="personid" value="#{identity.idperson}" />
+  </f:metadata>
 
 
 

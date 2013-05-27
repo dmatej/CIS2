@@ -11,7 +11,10 @@
 <ui:param name="navigation" value="general" />
 
 <ui:define name="content">
-
+  <f:metadata>
+       <f:viewParam name="personid" value="#{personview.idperson}" />
+       <f:event type="preRenderView" listener="#{personview.loadPerson}" />
+  </f:metadata>
 
 
 

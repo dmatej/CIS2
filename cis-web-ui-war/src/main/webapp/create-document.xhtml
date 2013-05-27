@@ -11,7 +11,10 @@
 <ui:param name="navigation" value="general" />
 
 <ui:define name="content">
-
+<f:metadata>
+     <f:viewParam name="personid" value="#{document.idperson}" />
+     <f:event type="preRenderView" listener="#{document.init}" />
+</f:metadata>
 
 
   <div class="container_12 slider">
