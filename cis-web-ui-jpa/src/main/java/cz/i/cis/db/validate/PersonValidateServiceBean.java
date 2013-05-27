@@ -14,24 +14,27 @@ import cz.i.cis.db.entities.Tduperson;
 @Stateless
 @Named
 public class PersonValidateServiceBean implements Serializable,
-        PersonValidateService {
+    PersonValidateService {
 
-    private static final long serialVersionUID = 1L;
+  /** serial version id */
+  private static final long serialVersionUID = 1L;
 
-    @PersistenceContext(unitName = "cis")
-    private EntityManager em;
+  /** entity manager */
+  @PersistenceContext(unitName = "cis")
+  private EntityManager em;
 
-    public PersonValidateServiceBean() {
-    }
+  public PersonValidateServiceBean() {
+  }
 
-    @Override
-    public String[] validate(Tduperson person) {
-        List<String> err = new ArrayList<String>();
-        if (err.size() == 0)
-            return null;
-        String[] errs = new String[err.size()];
-        errs = err.toArray(errs);
-        return errs;
-    }
+  /** {@inheritDoc} */
+  @Override
+  public String[] validate(Tduperson person) {
+    List<String> err = new ArrayList<String>();
+    if (err.size() == 0)
+      return null;
+    String[] errs = new String[err.size()];
+    errs = err.toArray(errs);
+    return errs;
+  }
 
 }

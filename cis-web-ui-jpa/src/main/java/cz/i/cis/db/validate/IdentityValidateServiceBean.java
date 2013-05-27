@@ -16,21 +16,22 @@ import cz.i.cis.db.entities.Identity;
 public class IdentityValidateServiceBean implements Serializable,
     IdentityValidateService {
 
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public IdentityValidateServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public String[] validate(Identity identity) {
     List<String> err = new ArrayList<String>();
     if (identity.getSex() != null && identity.getSex().length() != 1)
       err.add("SEX in IDENTITY must have one char!");
-
-    // TODO [stulc] validace birthdate
 
     if (identity.getBirthnumber() != null) {
 
@@ -44,9 +45,8 @@ public class IdentityValidateServiceBean implements Serializable,
         } catch (NumberFormatException e) {
           err.add("BIRTHNUMBER in IDENTITY must be in format XXXXXXXXXX where X is a number!");
         }
-    }
-    else err.add("BIRTHNUMBER in IDENTITY is empty!");
-
+    } else
+      err.add("BIRTHNUMBER in IDENTITY is empty!");
 
     if (err.size() == 0)
       return null;
