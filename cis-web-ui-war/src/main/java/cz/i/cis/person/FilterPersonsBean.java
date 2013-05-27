@@ -12,103 +12,174 @@ import javax.inject.Named;
 import cz.i.cis.db.entities.Identity;
 import cz.i.cis.db.person.IdentityService;
 
+/**
+ * Beana pro filtrování osob.
+ *
+ * @author Jan Šváb
+ *
+ */
 @Named("filterpersons")
 @RequestScoped
 public class FilterPersonsBean {
-    @EJB
-    private IdentityService identityservicebean;
+  /** beana pro práci s identitama */
+  @EJB
+  private IdentityService identityservicebean;
 
-    private String firstname;
-    private String lastname;
-    private String birthnumber = null;
-    private String sex;
+  /** křestní jeméno */
+  private String firstname;
 
-    private Boolean filterOn = false;
+  /** příjmení */
+  private String lastname;
 
-    private List<Identity> foundIdentities;
+  /** datum narození */
+  private String birthnumber = null;
 
-    private List<Identity> searchIdentities() {
-        Boolean isMale = null;
-        if (sex != null) {
-            if (sex.equalsIgnoreCase("M"))
-                isMale = true;
-            else if (sex.equalsIgnoreCase("Z"))
-                isMale = false;
-        }
+  /** pohlaví */
+  private String sex;
 
-        if (birthnumber != null) {
-            birthnumber = birthnumber.trim();
-            if (birthnumber.equalsIgnoreCase(""))
-                birthnumber = null;
-        }
+  /** true, pokud je filtr zapnutý; jinak false */
+  private Boolean filterOn = false;
 
-        List<Identity> identList = identityservicebean.findIdentitiesByParams(
-                firstname, lastname, isMale, birthnumber);
+  /** nalezené identity */
+  private List<Identity> foundIdentities;
 
-        Map<Integer, List<Identity>> map = new HashMap<Integer, List<Identity>>();
-        for (Identity ident : identList) {
-            if (!map.containsKey(ident.getIdperson())) {
-                map.put(ident.getIdperson(), new ArrayList<Identity>());
-            }
-            map.get(ident.getIdperson()).add(ident);
-
-        }
-
-        List<Identity> listIden = new ArrayList<Identity>();
-
-        for (List<Identity> lI : map.values()) {
-            listIden.addAll(lI);
-        }
-        return listIden;
+  /**
+   * Nalezne identity dle parametrů.
+   *
+   * @return list nalezených identit
+   */
+  private List<Identity> searchIdentities() {
+    Boolean isMale = null;
+    if (sex != null) {
+      if (sex.equalsIgnoreCase("M"))
+        isMale = true;
+      else if (sex.equalsIgnoreCase("Z"))
+        isMale = false;
     }
 
-    public void filterPersons() {
-        filterOn = true;
-        foundIdentities = searchIdentities();
+    if (birthnumber != null) {
+      birthnumber = birthnumber.trim();
+      if (birthnumber.equalsIgnoreCase(""))
+        birthnumber = null;
     }
 
-    public void cancelFilter() {
-        filterOn = false;
-        foundIdentities = null;
+    List<Identity> identList = identityservicebean.findIdentitiesByParams(
+        firstname, lastname, isMale, birthnumber);
+
+    Map<Integer, List<Identity>> map = new HashMap<Integer, List<Identity>>();
+    for (Identity ident : identList) {
+      if (!map.containsKey(ident.getIdperson())) {
+        map.put(ident.getIdperson(), new ArrayList<Identity>());
+      }
+      map.get(ident.getIdperson()).add(ident);
+
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
+    List<Identity> listIden = new ArrayList<Identity>();
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    for (List<Identity> lI : map.values()) {
+      listIden.addAll(lI);
     }
+    return listIden;
+  }
 
-    public String getLastname() {
-        return lastname;
-    }
+  /**
+   * Vyfiltruje persony dle parametrů.
+   */
+  public void filterPersons() {
+    filterOn = true;
+    foundIdentities = searchIdentities();
+  }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+  /**
+   * Zruší filtrování.
+   */
+  public void cancelFilter() {
+    filterOn = false;
+    foundIdentities = null;
+  }
 
-    public String getBirthnumber() {
-        return birthnumber;
-    }
+  /**
+   * @return křestní jméno ve filtru
+   */
+  public String getFirstname() {
+    return firstname;
+  }
 
-    public void setBirthnumber(String birthnumber) {
-        this.birthnumber = birthnumber;
-    }
+  /**
+   * Nastaví křestní jméno do filtru.
+   *
+   * @param firstname
+   *          křestní jméno
+   */
+  public void setFirstname(String firstname) {
+    this.firstname = firstname;
+  }
 
-    public String getSex() {
-        return sex;
-    }
+  /**
+   * @return příjmení ve filtru
+   */
+  public String getLastname() {
+    return lastname;
+  }
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+  /**
+   * Nastaví příjmení do filtru.
+   *
+   * @param lastname
+   *          příjmení
+   */
+  public void setLastname(String lastname) {
+    this.lastname = lastname;
+  }
 
-    public Boolean getFilterOn() {
-        return filterOn;
-    }
+  /**
+   * @return datum narození ve filtru
+   */
+  public String getBirthnumber() {
+    return birthnumber;
+  }
 
-    public List<Identity> getFoundIdentities() {
-        return foundIdentities;
-    }
+  /**
+   * Nastaví datum narození do filtru
+   *
+   * @param birthnumber
+   *          datum narození
+   */
+  public void setBirthnumber(String birthnumber) {
+    this.birthnumber = birthnumber;
+  }
+
+  /**
+   * @return pohlaví - M=muž; Z=žena - ve filtru
+   */
+  public String getSex() {
+    return sex;
+  }
+
+  /**
+   * Nastaví pohlaví do filtru.
+   *
+   * @param sex
+   *          pohlaví
+   */
+  public void setSex(String sex) {
+    this.sex = sex;
+  }
+
+  /**
+   * @return vrací zda je filtr zapnut či vypnut
+   */
+  public Boolean getFilterOn() {
+    return filterOn;
+  }
+
+  /**
+   * Vrací nalezené identity
+   *
+   * @return list identit
+   */
+  public List<Identity> getFoundIdentities() {
+    return foundIdentities;
+  }
 }

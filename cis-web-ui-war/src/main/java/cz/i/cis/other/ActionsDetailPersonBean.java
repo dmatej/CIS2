@@ -7,33 +7,58 @@ import javax.faces.context.FacesContext;
 
 import cz.i.cis.person.PersonDetailViewBean;
 
-@ManagedBean(name="actionsdetailp")
+/**
+ * Beana, která uržuje informace o oaktuální otevřené záložce.
+ *
+ * @author Jan Šváb
+ *
+ */
+@ManagedBean(name = "actionsdetailp")
 @SessionScoped
 public class ActionsDetailPersonBean {
-    private final Integer TABIDENTITY = 1;
-    private final Integer TABDOKLADY = 2;
-    private final Integer TABPOBYTY = 3;
+  /** záložka s identitami */
+  private final Integer TABIDENTITY = 1;
 
-    private Integer renderedTab = 0;
+  /** záložka s doklady */
+  private final Integer TABDOKLADY = 2;
 
-    public void handleTabChange(Integer idTab) {
-        renderedTab = idTab;
+  /** záložka s pobyty */
+  private final Integer TABPOBYTY = 3;
 
-        ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-        Object ret = elContext.getELResolver()
-            .getValue(elContext, null, "personview");
+  private Integer renderedTab = 0;
 
-        if(ret != null)
-        {
-          ((PersonDetailViewBean) ret).cleanDetailViews();
-        }
+  /**
+   * Přepne aktuální záložku dle zvolené.
+   *
+   * @param idTab
+   *          nová aktuální záložka
+   */
+  public void handleTabChange(Integer idTab) {
+    renderedTab = idTab;
+
+    ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+    Object ret = elContext.getELResolver().getValue(elContext, null,
+        "personview");
+
+    if (ret != null) {
+      ((PersonDetailViewBean) ret).cleanDetailViews();
     }
+  }
 
-    public Integer getRenderedTab() {
-        return renderedTab;
-    }
+  /**
+   * @return aktuální záložka
+   */
+  public Integer getRenderedTab() {
+    return renderedTab;
+  }
 
-    public void setRenderedTab(Integer renderedTab) {
-        this.renderedTab = renderedTab;
-    }
+  /**
+   * Nastaví aktuální záložku.
+   *
+   * @param renderedTab
+   *          aktuální záložka
+   */
+  public void setRenderedTab(Integer renderedTab) {
+    this.renderedTab = renderedTab;
+  }
 }

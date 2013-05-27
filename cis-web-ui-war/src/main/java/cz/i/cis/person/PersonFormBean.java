@@ -20,52 +20,80 @@ import cz.i.cis.db.validate.IdentityValidateService;
 import cz.i.cis.db.validate.PersonValidateService;
 import cz.i.cis.other.Constants;
 
+/**
+ * Beana pro práci s personou ve formuláři.
+ *
+ * @author Martin Štulc, Jan Šváb
+ *
+ */
 @Named("person")
 @RequestScoped
 public class PersonFormBean implements Serializable {
-
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** beana pro práci s personama */
   @EJB
   private PersonService personservicebean;
 
+  /** beana pro práci s identitama */
   @EJB
   private IdentityService identityservicebean;
 
+  /** beana pro validaci persony */
   @EJB
   private PersonValidateService personValidateServicebean;
 
+  /** beana pro validaci identity */
   @EJB
   private IdentityValidateService identityValidateServicebean;
 
+  /** vybraná persona */
   private Tduperson selectedPerson;
 
+  /** id vybrané persony */
   private Integer idperson;
 
+  /** id aktuální identity */
   private Integer ididentityActual;
 
-
+  /** datum úmrtí */
   private Date deathdate;
 
+  /** místo úmrtí */
   private String deathplace;
 
+  /** titul před jménem */
   private String degreeprefix;
 
+  /** titul za jménem */
   private String degreesuffix;
 
+  /** id místa úmrtí */
   private Integer iddeathplace;
 
+  /** id státu úmrtí */
   private Integer iddeathstate;
 
+  /** id fotky */
   private Integer idimage;
 
+  /** id aktuálního pobytu */
   private Integer idstayActual;
 
+  /** id aktuálního místa pobytu */
   private Integer idstayplaceActual;
 
+  /** poznámka */
   private String note;
 
-
+  /**
+   * Vytvoří personu s hlavní identitou.
+   *
+   * @param identity
+   *          nová hlavní identita persony.
+   * @return true, pokud vytvoření proběhlo úspěšně
+   */
   public Boolean createPersonWithIdentity(Identity identity) {
     if (!testBeans())
       return false;
@@ -78,12 +106,17 @@ public class PersonFormBean implements Serializable {
       person.setIdidentityActual(identity.getId());
       selectedPerson = personservicebean.update(person);
 
-    }
-    else return false;
+    } else
+      return false;
 
     return true;
   }
 
+  /**
+   * Vytvoří personu.
+   *
+   * @return url na detail persony
+   */
   public String createPerson() {
     if (!testBeans())
       return "";
@@ -95,11 +128,15 @@ public class PersonFormBean implements Serializable {
     IdentityFormBean identityFormBean = (IdentityFormBean) ret;
     Identity actualId = identityFormBean.generateEntity();
 
-    if(!createPersonWithIdentity(actualId)) return "";
+    if (!createPersonWithIdentity(actualId))
+      return "";
 
     return Constants.PAGE_VIEW_PERSONS;
   }
 
+  /**
+   * Upraví personu.
+   */
   public void updatePerson() {
     if (!testBeans())
       return;
@@ -111,6 +148,13 @@ public class PersonFormBean implements Serializable {
     }
   }
 
+  /**
+   * Validuje personu a vypíše chybové hlášky.
+   *
+   * @param person
+   *          validovaná persona
+   * @return truen pokud nebyly nalezeny chyby; jinak false
+   */
   private Boolean validatePerson(Tduperson person) {
     String[] validate = personValidateServicebean.validate(person);
     if (validate == null) {
@@ -125,6 +169,13 @@ public class PersonFormBean implements Serializable {
     }
   }
 
+  /**
+   * Validuje identitu a vypíše chybové hlášky.
+   *
+   * @param person
+   *          validovaná identita
+   * @return truen pokud nebyly nalezeny chyby; jinak false
+   */
   private Boolean validateIdentity(Identity identity) {
     String[] validate = identityValidateServicebean.validate(identity);
     if (validate == null) {
@@ -139,6 +190,9 @@ public class PersonFormBean implements Serializable {
     }
   }
 
+  /**
+   * Načte personu dle nastaveného idperson.
+   */
   public void loadPerson() {
     if (FacesContext.getCurrentInstance().isPostback() || idperson == null) {
       return;
@@ -153,6 +207,11 @@ public class PersonFormBean implements Serializable {
     }
   }
 
+  /**
+   * Testuje dostupnost bean.
+   *
+   * @return true pokud je vše OK.
+   */
   private boolean testBeans() {
     if (personservicebean == null) {
       FacesMessage message = new FacesMessage("personservicebean null!");
@@ -182,16 +241,19 @@ public class PersonFormBean implements Serializable {
     return true;
   }
 
-  public void clearForm()
-  {
-    Map<String,String> params =  FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    try
-    {
+  /**
+   * Smaže formulář.
+   */
+  public void clearForm() {
+    Map<String, String> params = FacesContext.getCurrentInstance()
+        .getExternalContext().getRequestParameterMap();
+    try {
       idperson = Integer.parseInt(params.get("personid"));
+    } catch (Exception e) {
+      idperson = null;
     }
-    catch(Exception e) { idperson = null; }
 
-    //for sure (thanks RequestScope are data deleted)
+    // for sure (thanks RequestScope are data deleted)
     ELContext elContext = FacesContext.getCurrentInstance().getELContext();
     Object ret = elContext.getELResolver()
         .getValue(elContext, null, "identity");
@@ -211,6 +273,11 @@ public class PersonFormBean implements Serializable {
     note = null;
   }
 
+  /**
+   * Vytvoří entitu persony z pormuláře.
+   *
+   * @return entita persony
+   */
   private Tduperson generateEntity() {
     Tduperson person = new Tduperson();
 
@@ -229,106 +296,206 @@ public class PersonFormBean implements Serializable {
     return person;
   }
 
+  /**
+   * @return id aktuální identity
+   */
   public Integer getIdidentityActual() {
     return ididentityActual;
   }
 
+  /**
+   * Nastaví id aktuální identity.
+   *
+   * @param ididentityActual
+   *          id aktuální identity
+   */
   public void setIdidentityActual(Integer ididentityActual) {
     this.ididentityActual = ididentityActual;
   }
 
-  public PersonService getPersonservicebean() {
-    return personservicebean;
-  }
-
-  public void setPersonservicebean(PersonService personservicebean) {
-    this.personservicebean = personservicebean;
-  }
-
+  /**
+   * @return datum úmrtí
+   */
   public Date getDeathdate() {
     return deathdate;
   }
 
+  /**
+   * Nastaví datum úmrtí.
+   *
+   * @param deathdate
+   *          datum úmrtí
+   */
   public void setDeathdate(Date deathdate) {
     this.deathdate = deathdate;
   }
 
+  /**
+   * @return místo úmrtí
+   */
   public String getDeathplace() {
     return deathplace;
   }
 
+  /**
+   * Nastaví místo úmrtí
+   *
+   * @param deathplace
+   *          místo úmrtí
+   */
   public void setDeathplace(String deathplace) {
     this.deathplace = deathplace;
   }
 
+  /**
+   * @return titul před jménem
+   */
   public String getDegreeprefix() {
     return degreeprefix;
   }
 
+  /**
+   * Nastaví titul před jménem.
+   *
+   * @param degreeprefix
+   *          titul před jménem
+   */
   public void setDegreeprefix(String degreeprefix) {
     this.degreeprefix = degreeprefix;
   }
 
+  /**
+   * @return titul za jménem
+   */
   public String getDegreesuffix() {
     return degreesuffix;
   }
 
+  /**
+   * Nastaví titul za jménem.
+   *
+   * @param degreesuffix
+   *          titul za jménem
+   */
   public void setDegreesuffix(String degreesuffix) {
     this.degreesuffix = degreesuffix;
   }
 
+  /**
+   * @return id místa úmrtí
+   */
   public Integer getIddeathplace() {
     return iddeathplace;
   }
 
+  /**
+   * Nastaví id místa úmrtí
+   *
+   * @param iddeathplace
+   *          id místa úmrtí
+   */
   public void setIddeathplace(Integer iddeathplace) {
     this.iddeathplace = iddeathplace;
   }
 
+  /**
+   * @return id státu úmrtí
+   */
   public Integer getIddeathstate() {
     return iddeathstate;
   }
 
+  /**
+   * Nastaví id státu úmrtí
+   *
+   * @param iddeathstate
+   *          id státu úmrtí
+   */
   public void setIddeathstate(Integer iddeathstate) {
     this.iddeathstate = iddeathstate;
   }
 
+  /**
+   * @return id fotky
+   */
   public Integer getIdimage() {
     return idimage;
   }
 
+  /**
+   * Nastaví id fotky.
+   *
+   * @param idimage
+   *          id fotky
+   */
   public void setIdimage(Integer idimage) {
     this.idimage = idimage;
   }
 
+  /**
+   * @return id aktuálního místa pobytu
+   */
   public Integer getIdstayActual() {
     return idstayActual;
   }
 
+  /**
+   * Nastaví id aktuálního msta pobytu
+   *
+   * @param idstayActual
+   *          id aktuálního místa pobytu
+   */
   public void setIdstayActual(Integer idstayActual) {
     this.idstayActual = idstayActual;
   }
 
+  /**
+   * @return id aktuálního místa pobytu
+   */
   public Integer getIdstayplaceActual() {
     return idstayplaceActual;
   }
 
+  /**
+   * Nastaví id aktuálního místa pobytu.
+   *
+   * @param idstayplaceActual
+   *          id aktuálního místa pobytu
+   */
   public void setIdstayplaceActual(Integer idstayplaceActual) {
     this.idstayplaceActual = idstayplaceActual;
   }
 
+  /**
+   * @return poznámka
+   */
   public String getNote() {
     return note;
   }
 
+  /**
+   * Nastaví poznámku.
+   *
+   * @param note
+   *          poznámka
+   */
   public void setNote(String note) {
     this.note = note;
   }
 
+  /**
+   * @return id persony
+   */
   public Integer getIdperson() {
     return idperson;
   }
 
+  /**
+   * Nastaví id persony.
+   *
+   * @param idperson
+   *          id persony
+   */
   public void setIdperson(Integer idperson) {
     this.idperson = idperson;
   }
