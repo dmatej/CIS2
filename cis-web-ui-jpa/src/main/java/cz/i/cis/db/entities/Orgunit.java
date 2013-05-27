@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class Orgunit implements Serializable, ModifableStamped {
+public class Orgunit implements Serializable, ModifiableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id

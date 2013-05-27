@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
  * The persistent class for the cispermission database table.
  */
 @Entity
-public class Cispermission implements Serializable, ModifableStamped {
+public class Cispermission implements Serializable, ModifiableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id

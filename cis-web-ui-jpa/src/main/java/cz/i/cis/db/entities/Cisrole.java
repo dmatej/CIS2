@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class Cisrole implements Serializable, ModifableStamped {
+public class Cisrole implements Serializable, ModifiableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id

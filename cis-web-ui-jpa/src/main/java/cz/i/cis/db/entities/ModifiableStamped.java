@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author David Matějček
  */
-public interface ModifableStamped extends Stamped {
+public interface ModifiableStamped extends Stamped {
 
   /**
    * @return čas poslední změny záznamu

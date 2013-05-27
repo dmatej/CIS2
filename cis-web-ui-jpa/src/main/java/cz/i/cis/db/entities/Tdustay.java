@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
  *
  */
 @Entity
-public class Tdustay implements Serializable, ModifableStamped {
+public class Tdustay implements Serializable, ModifiableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id
