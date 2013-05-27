@@ -9,7 +9,6 @@ grant "extend" to "cis" ;
 create table "cis".image
   (
     id serial not null constraint "cis".n_image_id,
-    idevidence integer,
     data byte
   );
 
@@ -21,7 +20,6 @@ revoke all on "cis".image from "public" as "cis";
 create table "cis".identity
   (
     id serial not null constraint "cis".n_identity_id,
-    idevidence integer not null constraint "cis".n_identity_idevidence,
     idorgunit integer
         default -1 not null constraint "cis".n_identity_idorgunit,
     idperson integer,
@@ -333,7 +331,6 @@ create table "cis".tduperson
     iddeathplace integer,
     iddeathstate integer,
     idcisuser integer,
-    sex char(1),
     deathdate date,
     degreeprefix varchar(15),
     degreesuffix varchar(15),

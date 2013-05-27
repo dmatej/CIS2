@@ -1,7 +1,6 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -34,8 +33,6 @@ public class Identity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-
-  private int idevidence = 0;
 
   private Integer idorgunit;
 

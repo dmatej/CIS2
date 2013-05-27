@@ -60,8 +60,6 @@ public class Tduperson implements Serializable {
 
     private Integer rstatus;
 
-    private String sex;
-
     private Timestamp udate;
 
     private Integer uidcisuser;
@@ -221,14 +219,6 @@ public class Tduperson implements Serializable {
         this.rstatus = rstatus;
     }
 
-    public String getSex() {
-        return this.sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
     public Timestamp getUdate() {
         return this.udate;
     }
@@ -244,5 +234,6 @@ public class Tduperson implements Serializable {
     public void setUidcisuser(Integer uidcisuser) {
         this.uidcisuser = uidcisuser;
     }
+
 
 }
