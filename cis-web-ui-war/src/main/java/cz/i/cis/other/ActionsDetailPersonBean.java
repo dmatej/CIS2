@@ -16,15 +16,9 @@ import cz.i.cis.person.PersonDetailViewBean;
 @ManagedBean(name = "actionsdetailp")
 @SessionScoped
 public class ActionsDetailPersonBean {
-  /** záložka s identitami */
-  private final Integer TABIDENTITY = 1;
-
-  /** záložka s doklady */
-  private final Integer TABDOKLADY = 2;
-
-  /** záložka s pobyty */
-  private final Integer TABPOBYTY = 3;
-
+  /**
+   * Číslo aktuálně renderované záložky.
+   */
   private Integer renderedTab = 0;
 
   /**
