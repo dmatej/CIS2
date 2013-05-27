@@ -24,6 +24,7 @@ public class Cispermission implements Serializable, ModifableStamped {
 
     private String annotation;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date cdate;
 
     private Integer cidcisuser;
