@@ -14,32 +14,34 @@ import cz.i.cis.db.entities.Tdustay;
 @Stateless
 @Named
 public class StayValidateServiceBean implements Serializable,
-        StayValidateService {
+    StayValidateService {
 
-    private static final long serialVersionUID = 1L;
+  /** serial version id */
+  private static final long serialVersionUID = 1L;
 
-    @PersistenceContext(unitName = "cis")
-    private EntityManager em;
+  /** entity manager */
+  @PersistenceContext(unitName = "cis")
+  private EntityManager em;
 
-    public StayValidateServiceBean() {
-    }
+  public StayValidateServiceBean() {
+  }
 
-    @Override
-    public String[] validate(Tdustay stay) {
-        List<String> err = new ArrayList<String>();
+  /** {@inheritDoc} */
+  @Override
+  public String[] validate(Tdustay stay) {
+    List<String> err = new ArrayList<String>();
 
-        if (stay.getGrantedfrom() == null)
-            err.add("GRANTEDFROM in STAY cannot be null!");
+    if (stay.getGrantedfrom() == null)
+      err.add("GRANTEDFROM in STAY cannot be null!");
 
-        if (stay.getGrantedto() == null)
-            err.add("GRANTEDTO in STAY cannot be null!");
+    if (stay.getGrantedto() == null)
+      err.add("GRANTEDTO in STAY cannot be null!");
 
-
-        if (err.size() == 0)
-            return null;
-        String[] errs = new String[err.size()];
-        errs = err.toArray(errs);
-        return errs;
-    }
+    if (err.size() == 0)
+      return null;
+    String[] errs = new String[err.size()];
+    errs = err.toArray(errs);
+    return errs;
+  }
 
 }

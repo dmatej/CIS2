@@ -21,7 +21,7 @@ public interface DocumentService {
    *          vytvářený dokument
    * @return vytvořený dokument
    */
-  public Tdudocument create(Tdudocument document);
+  Tdudocument create(Tdudocument document);
 
   /**
    * Upraví dokument v databázi.
@@ -30,16 +30,16 @@ public interface DocumentService {
    *          upravovaný dokument
    * @return upravený dokument
    */
-  public Tdudocument update(Tdudocument document);
+  Tdudocument update(Tdudocument document);
 
   /**
-   * Upraví dokument v databázi.
+   * Smaže dokument v databázi (označí jako smazaný).
    *
    * @param dokument
-   *          upravovaný dokument
-   * @return upravený dokument
+   *          mazaný dokument
+   * @return smazaný dokument
    */
-  public Tdudocument delete(Tdudocument document);
+  Tdudocument delete(Tdudocument document);
 
   /**
    * Vrací list všech dokumentů pro danou personu.
@@ -48,7 +48,7 @@ public interface DocumentService {
    *          id persony pro kterou se hledají dokumenty
    * @return list všech dokumentů pro danou personu
    */
-  public List<Tdudocument> findDocumentsForPerson(Integer idPerson);
+  List<Tdudocument> findDocumentsForPerson(Integer idPerson);
 
   /**
    * Vrátí dokument dle jeho id.
@@ -57,6 +57,6 @@ public interface DocumentService {
    *          id dokumentu
    * @return dokument
    */
-  public Tdudocument findDocumentsById(Integer id);
+  Tdudocument findDocumentsById(Integer id);
 
 }

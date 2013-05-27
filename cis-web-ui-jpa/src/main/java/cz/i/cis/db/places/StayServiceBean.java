@@ -12,18 +12,26 @@ import javax.persistence.TypedQuery;
 
 import cz.i.cis.db.entities.Tdustay;
 
+/**
+ * Implementace beany pro práci s pobyty.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class StayServiceBean implements Serializable, StayService {
-
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public StayServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustay create(Tdustay stay) {
     stay.setRstatus(0);
@@ -33,11 +41,13 @@ public class StayServiceBean implements Serializable, StayService {
     return stay;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustay update(Tdustay stay) {
     return em.merge(stay);
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Tdustay> listStaysForPerson(Integer idPerson) {
     final String query = "SELECT s FROM Tdustay s WHERE s.idperson=:personID and s.rstatus=0";
@@ -48,12 +58,14 @@ public class StayServiceBean implements Serializable, StayService {
     return stays;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustay delete(Tdustay stay) {
     stay.setRstatus(-1);
     return update(stay);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tdustay findStayById(Integer id) {
     final String query = "SELECT s from Tdustay s WHERE s.id=:idS";

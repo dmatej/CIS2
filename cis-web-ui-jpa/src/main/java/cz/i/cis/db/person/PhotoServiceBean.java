@@ -13,8 +13,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
 /**
+ * Implementace beany pro práci s fotografií.
+ *
  * @author David Matějček
  */
 @Stateless
@@ -23,12 +24,15 @@ import javax.persistence.TypedQuery;
 @TransactionAttribute(TransactionAttributeType.SUPPORTS)
 public class PhotoServiceBean implements PhotoService {
 
-  @PersistenceContext(unitName="cis")
+  /** entity manager */
+  @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
-
+  /** {@inheritDoc} */
+  @Override
   public long getCountOfImages() {
-    final TypedQuery<Long> query = em.createNamedQuery("CountOfImages", Long.class);
+    final TypedQuery<Long> query = em.createNamedQuery("CountOfImages",
+        Long.class);
     return query.getSingleResult();
   }
 }

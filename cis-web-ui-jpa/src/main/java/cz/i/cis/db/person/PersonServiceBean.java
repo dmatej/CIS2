@@ -12,18 +12,26 @@ import javax.persistence.TypedQuery;
 
 import cz.i.cis.db.entities.Tduperson;
 
+/**
+ * Implementace beany pro práci s personou.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Stateless
 @Named
 public class PersonServiceBean implements Serializable, PersonService {
-
+  /** serial version id */
   private static final long serialVersionUID = 1L;
 
+  /** entity manager */
   @PersistenceContext(unitName = "cis")
   private EntityManager em;
 
   public PersonServiceBean() {
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tduperson create(Tduperson person) {
     person.setRstatus(0);
@@ -33,6 +41,7 @@ public class PersonServiceBean implements Serializable, PersonService {
     return person;
   }
 
+  /** {@inheritDoc} */
   @Override
   public List<Tduperson> findPersons() {
     final String query = "SELECT p from Tduperson p WHERE p.rstatus=0";
@@ -42,12 +51,14 @@ public class PersonServiceBean implements Serializable, PersonService {
     return persons;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tduperson update(Tduperson person) {
     em.merge(person);
     return person;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tduperson findPersonById(Integer id) {
     final String queryStr = "SELECT p FROM Tduperson p WHERE p.id = :idp";
@@ -61,6 +72,7 @@ public class PersonServiceBean implements Serializable, PersonService {
     return persons.get(0);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Tduperson delete(Tduperson person) {
     person.setRstatus(-1);

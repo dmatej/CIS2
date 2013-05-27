@@ -4,7 +4,20 @@ import javax.ejb.Local;
 
 import cz.i.cis.db.entities.Tdustayplace;
 
+/**
+ * Beana pro validaci místa pobytu.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Local(StayPlaceValidateService.class)
 public interface StayPlaceValidateService {
-    public String[] validate(Tdustayplace stayPlace);
+  /**
+   * Zvaliduje místo pobytu a vrátí seznam chyb.
+   *
+   * @param validované
+   *          místo pobytu
+   * @return seznam chybových hlášek
+   */
+  public String[] validate(Tdustayplace stayPlace);
 }

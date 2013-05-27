@@ -4,6 +4,12 @@ import javax.ejb.Local;
 
 import cz.i.cis.db.entities.Tduperson;
 
+/**
+ * Beana pro slučování person do jedné.
+ *
+ * @author Martin Štulc
+ *
+ */
 @Local(CollapsePersonService.class)
 public interface CollapsePersonService {
   /**
@@ -16,7 +22,7 @@ public interface CollapsePersonService {
    *          slučovaná persona
    * @return mainPerson obohacená o parametry a identity importedPerson
    */
-  public Tduperson collapsePersons(Tduperson mainPerson,
+  Tduperson collapsePersons(Tduperson mainPerson,
       Tduperson importedPerson);
 
 }
