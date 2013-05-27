@@ -6,3 +6,6 @@ load from code_state.unl insert into code_state;
 
 truncate table code_documenttype;
 load from code_documenttype.unl insert into code_documenttype;
+
+truncate table code_permissiontype;
+load from code_permissiontype.unl insert into code_permissiontype;
