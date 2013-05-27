@@ -1,91 +1,114 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * The persistent class for the message database table.
- *
  */
 @Entity
 public class Message implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Timestamp cdate;
+  private static final long serialVersionUID = 1L;
 
-    private Integer cidcisuser;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date cdate;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  private Integer cidcisuser;
 
-    private String text;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private String type;
+  private String text;
 
-    private Timestamp validfrom;
+  private String type;
 
-    private Timestamp validto;
+  @Temporal(TemporalType.DATE)
+  private Date validfrom;
 
-    public Message() {
-    }
+  @Temporal(TemporalType.DATE)
+  private Date validto;
 
-    public Timestamp getCdate() {
-        return this.cdate;
-    }
 
-    public void setCdate(Timestamp cdate) {
-        this.cdate = cdate;
-    }
+  public Message() {
+  }
 
-    public Integer getCidcisuser() {
-        return this.cidcisuser;
-    }
 
-    public void setCidcisuser(Integer cidcisuser) {
-        this.cidcisuser = cidcisuser;
-    }
+  public Date getCdate() {
+    return this.cdate;
+  }
 
-    public Integer getId() {
-        return this.id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void setCdate(Date cdate) {
+    this.cdate = cdate;
+  }
 
-    public String getText() {
-        return this.text;
-    }
 
-    public void setText(String text) {
-        this.text = text;
-    }
+  public Integer getCidcisuser() {
+    return this.cidcisuser;
+  }
 
-    public String getType() {
-        return this.type;
-    }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setCidcisuser(Integer cidcisuser) {
+    this.cidcisuser = cidcisuser;
+  }
 
-    public Timestamp getValidfrom() {
-        return this.validfrom;
-    }
 
-    public void setValidfrom(Timestamp validfrom) {
-        this.validfrom = validfrom;
-    }
+  public Integer getId() {
+    return this.id;
+  }
 
-    public Timestamp getValidto() {
-        return this.validto;
-    }
 
-    public void setValidto(Timestamp validto) {
-        this.validto = validto;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+
+  public String getText() {
+    return this.text;
+  }
+
+
+  public void setText(String text) {
+    this.text = text;
+  }
+
+
+  public String getType() {
+    return this.type;
+  }
+
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+
+  public Date getValidfrom() {
+    return this.validfrom;
+  }
+
+
+  public void setValidfrom(Date validfrom) {
+    this.validfrom = validfrom;
+  }
+
+
+  public Date getValidto() {
+    return this.validto;
+  }
+
+
+  public void setValidto(Date validto) {
+    this.validto = validto;
+  }
 
 }

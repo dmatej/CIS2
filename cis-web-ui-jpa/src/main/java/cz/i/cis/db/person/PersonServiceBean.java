@@ -1,7 +1,7 @@
 package cz.i.cis.db.person;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -36,7 +36,7 @@ public class PersonServiceBean implements Serializable, PersonService {
   public Tduperson create(Tduperson person) {
     person.setRstatus(0);
     person.setCidcisuser(0);
-    person.setCdate(new Timestamp(0));
+    person.setCdate(new Date());
     em.persist(person);
     return person;
   }

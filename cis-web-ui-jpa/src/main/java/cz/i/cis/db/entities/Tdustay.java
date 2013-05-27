@@ -1,9 +1,15 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -11,7 +17,7 @@ import java.util.Date;
  *
  */
 @Entity
-public class Tdustay implements Serializable {
+public class Tdustay implements Serializable, ModifableStamped {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -21,14 +27,16 @@ public class Tdustay implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date arrivaldate;
 
-    private Timestamp cdate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cdate;
 
     private Integer cidcisuser;
 
     @Temporal(TemporalType.DATE)
     private Date datefrom;
 
-    private Timestamp ddate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ddate;
 
     private Integer didcisuser;
 
@@ -60,7 +68,8 @@ public class Tdustay implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date terminationdate;
 
-    private Timestamp udate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date udate;
 
     private Integer uidcisuser;
 
@@ -85,11 +94,11 @@ public class Tdustay implements Serializable {
         this.arrivaldate = arrivaldate;
     }
 
-    public Timestamp getCdate() {
+    public Date getCdate() {
         return this.cdate;
     }
 
-    public void setCdate(Timestamp cdate) {
+    public void setCdate(Date cdate) {
         this.cdate = cdate;
     }
 
@@ -109,11 +118,11 @@ public class Tdustay implements Serializable {
         this.datefrom = datefrom;
     }
 
-    public Timestamp getDdate() {
+    public Date getDdate() {
         return this.ddate;
     }
 
-    public void setDdate(Timestamp ddate) {
+    public void setDdate(Date ddate) {
         this.ddate = ddate;
     }
 
@@ -221,11 +230,11 @@ public class Tdustay implements Serializable {
         this.terminationdate = terminationdate;
     }
 
-    public Timestamp getUdate() {
+    public Date getUdate() {
         return this.udate;
     }
 
-    public void setUdate(Timestamp udate) {
+    public void setUdate(Date udate) {
         this.udate = udate;
     }
 

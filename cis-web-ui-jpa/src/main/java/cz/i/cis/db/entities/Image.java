@@ -33,9 +33,6 @@ public class Image implements Serializable {
   @Lob
   private byte[] binData;
 
-  // will be removed.
-  private int idevidence;
-
 
   public Image() {
   }

@@ -1,9 +1,14 @@
 package cz.i.cis.db.entities;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -11,7 +16,7 @@ import java.util.Date;
  *
  */
 @Entity
-public class Password implements Serializable {
+public class Password implements Serializable, Stamped {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -20,11 +25,13 @@ public class Password implements Serializable {
 
     private String algorithm;
 
-    private Timestamp cdate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cdate;
 
     private Integer cidcisuser;
 
-    private Timestamp ddate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date ddate;
 
     private Integer didcisuser;
 
@@ -57,11 +64,11 @@ public class Password implements Serializable {
         this.algorithm = algorithm;
     }
 
-    public Timestamp getCdate() {
+    public Date getCdate() {
         return this.cdate;
     }
 
-    public void setCdate(Timestamp cdate) {
+    public void setCdate(Date cdate) {
         this.cdate = cdate;
     }
 
@@ -73,11 +80,11 @@ public class Password implements Serializable {
         this.cidcisuser = cidcisuser;
     }
 
-    public Timestamp getDdate() {
+    public Date getDdate() {
         return this.ddate;
     }
 
-    public void setDdate(Timestamp ddate) {
+    public void setDdate(Date ddate) {
         this.ddate = ddate;
     }
 
